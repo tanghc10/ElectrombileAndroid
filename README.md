@@ -1,1 +1,1 @@
-ElectrombileAndroid
+Android Client for Electrombile
