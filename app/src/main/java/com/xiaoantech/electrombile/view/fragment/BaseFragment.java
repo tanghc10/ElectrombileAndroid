@@ -8,5 +8,5 @@ import android.support.v4.app.Fragment;
  * the base class of all fragment
  */
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 }
