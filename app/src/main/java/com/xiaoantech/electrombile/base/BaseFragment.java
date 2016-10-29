@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.view.fragment;
+package com.xiaoantech.electrombile.base;
 
 import android.support.v4.app.Fragment;
 

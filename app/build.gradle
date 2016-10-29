@@ -51,6 +51,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+
+    //dataBinding
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
