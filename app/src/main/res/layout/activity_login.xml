@@ -6,7 +6,7 @@
     <data>
         <variable
             name = "presenter"
-            type = "com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainContract.Presenter"/>
+            type = "com.xiaoantech.electrombile.ui.login.Login.LoginContract.Presenter"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/activity_loginmain"
@@ -27,10 +27,12 @@
             tools:layout_editor_absoluteX="8dp">
 
             <EditText
+                android:id="@+id/userPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
             <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <LinearLayout
@@ -49,7 +51,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="登录"/>
+                android:text="登录"
+                android:onClick="@{() -> presenter.login(userPhone.getText().toString(),password.getText().toString)}"/>
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

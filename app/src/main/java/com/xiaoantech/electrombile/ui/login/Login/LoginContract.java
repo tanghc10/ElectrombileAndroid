@@ -8,12 +8,16 @@ import com.xiaoantech.electrombile.base.BaseView;
  */
 
 public interface LoginContract {
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
+        void showToast(String errorMeg);
+
+        void showWaitingDialog(String dialogString);
+
+        void loginSuccess();
     }
 
     interface Presenter extends BasePresenter{
-
+        void login(String userphone,String password);
     }
-
 }

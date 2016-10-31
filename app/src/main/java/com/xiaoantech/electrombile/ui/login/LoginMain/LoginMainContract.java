@@ -8,6 +8,9 @@ import com.xiaoantech.electrombile.base.BaseView;
  */
 public interface LoginMainContract {
     interface View extends BaseView<Presenter>{
+        void gotoLogin();
+
+        void gotoRegister();
     }
     interface Presenter extends BasePresenter{
 

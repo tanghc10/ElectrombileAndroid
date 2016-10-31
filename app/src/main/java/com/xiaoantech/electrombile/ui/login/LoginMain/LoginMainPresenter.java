@@ -2,9 +2,11 @@ package com.xiaoantech.electrombile.ui.login.LoginMain;
 
 
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.ui.login.Login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -15,8 +17,8 @@ public class LoginMainPresenter implements LoginMainContract.Presenter{
     private LoginMainContract.View  mLoginMainView;
     private EventBus    mEventBus;
 
-    public LoginMainPresenter(LoginMainContract.View mLoginMainView){
-        this.mLoginMainView = mLoginMainView;
+    public LoginMainPresenter(LoginMainContract.View LoginMainView){
+        this.mLoginMainView = LoginMainView;
         this.mLoginMainView.setPresenter(this);
     }
 
@@ -36,10 +38,10 @@ public class LoginMainPresenter implements LoginMainContract.Presenter{
     }
     @Override
     public void register(){
-        Log.d("test","register");
+        mLoginMainView.gotoRegister();
     }
     @Override
     public void login(){
-
+        mLoginMainView.gotoLogin();
     }
 }
