@@ -20,11 +20,10 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     private LoginContract.Presenter     mPresenter;
     private ProgressDialog              mProgessDialog;
 
+
     @Override
-    protected void initView() {
-        mPresenter = new LoginPresenter(this);
-        mBinding.setPresenter(mPresenter);
-        mProgessDialog = new ProgressDialog(this);
+    protected void initBefore() {
+
     }
 
     @Override
@@ -33,8 +32,10 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     }
 
     @Override
-    protected void initBefore() {
-
+    protected void initView() {
+        mPresenter = new LoginPresenter(this);
+        mBinding.setPresenter(mPresenter);
+        mProgessDialog = new ProgressDialog(this);
     }
 
     public void setPresenter(LoginContract.Presenter presenter){

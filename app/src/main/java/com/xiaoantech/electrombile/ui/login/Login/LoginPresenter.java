@@ -33,9 +33,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void login(String userphone,String password){
         if (StringUtil.isEmpty(userphone) || userphone.length() != 11){
             mLoginView.showToast("请输入正确的手机号！");
+            return;
         }
         if (StringUtil.isEmpty(password)){
             mLoginView.showToast("请输入密码！");
+            return;
         }
 
         mLoginView.showWaitingDialog("正在登录，请稍后");
