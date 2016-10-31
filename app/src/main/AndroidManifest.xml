@@ -30,7 +30,11 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.login.Register.RegisterActivity"
-            android:label="RegiserActivity"
+            android:label="RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.login.ForgetPass.ForgetPassActivity"
+            android:label="ForgetPassActivity"
             android:screenOrientation="portrait"/>
     </application>
 

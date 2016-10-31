@@ -73,4 +73,13 @@ public class LoginPresenter implements LoginContract.Presenter {
         });
     }
 
+    @Override
+    public void register() {
+        mLoginView.gotoRegister();
+    }
+
+    @Override
+    public void forgetPass() {
+        mLoginView.gotoForgetPass();
+    }
 }

@@ -42,11 +42,13 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="注册"/>
+                    android:text="注册"
+                    android:onClick="@{() -> presenter.register()}"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="忘记密码？"/>
+                    android:text="忘记密码？"
+                    android:onClick="@{() -> presenter.forgetPass()}"/>
             </LinearLayout>
             <Button
                 android:layout_width="match_parent"

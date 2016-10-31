@@ -9,6 +9,7 @@ import com.xiaoantech.electrombile.base.BaseView;
 
 public interface RegisterContract  {
     interface View extends BaseView<Presenter>{
+
         void showToast(String errorMsg);
 
         void finishRegister();
@@ -17,7 +18,9 @@ public interface RegisterContract  {
 
 
     interface Presenter extends BasePresenter{
+
         void getIdentifiedCode(String phoneNum);
+
         void register(String phoneNum, String identifiedCode, String password, String passwordConfirm);
     }
 }

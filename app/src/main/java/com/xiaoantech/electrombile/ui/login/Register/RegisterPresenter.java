@@ -55,7 +55,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
             @Override
             public void done(AVException e) {
                 if (e == null){
-                    mRegisterView.showToast("验证码发送成功！");
+                    mRegisterView.showToast("验证码获取成功！");
                 }else {
                     checkSignUpOrNotVerified(phoneNum);
                 }
@@ -99,7 +99,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 if (null != e){
                     mRegisterView.showToast(e.toString());
                 }else {
-                    mRegisterView.showToast("验证码发送成功");
+                    mRegisterView.showToast("验证码获取成功");
                 }
             }
         });

@@ -15,9 +15,16 @@ public interface LoginContract {
         void showWaitingDialog(String dialogString);
 
         void loginSuccess();
+
+        void gotoRegister();
+
+        void gotoForgetPass();
     }
 
     interface Presenter extends BasePresenter{
         void login(String userphone,String password);
+
+        void register();
+        void forgetPass();
     }
 }
