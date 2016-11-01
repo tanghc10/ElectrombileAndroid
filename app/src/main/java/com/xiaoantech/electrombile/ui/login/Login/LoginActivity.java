@@ -1,6 +1,5 @@
 package com.xiaoantech.electrombile.ui.login.Login;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -61,6 +60,8 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     public void loginSuccess() {
         Log.d(TAG,"Login Success!");
         mProgessDialog.cancel();
+        //TODO:登录成功
+
     }
 
     @Override

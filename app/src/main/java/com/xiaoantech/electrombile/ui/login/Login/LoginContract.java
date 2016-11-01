@@ -25,6 +25,7 @@ public interface LoginContract {
         void login(String userphone,String password);
 
         void register();
+
         void forgetPass();
     }
 }
