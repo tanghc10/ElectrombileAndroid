@@ -5,7 +5,11 @@ import android.util.Log;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.xiaoantech.electrombile.mqtt.MqttManager;
+import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.utils.StringUtil;
+
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by yangxu on 2016/10/30.
@@ -75,11 +79,20 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void register() {
-        mLoginView.gotoRegister();
+        if (MqttManager.getInstance().createConnect()){
+            MqttManager.getInstance().subscribe("865067022373032");
+            Log.d(TAG,"subscribe success");
+        }else {
+            Log.d(TAG, "subscribe fail");
+        }
+//        mLoginView.gotoRegister();
     }
 
     @Override
     public void forgetPass() {
-        mLoginView.gotoForgetPass();
+        MqttPublishManager.getInstance().getStatus("865067022373032");
+//        mLoginView.gotoForgetPass();
     }
+
+
 }
