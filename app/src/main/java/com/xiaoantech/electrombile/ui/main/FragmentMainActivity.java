@@ -28,6 +28,8 @@ public class FragmentMainActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initRadioBtn();
+        initFragmentArray();
         initViewPager();
     }
 
@@ -40,6 +42,11 @@ public class FragmentMainActivity extends FragmentActivity {
         infoBtn.setOnClickListener(new radioBtnListener(1));
         settingBtn.setOnClickListener(new radioBtnListener(2));
 
+
+    }
+
+    private void initFragmentArray(){
+        fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new MainFragment());
         fragmentArrayList.add(new InfoFragment());
         fragmentArrayList.add(new SettingFragment());
