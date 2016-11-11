@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.ui.login.ForgetPass;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.avos.avoscloud.AVException;
@@ -15,6 +17,8 @@ import com.xiaoantech.electrombile.utils.StringUtil;
 public class ForgetPassPresenter implements ForgetPassContract.Presenter {
     private static final String         TAG = "ForgetPassPresenter";
     private ForgetPassContract.View     mForgetPassView;
+
+
 
     public ForgetPassPresenter(ForgetPassContract.View forgetPassView){
         this.mForgetPassView = forgetPassView;

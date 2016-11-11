@@ -36,6 +36,10 @@
             android:name=".ui.login.ForgetPass.ForgetPassActivity"
             android:label="ForgetPassActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.main.FragmentMainActivity"
+            android:label="FragmentMainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

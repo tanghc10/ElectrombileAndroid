@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.view.Window;
 import android.widget.RadioButton;
 
 import com.xiaoantech.electrombile.R;
@@ -28,6 +29,9 @@ public class FragmentMainActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_fragment);
         initRadioBtn();
         initFragmentArray();
         initViewPager();

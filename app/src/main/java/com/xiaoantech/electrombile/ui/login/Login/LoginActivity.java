@@ -12,6 +12,7 @@ import com.xiaoantech.electrombile.databinding.ActivityLoginBinding;
 import com.xiaoantech.electrombile.ui.login.ForgetPass.ForgetPassActivity;
 import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainContract;
 import com.xiaoantech.electrombile.ui.login.Register.RegisterActivity;
+import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
 
 /**
  * Created by yangxu on 2016/10/28.
@@ -61,6 +62,8 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
         Log.d(TAG,"Login Success!");
         mProgessDialog.cancel();
         //TODO:登录成功
+        Intent intent = new Intent(LoginActivity.this, FragmentMainActivity.class);
+        startActivity(intent);
 
     }
 
