@@ -5,10 +5,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.MainThread;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.xiaoantech.electrombile.constant.EventBusConstant;
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.cmd.BatteryEvent;
 import com.xiaoantech.electrombile.event.cmd.FenceEvent;
+import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.http.HttpEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
@@ -29,9 +36,10 @@ import org.json.JSONObject;
  * Created by yangxu on 2016/11/6.
  */
 
-public class MainFragmentPresenter implements MainFragmentConstract.Presenter{
+public class MainFragmentPresenter implements MainFragmentConstract.Presenter,OnGetGeoCoderResultListener{
     private final static String TAG = "MainFragmentPresenter";
     private MainFragmentConstract.View  mMainFragmentView;
+    private GeoCoder                mSearch;
     private boolean fenceStatus;
     private Handler myHandler = new Handler(){
         @Override
@@ -51,7 +59,10 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter{
         subscribe();
         this.mMainFragmentView = mainFragmentView;
         mainFragmentView.setPresenter(this);
+
         fenceStatus = false;
+        mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(this);
     }
 
     @Override
@@ -92,6 +103,10 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter{
         HistoryRouteManager.getInstance().getTodayItineray();
     }
 
+    @Override
+    public void getGPSInfo(){
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpEvent(HttpEvent event){
@@ -147,6 +162,19 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter{
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+        ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
+        mMainFragmentView.changePlaceInfo(addressComponent.district+addressComponent.street+addressComponent.streetNumber);
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFenceEvent(FenceEvent event){
@@ -206,6 +234,27 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter{
             //TODO:ErrorShow
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationEvent(LocationEvent event){
+        JSONObject jsonObject = event.getJsonObject();
+        try {
+            int code = jsonObject.getInt("code");
+            if (code != 0){
+                dealWithErrorCode(code);
+            }else{
+                JSONObject result = jsonObject.getJSONObject("result");
+                double lat = result.getDouble("lat");
+                double lng = result.getDouble("lng");
+                LatLng point = new LatLng(lat,lng);
+                mMainFragmentView.changeGPSPoint(point);
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.InfoFragment;
 import com.xiaoantech.electrombile.ui.main.MainFragment.Fragment.MainFragment;
@@ -29,7 +30,6 @@ public class FragmentMainActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment);
         initRadioBtn();
