@@ -23,7 +23,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class HttpManager {
     public enum getType{
-        GET_TYPE_WEATHER
+        GET_TYPE_WEATHER,
+        GET_TYPE_TODAYITINERARY
     }
     public static void getHttpResult(String url, final getType type){
         final String Url = url;

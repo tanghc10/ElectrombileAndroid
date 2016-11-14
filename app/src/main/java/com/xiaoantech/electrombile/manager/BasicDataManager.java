@@ -5,10 +5,10 @@ package com.xiaoantech.electrombile.manager;
  */
 
 public class BasicDataManager {
-    public static BasicDataManager  mInstance;
+    private static BasicDataManager  mInstance;
     private String  IMEI;
     private BasicDataManager(){
-        this.IMEI = "8650670223";
+        this.IMEI = "865067022385762";
     }
 
     public static BasicDataManager getInstance() {

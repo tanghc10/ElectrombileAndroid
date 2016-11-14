@@ -80,12 +80,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void register() {
-//        if (MqttManager.getInstance().createConnect()){
-//            MqttManager.getInstance().subscribe("865067022373032");
-//            Log.d(TAG,"subscribe success");
-//        }else {
-//            Log.d(TAG, "subscribe fail");
-//        }
+        if (MqttManager.getInstance().createConnect()){
+            MqttManager.getInstance().subscribe("865067022373032");
+            Log.d(TAG,"subscribe success");
+        }else {
+            Log.d(TAG, "subscribe fail");
+        }
         mLoginView.gotoRegister();
     }
 

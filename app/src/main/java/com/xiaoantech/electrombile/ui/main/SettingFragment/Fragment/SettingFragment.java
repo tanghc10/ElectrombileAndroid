@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentSettingBinding;
 
 /**
  * Created by yangxu on 2016/11/3.
  */
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends BaseFragment {
     private FragmentSettingBinding  mBinding;
 
     @Nullable
@@ -22,5 +23,10 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentSettingBinding.inflate(inflater);
         return inflater.inflate(R.layout.fragment_setting,container,false);
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

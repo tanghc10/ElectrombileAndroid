@@ -21,7 +21,7 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     private final static String         TAG = "LoginActivity";
     private ActivityLoginBinding        mBinding;
     private LoginContract.Presenter     mPresenter;
-    private ProgressDialog              mProgessDialog;
+    private ProgressDialog              mProgressDialog;
 
 
     @Override
@@ -38,7 +38,7 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     protected void initView() {
         mPresenter = new LoginPresenter(this);
         mBinding.setPresenter(mPresenter);
-        mProgessDialog = new ProgressDialog(this);
+        mProgressDialog = new ProgressDialog(this);
     }
 
     public void setPresenter(LoginContract.Presenter presenter){
@@ -48,19 +48,19 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     @Override
     public void showToast(String errorMeg) {
         Toast.makeText(this,errorMeg,Toast.LENGTH_SHORT).show();
-        mProgessDialog.cancel();
+        mProgressDialog.cancel();
     }
 
     @Override
     public void showWaitingDialog(String dialogString){
-        mProgessDialog.setMessage(dialogString);
-        mProgessDialog.show();
+        mProgressDialog.setMessage(dialogString);
+        mProgressDialog.show();
     }
 
     @Override
     public void loginSuccess() {
         Log.d(TAG,"Login Success!");
-        mProgessDialog.cancel();
+        mProgressDialog.cancel();
         //TODO:登录成功
         Intent intent = new Intent(LoginActivity.this, FragmentMainActivity.class);
         startActivity(intent);
