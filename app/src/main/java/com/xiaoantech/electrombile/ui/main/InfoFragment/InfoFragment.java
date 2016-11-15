@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment;
+package com.xiaoantech.electrombile.ui.main.InfoFragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;

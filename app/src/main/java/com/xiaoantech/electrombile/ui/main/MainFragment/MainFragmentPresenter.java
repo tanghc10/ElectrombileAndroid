@@ -1,9 +1,8 @@
-package com.xiaoantech.electrombile.ui.main.MainFragment.Fragment;
+package com.xiaoantech.electrombile.ui.main.MainFragment;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.MainThread;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -20,8 +19,8 @@ import com.xiaoantech.electrombile.event.http.HttpEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
-import com.xiaoantech.electrombile.mqtt.MqttManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.ui.main.MainFragment.MainFragmentConstract;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
 

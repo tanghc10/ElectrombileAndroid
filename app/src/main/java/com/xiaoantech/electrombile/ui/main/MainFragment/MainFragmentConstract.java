@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.MainFragment.Fragment;
+package com.xiaoantech.electrombile.ui.main.MainFragment;
 
 import com.baidu.mapapi.model.LatLng;
 import com.xiaoantech.electrombile.base.BasePresenter;

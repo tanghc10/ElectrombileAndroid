@@ -5,15 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.InfoFragment;
-import com.xiaoantech.electrombile.ui.main.MainFragment.Fragment.MainFragment;
+import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.MainFragment;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.Fragment.SettingFragment;
 
 import java.util.ArrayList;

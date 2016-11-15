@@ -8,7 +8,7 @@
 
         <variable
             name="presenter"
-            type="com.xiaoantech.electrombile.ui.main.MainFragment.Fragment.MainFragmentConstract.Presenter" />
+            type="com.xiaoantech.electrombile.ui.main.MainFragment.MainFragmentConstract.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout

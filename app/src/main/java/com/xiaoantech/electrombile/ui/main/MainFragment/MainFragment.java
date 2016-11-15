@@ -1,10 +1,8 @@
-package com.xiaoantech.electrombile.ui.main.MainFragment.Fragment;
+package com.xiaoantech.electrombile.ui.main.MainFragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
