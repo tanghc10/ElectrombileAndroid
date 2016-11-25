@@ -10,9 +10,9 @@ import android.view.Window;
 import android.widget.RadioButton;
 
 import com.xiaoantech.electrombile.R;
-import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.InfoFragment;
-import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.MainFragment;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.Fragment.SettingFragment;
+import com.xiaoantech.electrombile.ui.main.InfoFragment.InfoFragment;
+import com.xiaoantech.electrombile.ui.main.MainFragment.MainFragment;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.SettingFragment;
 
 import java.util.ArrayList;
 

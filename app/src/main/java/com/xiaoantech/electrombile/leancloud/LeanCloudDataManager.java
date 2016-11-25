@@ -3,9 +3,11 @@ package com.xiaoantech.electrombile.leancloud;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.xiaoantech.electrombile.constant.LeanCloudConstant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +48,30 @@ public class LeanCloudDataManager {
                     }
                 }else {
                     leanCloudCallback.dealWithError(LeanCloudConstant.leanCloudOptionType.LEAN_CLOUD_OPTION_TYPE_TOTAL_ITINERARY,e.toString());
+                }
+            }
+        });
+    }
+
+    public void getIMEIList(){
+        AVUser user = AVUser.getCurrentUser();
+        AVQuery<AVObject> query = new AVQuery<>(LeanCloudConstant.BindTable);
+        query.whereEqualTo(LeanCloudConstant.User,user.getObjectId());
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (null == e){
+                    if (!list.isEmpty()){
+                        ArrayList<String> IMEIList = new ArrayList<String>();
+                        for (AVObject bind:list) {
+                            IMEIList.add(bind.getString(LeanCloudConstant.IMEI));
+                        }
+                        leanCloudCallback.getIMEIList(IMEIList);
+                    }else {
+                        leanCloudCallback.dealWithError(LeanCloudConstant.leanCloudOptionType.LEAN_CLOUD_OPTION_TYPE_IMEI_LIST,"IMEI列表为空！");
+                    }
+                }else {
+                    leanCloudCallback.dealWithError(LeanCloudConstant.leanCloudOptionType.LEAN_CLOUD_OPTION_TYPE_IMEI_LIST,e.toString());
                 }
             }
         });

@@ -6,9 +6,9 @@
 
     <data>
 
-        <variable
-            name="presenter"
-            type="com.xiaoantech.electrombile.ui.main.MainFragment.Fragment.MainFragmentConstract.Presenter" />
+        <!--<variable-->
+            <!--name="presenter"-->
+            <!--type="com.xiaoantech.electrombile.ui.main.InfoFragment.InfoFragment" />-->
     </data>
 
     <android.support.constraint.ConstraintLayout

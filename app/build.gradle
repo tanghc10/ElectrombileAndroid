@@ -83,6 +83,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.11'
     compile 'com.malinskiy:materialicons:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'de.halfbit:pinned-section-listview:1.0.0'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
     compile('org.eclipse.paho:org.eclipse.paho.android.service:1.0.2') {
         exclude module: 'support-v4'

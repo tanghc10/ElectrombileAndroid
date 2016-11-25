@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.SettingFragment.Fragment;
+package com.xiaoantech.electrombile.ui.main.SettingFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

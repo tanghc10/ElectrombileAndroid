@@ -9,4 +9,10 @@ public class LayoutConstant {
     public static final int InfoPage        =   2;
     public static final int SettingPage     =   3;
 
+
+    public enum MapType{
+        MAP_TYPE_NORMAL,
+        MAP_TYPE_SATELLITE,
+        MAP_TYPE_3D
+    }
 }

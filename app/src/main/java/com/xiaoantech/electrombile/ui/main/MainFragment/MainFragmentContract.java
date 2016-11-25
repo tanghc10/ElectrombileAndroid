@@ -8,7 +8,7 @@ import com.xiaoantech.electrombile.base.BaseView;
  * Created by yangxu on 2016/11/5.
  */
 
-public interface MainFragmentConstract {
+public interface MainFragmentContract {
 
     interface View extends BaseView<Presenter>{
         void showToast(String errorMeg);
@@ -20,6 +20,8 @@ public interface MainFragmentConstract {
         void changeItinerary(int itinerary);
         void changeGPSPoint(LatLng point);
         void changePlaceInfo(String placeInfo);
+
+        void gotoMap();
     }
 
     interface Presenter extends BasePresenter{
@@ -32,5 +34,7 @@ public interface MainFragmentConstract {
         void getItinerary();
 
         void getGPSInfo();
+
+        void gotoMap();
     }
 }

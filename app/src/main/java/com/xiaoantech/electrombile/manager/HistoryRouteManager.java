@@ -29,7 +29,14 @@ public class HistoryRouteManager {
         Date zero = gcStart.getTime();
         long startTime = zero.getTime()/1000;
         long endTime = startTime+86400;
-        String url = "http://api.xiaoan110.com/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTime+"&end="+endTime;
+        String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
+        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTime+"&end="+endTime;
         HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_TODAYITINERARY);
+    }
+
+    public void getRouteInfoFormHttp(long startTimestamp,long endTimestamp){
+        String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
+        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
+        HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_ROUTES);
     }
 }

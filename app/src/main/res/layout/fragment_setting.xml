@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+    <!--<data>-->
 
-        <variable
-            name="presenter"
-            type="com.xiaoantech.electrombile.ui.login.Login.LoginContract.Presenter" />
-    </data>
+        <!--<variable-->
+            <!--name="presenter"-->
+            <!--type="com.xiaoantech.electrombile.ui.main.SettingFragment.SettingFragment" />-->
+    <!--</data>-->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout_fragment_setting"

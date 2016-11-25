@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,23 +22,22 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentMainBinding;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity;
 
 /**
  * Created by yangxu on 2016/11/3.
  */
 
-public class MainFragment extends BaseFragment implements MainFragmentConstract.View {
+public class MainFragment extends BaseFragment implements MainFragmentContract.View {
     private FragmentMainBinding mBinding;
-    private MainFragmentConstract.Presenter mPresenter;
+    private MainFragmentContract.Presenter mPresenter;
     private ProgressDialog      mProgressDialog;
     private BaiduMap            mBaiduMap;
     private Marker              mMarker;
-    private GeoCoder            mSearch;
 
     @Nullable
     @Override
@@ -52,7 +52,7 @@ public class MainFragment extends BaseFragment implements MainFragmentConstract.
     public void initView() {
         mPresenter = new MainFragmentPresenter(this);
         mBinding.setPresenter(mPresenter);
-        mProgressDialog = new ProgressDialog(App.getContext());
+        mProgressDialog = new ProgressDialog(mContext);
         mBaiduMap = mBinding.mapview.getMap();
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
@@ -79,7 +79,7 @@ public class MainFragment extends BaseFragment implements MainFragmentConstract.
     }
 
     @Override
-    public void setPresenter(MainFragmentConstract.Presenter presenter){
+    public void setPresenter(MainFragmentContract.Presenter presenter){
         mPresenter = presenter;
     }
 
@@ -178,5 +178,11 @@ public class MainFragment extends BaseFragment implements MainFragmentConstract.
     @Override
     public void changePlaceInfo(String placeInfo) {
         mBinding.textView.setText(placeInfo);
+    }
+
+    @Override
+    public void gotoMap() {
+        Intent intent = new Intent(mContext, MapActivity.class);
+        startActivity(intent);
     }
 }

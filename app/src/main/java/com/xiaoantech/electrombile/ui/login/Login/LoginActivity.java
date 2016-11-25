@@ -10,7 +10,6 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityLoginBinding;
 import com.xiaoantech.electrombile.ui.login.ForgetPass.ForgetPassActivity;
-import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainContract;
 import com.xiaoantech.electrombile.ui.login.Register.RegisterActivity;
 import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
 
@@ -31,7 +30,7 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
 
     @Override
     protected void bindData() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
     }
 
     @Override

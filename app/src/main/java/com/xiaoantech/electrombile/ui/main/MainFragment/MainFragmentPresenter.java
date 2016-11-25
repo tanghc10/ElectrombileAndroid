@@ -20,7 +20,6 @@ import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
-import com.xiaoantech.electrombile.ui.main.MainFragment.MainFragmentConstract;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
 
@@ -35,9 +34,9 @@ import org.json.JSONObject;
  * Created by yangxu on 2016/11/6.
  */
 
-public class MainFragmentPresenter implements MainFragmentConstract.Presenter,OnGetGeoCoderResultListener{
+public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnGetGeoCoderResultListener{
     private final static String TAG = "MainFragmentPresenter";
-    private MainFragmentConstract.View  mMainFragmentView;
+    private MainFragmentContract.View  mMainFragmentView;
     private GeoCoder                mSearch;
     private boolean fenceStatus;
     private Handler myHandler = new Handler(){
@@ -54,7 +53,7 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter,On
 
     private final int weatherMessage = 101;
 
-    protected MainFragmentPresenter(MainFragmentConstract.View mainFragmentView){
+    protected MainFragmentPresenter(MainFragmentContract.View mainFragmentView){
         subscribe();
         this.mMainFragmentView = mainFragmentView;
         mainFragmentView.setPresenter(this);
@@ -105,6 +104,11 @@ public class MainFragmentPresenter implements MainFragmentConstract.Presenter,On
     @Override
     public void getGPSInfo(){
         MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+    }
+
+    @Override
+    public void gotoMap(){
+        mMainFragmentView.gotoMap();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
