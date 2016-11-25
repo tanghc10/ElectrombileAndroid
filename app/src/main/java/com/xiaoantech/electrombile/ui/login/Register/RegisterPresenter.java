@@ -66,7 +66,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     }
 
     private void checkSignUpOrNotVerified(final String phoneNum){
-        AVQuery<AVObject> query = new AVQuery<>(LeanCloudConstant.User);
+        AVQuery<AVObject> query = new AVQuery<>(LeanCloudConstant.UserTable);
         query.whereEqualTo(LeanCloudConstant.UserName,phoneNum);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override

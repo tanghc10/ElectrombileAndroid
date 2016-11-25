@@ -1,5 +1,6 @@
 package com.xiaoantech.electrombile.base;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 /**
@@ -9,4 +10,6 @@ import android.support.v4.app.Fragment;
  */
 
 public abstract class BaseFragment extends Fragment {
+    public Context mContext;
+    public abstract void initView();
 }

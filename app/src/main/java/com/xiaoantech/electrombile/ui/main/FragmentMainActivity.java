@@ -5,14 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.view.Window;
 import android.widget.RadioButton;
 
 import com.xiaoantech.electrombile.R;
-import com.xiaoantech.electrombile.ui.main.InfoFragment.Fragment.InfoFragment;
-import com.xiaoantech.electrombile.ui.main.MainFragment.Fragment.MainFragment;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.Fragment.SettingFragment;
+import com.xiaoantech.electrombile.ui.main.InfoFragment.InfoFragment;
+import com.xiaoantech.electrombile.ui.main.MainFragment.MainFragment;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.SettingFragment;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,10 @@ public class FragmentMainActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_fragment);
+        initRadioBtn();
+        initFragmentArray();
         initViewPager();
     }
 
@@ -40,9 +44,22 @@ public class FragmentMainActivity extends FragmentActivity {
         infoBtn.setOnClickListener(new radioBtnListener(1));
         settingBtn.setOnClickListener(new radioBtnListener(2));
 
-        fragmentArrayList.add(new MainFragment());
-        fragmentArrayList.add(new InfoFragment());
-        fragmentArrayList.add(new SettingFragment());
+
+    }
+
+    private void initFragmentArray(){
+        fragmentArrayList = new ArrayList<>();
+        MainFragment mainFragment = new MainFragment();
+        mainFragment.mContext = FragmentMainActivity.this;
+
+        InfoFragment infoFragment = new InfoFragment();
+        infoFragment.mContext = FragmentMainActivity.this;
+
+        SettingFragment settingFragment = new SettingFragment();
+        settingFragment.mContext = FragmentMainActivity.this;
+        fragmentArrayList.add(mainFragment);
+        fragmentArrayList.add(infoFragment);
+        fragmentArrayList.add(settingFragment);
     }
 
     public class radioBtnListener implements View.OnClickListener{

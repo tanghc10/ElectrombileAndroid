@@ -29,4 +29,10 @@ public class MqttCommonConstant {
     public final static int CMD_BATTERY = 12;
     public final static int CMD_STATUS_GET = 13;
     public final static int CMD_SET_BATTERY_TYPE = 14;
+
+    public final static int CODE_SUCCESS = 0;
+    public final static int CODE_INTERNAL_ERR = 100;
+    public final static int CODE_WAITING    =   101;
+    public final static int CODE_DEVICE_OFFLINE = 102;
+    public final static int CODE_BATTERY_LEARNING = 103;
 }
