@@ -23,6 +23,8 @@ public interface MapContract {
         void changeDateInfo(String timeDate);
 
         void changeMapType(LayoutConstant.MapType mapType);
+
+        void gotoMapList();
     }
 
 
@@ -30,6 +32,8 @@ public interface MapContract {
         void refreshLocation();
 
         void changeMapType(int index);
+
+        void gotoMapList();
     }
 
 

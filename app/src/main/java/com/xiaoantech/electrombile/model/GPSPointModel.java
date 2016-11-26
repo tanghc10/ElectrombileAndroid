@@ -34,4 +34,9 @@ public class GPSPointModel {
     public void setLng(float lng) {
         this.lng = lng;
     }
+
+    @Override
+    public String toString(){
+        return timestamp + "   " + lat + "    " + lng;
+    }
 }
