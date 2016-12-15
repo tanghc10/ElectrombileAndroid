@@ -2,6 +2,7 @@ package com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -13,9 +14,11 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.map.BaiduMap;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.model.GPSPointModel;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapContract;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.PlayHistory.PlayHistoryActivity;
 import com.xiaoantech.electrombile.widget.HistoryRouteCell;
 
 import org.json.JSONObject;
@@ -53,6 +56,13 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
     @Override
     public void refreshList(List<List<Map<String,String>>> routeList){
         setListAdapter(new MyListAdapter(this, R.layout.cell_historyroute, android.R.id.text1,routeList));
+    }
+
+    @Override
+    public void gotoPlayHistory(ArrayList<GPSPointModel> gpsPointModels){
+        PlayHistoryActivity.pointList = gpsPointModels;
+        Intent intent = new Intent(MapListActivity.this,PlayHistoryActivity.class);
+        startActivity(intent);
     }
 
     static class Item{
@@ -207,4 +217,5 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
             Toast.makeText(this, "Item " + position, Toast.LENGTH_SHORT).show();
         }
     }
+
 }

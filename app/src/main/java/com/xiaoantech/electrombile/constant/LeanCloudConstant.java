@@ -19,11 +19,12 @@ public class LeanCloudConstant {
 
     //Bindings
     public static final String User = "user";
+    public static final String CreatedAt = "createdAt";
 
     //DID
     public static final String Itinerary = "itinerary";
-
-
+    public static final String CarName = "name";
+    public static final String Image = "image";
 
     public enum leanCloudOptionType {
         LEAN_CLOUD_OPTION_TYPE_TOTAL_ITINERARY,

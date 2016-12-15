@@ -39,4 +39,10 @@ public class HistoryRouteManager {
         String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
         HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_ROUTES);
     }
+
+    public void getGPSPointsFromHttp(long startTimestamp,long endTimestamp){
+        String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
+        String url = baseUrl + "/v1/history/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
+        HttpManager.getHttpResult(url,HttpManager.getType.GET_TYPE_GPS_POINTS);
+    }
 }

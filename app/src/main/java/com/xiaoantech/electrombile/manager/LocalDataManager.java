@@ -5,6 +5,12 @@ import android.content.SharedPreferences;
 
 import com.xiaoantech.electrombile.application.App;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by yangxu on 2016/11/25.
  */
@@ -13,6 +19,8 @@ public class LocalDataManager {
 
     private final String SHARE_PREFERENCES = "SHARE_PREFERENCES";
 
+    private final String IMEI = "IMEI";
+    private final String IMEIList = "IMEIList";
 
     private final String MQTTHost = "MQTTHost";
     private final String MQTTPort = "MQTTPort";
@@ -43,6 +51,41 @@ public class LocalDataManager {
     private LocalDataManager(){
         Context context = App.getContext();
         sharedPreferences = context.getSharedPreferences(SHARE_PREFERENCES,Context.MODE_PRIVATE);
+    }
+
+    public void setIMEI(String imei) {
+        sharedPreferences.edit().putString(IMEI,imei).apply();
+    }
+
+    public String getIMEI() {
+        return sharedPreferences.getString(IMEI,"");
+    }
+
+    public void setIMEIList(List<String> imeiList) {
+        if (imeiList == null){
+            sharedPreferences.edit().putString(IMEIList," ").apply();
+            return;
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for (String IMEI: imeiList){
+            jsonArray.put(IMEI);
+        }
+        sharedPreferences.edit().putString(IMEIList,jsonArray.toString()).apply();
+    }
+
+    public List<String> getIMEIList(){
+        List<String> imeiList = new ArrayList<>();
+        JSONArray jsonArray;
+        try{
+            jsonArray = new JSONArray(sharedPreferences.getString(IMEIList," "));
+            for (int i = 0; i < jsonArray.length(); i++){
+                imeiList.add(jsonArray.getString(i));
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return imeiList;
     }
 
     public void setMQTTHost(String mqttHost){

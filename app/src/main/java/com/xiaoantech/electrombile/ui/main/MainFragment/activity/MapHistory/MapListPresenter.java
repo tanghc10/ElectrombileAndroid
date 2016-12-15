@@ -5,6 +5,7 @@ import android.util.Log;
 import com.xiaoantech.electrombile.event.http.HttpEvent;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.model.GPSPointModel;
 import com.xiaoantech.electrombile.utils.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,6 +31,11 @@ public class MapListPresenter implements MapListContract.Presenter{
     private final static String TAG = "MapListPresenter";
     private MapListContract.View    mMapListView;
     private List<List<Map<String,String>>> mRouteList;
+
+    private final String KET_LONG = "lon";
+    private final String SPEED = "speed";
+    private final String KET_LAT = "lat";
+    private final String TIMESTAMP = "timestamp";
 
     protected MapListPresenter(MapListContract.View mapListView){
         subscribe();
@@ -73,6 +79,11 @@ public class MapListPresenter implements MapListContract.Presenter{
         HistoryRouteManager.getInstance().getRouteInfoFormHttp(startTime.getTime()/1000,endTime.getTime()/1000);
     }
 
+    @Override
+    public void getGPSPoints(long startTimeStamp,long endTimeStamp){
+        HistoryRouteManager.getInstance().getGPSPointsFromHttp(startTimeStamp,endTimeStamp);
+    }
+
     private void prepareRouteList(int startIndex){
         if (mRouteList.size() < startIndex + 7){
             List<Map<String, String>> listmap;
@@ -96,32 +107,44 @@ public class MapListPresenter implements MapListContract.Presenter{
     public void onHttpEvent(HttpEvent event){
         try {
             if (event.getRequestType() == HttpManager.getType.GET_TYPE_ROUTES){
-                JSONObject jsonObject = new JSONObject(event.getResult());
-                if (!jsonObject.has("itinerary")){
-                    //TODO:无数据
-                }else {
-                    JSONArray routeArray = jsonObject.getJSONArray("itinerary");
-                    for (int i = 0;i<routeArray.length();i++){
-                        JSONObject route = routeArray.getJSONObject(i);
-                        JSONObject start = route.getJSONObject("start");
-                        JSONObject end = route.getJSONObject("end");
-                        long startTimeStamp = start.getLong("timestamp");
-                        long endTimeStamp = end.getLong("timestamp");
-                        if (startTimeStamp == endTimeStamp) {
-                            continue;
-                        }
+                dealWithRouteInfo(event.getResult());
+            }else if (event.getRequestType() == HttpManager.getType.GET_TYPE_GPS_POINTS){
+                dealWithGPSInfo(event.getResult());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        mMapListView.refreshList(mRouteList);
+        Log.d(TAG,mRouteList.toString());
+    }
 
-                        int index = (int)(TimeUtil.getZeroTimeStamp() - startTimeStamp)/86400;
-                        Map<String,String> map = new HashMap<>();
-                        map.put("startTimestamp",start.getString("timestamp"));
-                        map.put("startlat",start.getString("lat"));
-                        map.put("startlon",start.getString("lon"));
-                        map.put("endTimestamp",end.getString("timestamp"));
-                        map.put("endlat",end.getString("lat"));
-                        map.put("endlon",end.getString("lon"));
-                        map.put("miles",route.getString("miles"));
-                        mRouteList.get(index).add(map);
+    private void dealWithRouteInfo(String data){
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            if (!jsonObject.has("itinerary")){
+                //TODO:无数据
+            }else {
+                JSONArray routeArray = jsonObject.getJSONArray("itinerary");
+                for (int i = 0;i<routeArray.length();i++){
+                    JSONObject route = routeArray.getJSONObject(i);
+                    JSONObject start = route.getJSONObject("start");
+                    JSONObject end = route.getJSONObject("end");
+                    long startTimeStamp = start.getLong("timestamp");
+                    long endTimeStamp = end.getLong("timestamp");
+                    if (startTimeStamp == endTimeStamp) {
+                        continue;
                     }
+
+                    int index = (int)(TimeUtil.getZeroTimeStamp() - startTimeStamp)/86400;
+                    Map<String,String> map = new HashMap<>();
+                    map.put("startTimestamp",start.getString("timestamp"));
+                    map.put("startlat",start.getString("lat"));
+                    map.put("startlon",start.getString("lon"));
+                    map.put("endTimestamp",end.getString("timestamp"));
+                    map.put("endlat",end.getString("lat"));
+                    map.put("endlon",end.getString("lon"));
+                    map.put("miles",route.getString("miles"));
+                    mRouteList.get(index).add(map);
                 }
             }
         }catch (Exception e){
@@ -131,6 +154,26 @@ public class MapListPresenter implements MapListContract.Presenter{
         Log.d(TAG,mRouteList.toString());
     }
 
-
+    private void dealWithGPSInfo(String data){
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            if (jsonObject.has("gps")){
+                JSONArray jsonArray = jsonObject.getJSONArray("gps");
+                ArrayList<GPSPointModel> points = new ArrayList<>();
+                for (int i = 0; i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    double lat = object.getDouble(KET_LAT);
+                    double lng = object.getDouble(KET_LONG);
+                    int speed = object.getInt(SPEED);
+                    long timestamp = object.getLong(TIMESTAMP);
+                    GPSPointModel gpsPoint = new GPSPointModel(timestamp,lat,lng,speed);
+                    points.add(gpsPoint);
+                }
+                mMapListView.gotoPlayHistory(points);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }
