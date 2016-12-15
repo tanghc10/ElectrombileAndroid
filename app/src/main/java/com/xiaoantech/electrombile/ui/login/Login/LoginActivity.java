@@ -77,4 +77,15 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
         Intent intent = new Intent(LoginActivity.this, ForgetPassActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void gotoMainFragment() {
+        Intent intent = new Intent(LoginActivity.this, FragmentMainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoBindDevice() {
+
+    }
 }

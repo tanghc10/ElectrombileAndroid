@@ -64,7 +64,12 @@
         <activity android:name=".ui.main.MainFragment.activity.Map.MapActivity"
             android:label="MapActivity"
             android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".ui.main.MainFragment.activity.MapHistory.MapListActivity"
+            android:label="MapListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.MainFragment.activity.PlayHistory.PlayHistoryActivity"
+            android:label="PlayHistoryActivity"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />

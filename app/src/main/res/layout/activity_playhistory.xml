@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="presenter"
+            type="com.xiaoantech.electrombile.ui.main.MainFragment.activity.PlayHistory.PlayHistoryContract.Presenter"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+
+        <com.baidu.mapapi.map.MapView
+           android:layout_width="368dp"
+           android:layout_height="495dp"
+            android:id="@+id/mapView"
+           tools:layout_editor_absoluteY="8dp"
+           tools:layout_editor_absoluteX="8dp">
+        </com.baidu.mapapi.map.MapView>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout2"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout2"
+            android:id="@+id/view2"
+            android:background="@color/navajowhite"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/play_btn"
+            app:layout_constraintTop_toTopOf="@+id/view2"
+            app:layout_constraintLeft_toLeftOf="@+id/view2"
+            android:onClick="@{() -> presenter.switchPlayStatus()}"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/speed_btn"
+            app:layout_constraintRight_toRightOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2"
+            android:onClick="@{() -> presenter.switchPlaySpeed()}"/>
+
+        <SeekBar
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:id="@+id/skr"
+            app:layout_constraintRight_toLeftOf="@+id/speed_btn"
+            app:layout_constraintLeft_toRightOf="@+id/play_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/play_btn"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

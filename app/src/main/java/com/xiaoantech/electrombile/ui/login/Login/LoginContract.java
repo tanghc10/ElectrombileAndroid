@@ -19,6 +19,10 @@ public interface LoginContract {
         void gotoRegister();
 
         void gotoForgetPass();
+
+        void gotoMainFragment();
+
+        void gotoBindDevice();
     }
 
     interface Presenter extends BasePresenter{

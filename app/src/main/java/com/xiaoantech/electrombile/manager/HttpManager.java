@@ -25,7 +25,8 @@ public class HttpManager {
     public enum getType{
         GET_TYPE_WEATHER,
         GET_TYPE_TODAYITINERARY,
-        GET_TYPE_ROUTES
+        GET_TYPE_ROUTES,
+        GET_TYPE_GPS_POINTS
     }
     public static void getHttpResult(String url, final getType type){
         final String Url = url;

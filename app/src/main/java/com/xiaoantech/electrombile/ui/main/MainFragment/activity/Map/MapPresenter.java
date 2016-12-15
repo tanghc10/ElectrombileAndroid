@@ -68,6 +68,11 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
         }
     }
 
+    @Override
+    public void gotoMapList(){
+        mMapView.gotoMapList();
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLocationEvent(LocationEvent event){

@@ -30,8 +30,10 @@
             android:id="@+id/btn_find_car"
             android:text="精确找车"
             android:layout_marginTop="16dp"
+            android:onClick="@{() -> presenter.gotoMapList()}"
             app:layout_constraintTop_toTopOf="@+id/mapview_constraints"
-            app:layout_constraintRight_toRightOf="@+id/btn_switch_map" />
+            app:layout_constraintRight_toRightOf="@+id/btn_switch_map"
+            />
 
 
 

@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -16,6 +17,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.constant.LayoutConstant;
 import com.xiaoantech.electrombile.databinding.ActivityMapBinding;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory.MapListActivity;
 
 /**
  * Created by yangxu on 2016/11/15.
@@ -95,6 +97,12 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
     @Override
     public void changeDateInfo(String timeDate) {
         mBinding.txtLocationTime.setText(timeDate);
+    }
+
+    @Override
+    public void gotoMapList(){
+        Intent intent = new Intent(MapActivity.this,MapListActivity.class);
+        startActivity(intent);
     }
 
     @Override

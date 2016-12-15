@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.model.GPSPointModel;
 
+import org.json.JSONObject;
+
 import java.util.Locale;
 
 /**
@@ -54,6 +56,7 @@ public class HistoryRouteCell extends ConstraintLayout {
 
     private void layoutInit(Context context){
         LayoutInflater.from(context).inflate(R.layout.cell_historyroute,this);
+        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250));
         mTimeQuantumTv = (TextView)findViewById(R.id.timeQuantum_tv);
 
         mItineraryStv = (UnitTextView) findViewById(R.id.itinerary_Stv);
@@ -69,7 +72,6 @@ public class HistoryRouteCell extends ConstraintLayout {
         mSpeedTv = (TextView)findViewById(R.id.speed_tv);
         adjustTextViewWidth();
 
-        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250));
     }
 
     private void setDefaultData(){
@@ -117,4 +119,21 @@ public class HistoryRouteCell extends ConstraintLayout {
         double speed = mItineray/(hours*1000);
         mSpeedStv.setNumText(String.format(Locale.CHINA,"%.1f",speed));
     }
+
+    @Override
+    public String toString(){
+        return mStartPoint.toString();
+    }
+
+    public JSONObject getTimeStamp(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("start",mStartPoint.getTimestamp());
+            jsonObject.put("end",mEndPoint.getTimestamp());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
 }
