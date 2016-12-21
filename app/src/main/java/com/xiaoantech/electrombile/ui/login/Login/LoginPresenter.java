@@ -109,7 +109,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void register() {
         if (MqttManager.getInstance().createConnect()){
-            MqttManager.getInstance().subscribe(BasicDataManager.getInstance().getIMEI());
+            MqttManager.getInstance().subscribe(BasicDataManager.getInstance().getBindIMEI());
             Log.d(TAG,"subscribe success");
         }else {
             Log.d(TAG, "subscribe fail");

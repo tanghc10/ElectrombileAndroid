@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.widget;
+package com.xiaoantech.electrombile.widget.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -50,7 +50,7 @@ public class CustomDialog extends Dialog {
         /**
          * Set the Dialog message from resource
          *
-         * @param title
+         * @param message
          * @return
          */
         public Builder setMessage(int message) {

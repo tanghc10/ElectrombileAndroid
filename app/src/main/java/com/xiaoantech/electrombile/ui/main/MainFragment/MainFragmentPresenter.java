@@ -84,16 +84,16 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     public void changeFenceStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (fenceStatus){
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getIMEI());
+            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
         }else {
-            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getIMEI());
+            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getBindIMEI());
         }
     }
 
     @Override
     public void getBattery(){
         mMainFragmentView.showWaitingDialog("正在查询");
-        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getIMEI());
+        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void getGPSInfo(){
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override

@@ -4,12 +4,23 @@ android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.xiaoantech.electrombile"
-        minSdkVersion 17
+        applicationId "com.xunce.electrombile"
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'mips' , 'x86' , 'x86_64' , 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "b6b26e2547ad8e5f6018b225", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
     }
     buildTypes {
         release {
@@ -97,4 +108,6 @@ dependencies {
     compile files('libs/baidumapapi_radar_v4_1_1.jar')
     compile files('libs/baidumapapi_cloud_v4_1_1.jar')
     compile files('libs/baidumapapi_map_v4_1_1.jar')
+    compile 'cn.jiguang.sdk:jpush:3.0.0'
+    compile files('libs/core.jar')
 }

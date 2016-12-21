@@ -49,7 +49,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
 
     @Override
     public void refreshLocation() {
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override

@@ -31,4 +31,9 @@ public class TimeUtil {
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1, 0, 0, 0);
         return gc.getTime().getTime()/1000;
     }
+
+    public static long getCurrentTime(){
+        Date date = new Date();
+        return date.getTime()/1000;
+    }
 }

@@ -25,10 +25,24 @@ public class LeanCloudConstant {
     public static final String Itinerary = "itinerary";
     public static final String CarName = "name";
     public static final String Image = "image";
+    public static final String Device = "device";
+    public static final String Admin = "isAdmin";
 
     public enum leanCloudOptionType {
         LEAN_CLOUD_OPTION_TYPE_TOTAL_ITINERARY,
         LEAN_CLOUD_OPTION_TYPE_IMEI_LIST
+    }
+
+
+    public static final int BindFlagDID  = 0b0001;
+    public static final int BindFlagBIND = 0b1000;
+
+    public enum LeanCloudBindResult{
+        LEAN_CLOUD_BIND_RESULT_DID_NONE,
+        LEAN_CLOUD_BIND_RESULT_DID_MUCH,
+        LEAN_CLOUD_BIND_RESULT_BIND_MUCH,
+        LEAN_CLOUD_BIND_RESULT_BIND_SUCCESS,
+        LEAN_CLOUD_BIND_RESULT_BIND_FAIL
     }
 
 }

@@ -1,5 +1,6 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentSettingBinding;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarManagerActivity;
 
 /**
  * Created by yangxu on 2016/11/3.
@@ -24,7 +26,7 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_setting,container,false);
-
+        initView();
         return mBinding.getRoot();
     }
 
@@ -41,7 +43,8 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
 
     @Override
     public void gotoCarManager() {
-
+        Intent intent = new Intent(mContext, CarManagerActivity.class);
+        startActivity(intent);
     }
 
     @Override

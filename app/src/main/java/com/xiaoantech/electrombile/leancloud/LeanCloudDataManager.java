@@ -16,11 +16,11 @@ import java.util.List;
 
 public class LeanCloudDataManager {
 //    private static LeanCloudDataManager mInstance   =   null;
-    private LeanCloudCallbackBus    leanCloudCallback;
+    private LeanCloudCallback leanCloudCallback;
 
 
     public LeanCloudDataManager(){
-        leanCloudCallback = new LeanCloudCallbackBus();
+        leanCloudCallback = new LeanCloudCallback();
     }
 
     public void getTotalIniterary(String IMEI){

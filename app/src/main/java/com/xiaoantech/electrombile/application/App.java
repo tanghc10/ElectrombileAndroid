@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.baidu.mapapi.SDKInitializer;
+import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainActivity;
 import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
@@ -42,6 +43,9 @@ public class App extends Application {
             //已经有登陆状态
             if(null != LocalDataManager.getInstance().getIMEI()) {
                 gotoFragmentActivity();
+
+                //TODO: 暂时直接从服务器获取，之后本地化
+                BasicDataManager.getInstance().fetchBasicDataIMEIList();
             }else {
                 gotoLoginActivity();
             }

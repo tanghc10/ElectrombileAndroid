@@ -23,11 +23,12 @@ import java.util.List;
 
 public class BasicDataManager {
     private static BasicDataManager  mInstance;
-    private String IMEI;
-    private ArrayList<String> IMEIList;
-    private ArrayList<CarInfoModel> carInfoList;
+    private String bindIMEI;
+    private CarInfoModel bindCarInfo;
+    private List<String> IMEIList;
+    private List<CarInfoModel> carInfoList;
     private BasicDataManager(){
-        this.IMEI = "865067022385762";
+
     }
 
     public static BasicDataManager getInstance() {
@@ -48,6 +49,7 @@ public class BasicDataManager {
                         IMEIList = new ArrayList<String>();
                         carInfoList = new ArrayList<CarInfoModel>();
                         for (int i = 0; i < list.size(); i++){
+
                             String IMEI = list.get(i).get(LeanCloudConstant.IMEI).toString();
                             IMEIList.add(IMEI);
 
@@ -56,7 +58,10 @@ public class BasicDataManager {
                             long bindTime = bindDate.getTime()/1000;
                             CarInfoModel carInfoModel = new CarInfoModel(IMEI,bindTime);
                             carInfoList.add(carInfoModel);
-
+                            if (i == 0){
+                                bindIMEI = IMEI;
+                                bindCarInfo = carInfoModel;
+                            }
                             //查询DID表中的车辆头像及车辆名称信息
                             fetchBasicDataCarName(IMEI,i);
                         }
@@ -82,8 +87,17 @@ public class BasicDataManager {
                     if (list.size() > 0) {
                         AVObject object = list.get(0);
                         //设置名称
-                        carInfoModel.setName(object.get(LeanCloudConstant.CarName).toString());
-                        carInfoList.set(index,carInfoModel);
+                        try {
+                            if (object.get(LeanCloudConstant.CarName) != null) {
+                                carInfoModel.setName(object.get(LeanCloudConstant.CarName).toString());
+                            }else {
+                                carInfoModel.setName(object.get(LeanCloudConstant.IMEI).toString());
+                            }
+                            carInfoList.set(index,carInfoModel);
+                        }catch (Exception e1){
+                            e1.printStackTrace();
+                        }
+
 
                         //设置照片
                         if (null != object.get(LeanCloudConstant.Image)){
@@ -117,17 +131,50 @@ public class BasicDataManager {
         });
     }
 
-    public void setIMEI(String IMEI) {
-        this.IMEI = IMEI;
+    public void setBindIMEI(String bindIMEI) {
+        this.bindIMEI = bindIMEI;
     }
     public void setIMEIList(ArrayList<String> IMEIList){
         this.IMEIList = IMEIList;
     }
-
-    public String getIMEI() {
-        return IMEI;
+    public void setCarInfoList(ArrayList<CarInfoModel> carInfoList) {
+        this.carInfoList = carInfoList;
     }
-    public ArrayList<String> getIMEIList() {
+
+    public String getBindIMEI() {
+        return bindIMEI;
+    }
+
+    public CarInfoModel getBindCarInfo() {
+        return bindCarInfo;
+    }
+
+    public List<String> getIMEIList() {
+        if (IMEIList == null){
+            IMEIList = LocalDataManager.getInstance().getIMEIList();
+        }
         return IMEIList;
+    }
+    public List<CarInfoModel> getCarInfoList() {
+        return carInfoList;
+    }
+
+    public void changeBindIMEI(String IMEI,Boolean isBind){
+        if (isBind == false){
+            IMEIList.add(0,IMEI);
+            carInfoList.add(0,new CarInfoModel(IMEI));
+        }else {
+            for (int i = 0; i < IMEIList.size(); i++) {
+                if (IMEIList.get(i).equals(IMEI)){
+                    CarInfoModel tmp = carInfoList.get(i);
+
+                    IMEIList.remove(i);
+                    IMEIList.add(0,IMEI);
+
+                    carInfoList.remove(i);
+                    carInfoList.add(0,tmp);
+                }
+            }
+        }
     }
 }
