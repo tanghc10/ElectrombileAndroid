@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import de.halfbit.pinnedsection.PinnedSectionListView;
 
 public class MapListActivity extends ListActivity implements MapListContract.View{
     private MapListContract.Presenter       mPresenter;
+    protected ProgressDialog mProgressDialog;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +45,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         setContentView(R.layout.activity_maplist);
         mPresenter = new MapListPresenter(this);
         mPresenter.getSevenDayRoute(0);
+        mProgressDialog = new ProgressDialog(this);
 //        setListAdapter();
     }
 
@@ -63,6 +66,24 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         PlayHistoryActivity.pointList = gpsPointModels;
         Intent intent = new Intent(MapListActivity.this,PlayHistoryActivity.class);
         startActivity(intent);
+    }
+
+    public void showToast(String errorMeg) {
+        Toast.makeText(this,errorMeg,Toast.LENGTH_SHORT).show();
+        mProgressDialog.cancel();
+    }
+
+    public void showWaitingDialog(String dialogString) {
+        try {
+            mProgressDialog.setMessage(dialogString);
+            mProgressDialog.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void hideWaitingDialog() {
+        mProgressDialog.cancel();
     }
 
     static class Item{

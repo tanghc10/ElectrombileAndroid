@@ -50,7 +50,7 @@
                 android:id="@+id/text_userPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="请输入手机号"
+                android:hint="请输入手机号"
                 />
 
             <EditText
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteY="16dp"
                 tools:layout_editor_absoluteX="8dp"
-                android:text="请输入密码"/>
+                android:hint="请输入密码"/>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout_login_in"

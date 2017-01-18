@@ -31,6 +31,7 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
     @Override
     protected void bindData() {
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+
     }
 
     @Override

@@ -12,9 +12,7 @@ import com.xiaoantech.electrombile.constant.LayoutConstant;
 public interface MapContract {
 
     interface View extends BaseView<Presenter>{
-        void showToast(String errorMeg);
 
-        void showWaitingDialog(String dialogString);
 
         void changeGPSPoint(LatLng point);
 
@@ -22,18 +20,22 @@ public interface MapContract {
 
         void changeDateInfo(String timeDate);
 
-        void changeMapType(LayoutConstant.MapType mapType);
+        void changeMapType();
 
         void gotoMapList();
+
+        void gotoFindCar();
     }
 
 
     interface Presenter extends BasePresenter{
         void refreshLocation();
 
-        void changeMapType(int index);
+        void changeMapType();
 
         void gotoMapList();
+
+        void gotoFindCar();
     }
 
 

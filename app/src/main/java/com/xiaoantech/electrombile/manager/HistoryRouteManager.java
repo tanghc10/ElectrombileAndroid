@@ -30,19 +30,19 @@ public class HistoryRouteManager {
         long startTime = zero.getTime()/1000;
         long endTime = startTime+86400;
         String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
-        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTime+"&end="+endTime;
+        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getBindIMEI()+"?start="+startTime+"&end="+endTime;
         HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_TODAYITINERARY);
     }
 
     public void getRouteInfoFormHttp(long startTimestamp,long endTimestamp){
         String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
-        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
+        String url = baseUrl + "/v1/itinerary/"+BasicDataManager.getInstance().getBindIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
         HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_ROUTES);
     }
 
     public void getGPSPointsFromHttp(long startTimestamp,long endTimestamp){
         String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
-        String url = baseUrl + "/v1/history/"+BasicDataManager.getInstance().getIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
+        String url = baseUrl + "/v1/history/"+BasicDataManager.getInstance().getBindIMEI()+"?start="+startTimestamp+"&end="+endTimestamp;
         HttpManager.getHttpResult(url,HttpManager.getType.GET_TYPE_GPS_POINTS);
     }
 }

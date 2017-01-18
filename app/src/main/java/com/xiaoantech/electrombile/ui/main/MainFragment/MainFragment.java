@@ -35,7 +35,6 @@ import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity
 public class MainFragment extends BaseFragment implements MainFragmentContract.View {
     private FragmentMainBinding mBinding;
     private MainFragmentContract.Presenter mPresenter;
-    private ProgressDialog      mProgressDialog;
     private BaiduMap            mBaiduMap;
     private Marker              mMarker;
 
@@ -52,7 +51,6 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void initView() {
         mPresenter = new MainFragmentPresenter(this);
         mBinding.setPresenter(mPresenter);
-        mProgressDialog = new ProgressDialog(mContext);
         mBaiduMap = mBinding.mapview.getMap();
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             public boolean onMarkerClick(final Marker marker) {
@@ -89,16 +87,6 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         super.onCreateOptionsMenu(menu,inflater);
     }
 
-    @Override
-    public void showWaitingDialog(String dialogString) {
-        try {
-            mProgressDialog.setMessage(dialogString);
-            mProgressDialog.show();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
 
     @Override
@@ -116,16 +104,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         super.onPause();
         mBinding.mapview.onPause();
     }
-    @Override
-    public void hideWaitingDialog() {
-        mProgressDialog.cancel();
-    }
 
-    @Override
-    public void showToast(String errorMeg) {
-        Toast.makeText(mContext,errorMeg,Toast.LENGTH_SHORT).show();
-        mProgressDialog.cancel();
-    }
 
     @Override
     public void showWeather(int temperature, String weather) {

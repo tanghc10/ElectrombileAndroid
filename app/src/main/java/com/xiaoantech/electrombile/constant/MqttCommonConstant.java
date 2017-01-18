@@ -10,7 +10,7 @@ public class MqttCommonConstant {
     public final static String GPS = "gps";
     public final static String ALARM = "alarm";
     public final static String NOTIFY = "notify";
-    public final static String FOURTT = "433";
+    public final static String FOURTT = "intensity";
 
     public final static String Period = "period";
     public final static String Type = "type";

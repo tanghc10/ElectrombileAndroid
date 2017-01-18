@@ -26,10 +26,8 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
     private final static String TAG = "MapActivitypresenter";
     private MapContract.View   mMapView;
     private GeoCoder mSearch;
-    public static int mapIndex = 0 ;
 
     protected MapPresenter(MapContract.View mapActivity){
-        subscribe();
         this.mMapView = mapActivity;
         mMapView.setPresenter(this);
 
@@ -49,23 +47,13 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
 
     @Override
     public void refreshLocation() {
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+        mMapView.showWaitingDialog("正在查询");
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
-    public void changeMapType(int index){
-        mapIndex++;
-        switch (mapIndex%3){
-            case 0:
-                mMapView.changeMapType(LayoutConstant.MapType.MAP_TYPE_NORMAL);
-                break;
-            case 1:
-                mMapView.changeMapType(LayoutConstant.MapType.MAP_TYPE_SATELLITE);
-                break;
-            case 2:
-                mMapView.changeMapType(LayoutConstant.MapType.MAP_TYPE_3D);
-                break;
-        }
+    public void changeMapType(){
+        mMapView.changeMapType();
     }
 
     @Override
@@ -86,6 +74,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
                 double lat = result.getDouble("lat");
                 double lng = result.getDouble("lng");
                 long timestamp = result.getLong("timestamp");
+                mMapView.showToast("查询成功");
                 LatLng point = new LatLng(lat,lng);
                 mMapView.changeGPSPoint(point);
                 mMapView.changeDateInfo(TimeUtil.getDateStringFromTimeStamp(timestamp));
@@ -109,6 +98,11 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
 
     }
 
+    @Override
+    public void gotoFindCar() {
+        mMapView.gotoFindCar();
+    }
+
     private void dealWithErrorCode(int errorCode){
         if (errorCode == MqttCommonConstant.CODE_INTERNAL_ERR){
             mMapView.showToast("服务器内部错误!");
@@ -117,6 +111,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
             //TODO:ErrorShow
         }
     }
+
 
 
 }

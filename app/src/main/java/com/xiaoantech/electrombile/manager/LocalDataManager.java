@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xiaoantech.electrombile.application.App;
+import com.xiaoantech.electrombile.constant.LayoutConstant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +19,8 @@ import java.util.List;
 public class LocalDataManager {
 
     private final String SHARE_PREFERENCES = "SHARE_PREFERENCES";
+
+    private final String MapType = "MapType";
 
     private final String IMEI = "IMEI";
     private final String IMEIList = "IMEIList";
@@ -113,5 +116,37 @@ public class LocalDataManager {
     }
     public String getHTTPPort(){
         return sharedPreferences.getString(HTTPPort,HTTPPort_Release);
+    }
+
+    public LayoutConstant.MapType getMapType(){
+        int mapTypeInt = sharedPreferences.getInt(MapType,0);
+        switch (mapTypeInt){
+            case 0:
+                return LayoutConstant.MapType.MAP_TYPE_NORMAL;
+            case 1:
+                return LayoutConstant.MapType.MAP_TYPE_SATELLITE;
+            case 2:
+                return LayoutConstant.MapType.MAP_TYPE_3D;
+            default:
+                return LayoutConstant.MapType.MAP_TYPE_NORMAL;
+        }
+    }
+
+    public void setMapType(LayoutConstant.MapType mapType){
+        int mapTypeInt;
+        switch (mapType){
+            case MAP_TYPE_NORMAL:
+                mapTypeInt = 0;
+                break;
+            case MAP_TYPE_SATELLITE:
+                mapTypeInt = 1;
+                break;
+            case MAP_TYPE_3D:
+                mapTypeInt = 2;
+                break;
+            default:
+                mapTypeInt = 1;
+        }
+        sharedPreferences.edit().putInt(MapType,mapTypeInt).apply();
     }
 }

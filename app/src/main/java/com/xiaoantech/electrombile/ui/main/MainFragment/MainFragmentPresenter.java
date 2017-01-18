@@ -84,26 +84,27 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     public void changeFenceStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (fenceStatus){
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getIMEI());
+            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
         }else {
-            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getIMEI());
+            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getBindIMEI());
         }
     }
 
     @Override
     public void getBattery(){
         mMainFragmentView.showWaitingDialog("正在查询");
-        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getIMEI());
+        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
     public void getItinerary(){
+        mMainFragmentView.showWaitingDialog("正在查询");
         HistoryRouteManager.getInstance().getTodayItineray();
     }
 
     @Override
     public void getGPSInfo(){
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getIMEI());
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
@@ -184,8 +185,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         JSONObject jsonObject = event.getJsonObject();
         try{
             int code = jsonObject.getInt("code");
-            if (code !=0){
+            if (code != 0){
                 dealWithErrorCode(code);
+                return;
             }
 
             switch (event.getCmdType()){
@@ -217,11 +219,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         JSONObject jsonObject = event.getJsonObject();
         try{
             int code = jsonObject.getInt("code");
-            if (code !=0){
+            if (code !=0 && code != 103){
                 dealWithErrorCode(code);
-            }
-
-            if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
+            }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
                 JSONObject result = jsonObject.getJSONObject("result");
                 mMainFragmentView.changeBattery(result.getInt("percent"));
             }
