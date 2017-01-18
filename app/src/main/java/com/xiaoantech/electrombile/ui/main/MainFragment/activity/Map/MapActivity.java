@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -43,6 +44,7 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
     private String                      mLatestPlaceInfo;
     private String                      mLatestDateInfo;
     private LayoutConstant.MapType      mMapType;
+    private static LayoutConstant.MapType currentMapType;
 
     @Override
     protected void initBefore() {
@@ -158,48 +160,59 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
 
     public void initChangeMapType(){
         CertainDialog.Builder dialog = new CertainDialog.Builder(this);
-        LayoutConstant.MapType mapType = mMapType;
+        final LayoutConstant.MapType mapType = mMapType;
         final ContentChangeMapBinding changeMapBinding = DataBindingUtil.bind(View.inflate(this,R.layout.content_change_map,null));
         changeMapBinding.constraintLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMapBinding.selectBtnPlane.setBackground(getResources().getDrawable(R.drawable.btn_selected));
-                changeMapBinding.selectBtnSatellite.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
-                changeMapBinding.selectBtn3D.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
+                changeCurrentMapType(LayoutConstant.MapType.MAP_TYPE_NORMAL,changeMapBinding,MapActivity.this);
             }
         });
         changeMapBinding.constraintLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMapBinding.selectBtnPlane.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
-                changeMapBinding.selectBtnSatellite.setBackground(getResources().getDrawable(R.drawable.btn_selected));
-                changeMapBinding.selectBtn3D.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
+                changeCurrentMapType(LayoutConstant.MapType.MAP_TYPE_SATELLITE,changeMapBinding,MapActivity.this);
             }
         });
 
         changeMapBinding.constraintLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMapBinding.selectBtnPlane.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
-                changeMapBinding.selectBtnSatellite.setBackground(getResources().getDrawable(R.drawable.btn_unselected));
-                changeMapBinding.selectBtn3D.setBackground(getResources().getDrawable(R.drawable.btn_selected));
+                changeCurrentMapType(LayoutConstant.MapType.MAP_TYPE_3D,changeMapBinding,MapActivity.this);
             }
         });
+        changeCurrentMapType(mMapType,changeMapBinding,this);
+        dialog.setTitle("地图切换").setContentView(changeMapBinding.getRoot()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setMapType(currentMapType);
+                mMapType = currentMapType;
+                LocalDataManager.getInstance().setMapType(mMapType);
+                dialog.dismiss();
+            }
+        }).create().show();
+    }
 
-        switch (mMapType){
+    static void changeCurrentMapType(LayoutConstant.MapType mapType, ContentChangeMapBinding changeMapBinding, Context context){
+        currentMapType = mapType;
+        changeMapBinding.selectBtnPlane.setBackground(context.getResources().getDrawable(R.drawable.btn_unselected));
+        changeMapBinding.selectBtnSatellite.setBackground(context.getResources().getDrawable(R.drawable.btn_unselected));
+        changeMapBinding.selectBtn3D.setBackground(context.getResources().getDrawable(R.drawable.btn_unselected));
+        switch (mapType){
             case MAP_TYPE_NORMAL:
-                changeMapBinding.selectBtnPlane.setBackground(getResources().getDrawable(R.drawable.btn_selected));
+                changeMapBinding.selectBtnPlane.setBackground(context.getResources().getDrawable(R.drawable.btn_selected));
                 break;
             case MAP_TYPE_SATELLITE:
-                changeMapBinding.selectBtnSatellite.setBackground(getResources().getDrawable(R.drawable.btn_selected));
+                changeMapBinding.selectBtnSatellite.setBackground(context.getResources().getDrawable(R.drawable.btn_selected));
                 break;
             case MAP_TYPE_3D:
-                changeMapBinding.selectBtn3D.setBackground(getResources().getDrawable(R.drawable.btn_selected));
+                changeMapBinding.selectBtn3D.setBackground(context.getResources().getDrawable(R.drawable.btn_selected));
                 break;
             default:
-                changeMapBinding.selectBtnPlane.setBackground(getResources().getDrawable(R.drawable.btn_selected));
+                changeMapBinding.selectBtnPlane.setBackground(context.getResources().getDrawable(R.drawable.btn_selected));
         }
     }
+
 
     @Override
     public void changeMapType() {

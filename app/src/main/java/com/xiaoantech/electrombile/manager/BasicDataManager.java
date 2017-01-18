@@ -167,7 +167,7 @@ public class BasicDataManager {
     }
 
     public void changeBindIMEI(String IMEI,Boolean isBind){
-        if (isBind == false){
+        if (!isBind){
             IMEIList.add(0,IMEI);
             carInfoList.add(0,new CarInfoModel(IMEI));
         }else {
@@ -183,5 +183,6 @@ public class BasicDataManager {
                 }
             }
         }
+        bindIMEI = IMEI;
     }
 }

@@ -10,6 +10,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.constant.EventBusConstant;
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.cmd.BatteryEvent;
@@ -29,6 +30,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yangxu on 2016/11/6.
@@ -179,6 +185,30 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     }
 
+    @Override
+    public void changeCar() {
+        mMainFragmentView.changeCar();
+    }
+
+    @Override
+    public List<Map<String, Object>> getCarListInfo() {
+        List<String> carNameList = BasicDataManager.getInstance().getIMEIList();
+
+        List<Map<String,Object>> list = new ArrayList<>();
+        Map<String,Object> map = new HashMap<>();
+        map.put("carName",carNameList.get(0));
+        map.put("isSelected", R.drawable.btn_selected);
+        list.add(map);
+
+        for (int i = 1;i < carNameList.size();i++){
+            map = new HashMap<>();
+            map.put("carName",carNameList.get(i));
+            map.put("isSelected",R.drawable.btn_unselected);
+            list.add(map);
+        }
+
+        return list;
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFenceEvent(FenceEvent event){
@@ -257,6 +287,8 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             e.printStackTrace();
         }
     }
+
+
 
 
 
