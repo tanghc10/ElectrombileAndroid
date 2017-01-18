@@ -98,6 +98,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void getItinerary(){
+        mMainFragmentView.showWaitingDialog("正在查询");
         HistoryRouteManager.getInstance().getTodayItineray();
     }
 
@@ -184,8 +185,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         JSONObject jsonObject = event.getJsonObject();
         try{
             int code = jsonObject.getInt("code");
-            if (code !=0){
+            if (code != 0){
                 dealWithErrorCode(code);
+                return;
             }
 
             switch (event.getCmdType()){
@@ -217,11 +219,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         JSONObject jsonObject = event.getJsonObject();
         try{
             int code = jsonObject.getInt("code");
-            if (code !=0){
+            if (code !=0 && code != 103){
                 dealWithErrorCode(code);
-            }
-
-            if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
+            }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
                 JSONObject result = jsonObject.getJSONObject("result");
                 mMainFragmentView.changeBattery(result.getInt("percent"));
             }

@@ -29,6 +29,7 @@ public class CustomDialog extends Dialog {
     }
 
     public static class Builder {
+        private CustomDialog dialog;
         private Context context;
         private String title;
         private String message;
@@ -126,7 +127,7 @@ public class CustomDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
-            final CustomDialog dialog = new CustomDialog(context, R.style.Dialog);
+            dialog = new CustomDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_normal_layout, null);
             dialog.addContentView(layout, new LayoutParams(
                     ViewGroup.LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -185,5 +186,8 @@ public class CustomDialog extends Dialog {
             return dialog;
         }
 
+        public CustomDialog getDialog(){
+            return dialog;
+        }
     }
 }

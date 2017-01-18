@@ -29,4 +29,9 @@ public class CarManagerPresenter implements CarManagerContract.Presenter{
     public void addDevice() {
         mCarManagerView.addDevice();
     }
+
+    @Override
+    public void gotoBindedCarInfo() {
+        mCarManagerView.gotoBindedCarInfo(0);
+    }
 }

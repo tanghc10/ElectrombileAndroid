@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.InputIMEI;
 
+import com.xiaoantech.electrombile.leancloud.LeanCloudManager;
+
 /**
  * Created by yangxu on 2016/12/15.
  */
@@ -24,7 +26,12 @@ public class InputIMEIPresenter implements InputIMEIContract.Presenter{
     }
 
     @Override
-    public void bindIMEI() {
-
+    public void bindIMEI(String IMEI) {
+        if (IMEI == null || IMEI.length() != 15) {
+            mInputIMEIView.showToast("IMEI的长度错误或者为空");
+        }else {
+            mInputIMEIView.showWaitingDialog("正在绑定中");
+            LeanCloudManager.getInstance().bindIMEI(IMEI);
+        }
     }
 }

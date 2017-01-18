@@ -12,6 +12,8 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetDataCallback;
 import com.xiaoantech.electrombile.constant.LeanCloudConstant;
 import com.xiaoantech.electrombile.model.CarInfoModel;
+import com.xiaoantech.electrombile.mqtt.MqttManager;
+import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +48,11 @@ public class BasicDataManager {
             public void done(List<AVObject> list, AVException e) {
                 if (null == e){
                     if (list.size() > 0){
+                        //存储第一个IMEI
+                        String firstIMEI = list.get(0).get(LeanCloudConstant.IMEI).toString();
+                        LocalDataManager.getInstance().setIMEI(firstIMEI);
+
+
                         IMEIList = new ArrayList<String>();
                         carInfoList = new ArrayList<CarInfoModel>();
                         for (int i = 0; i < list.size(); i++){

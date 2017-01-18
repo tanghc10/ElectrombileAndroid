@@ -27,6 +27,8 @@ public class SimpleDialog extends Dialog{
     }
 
     public static class Builder {
+
+        private SimpleDialog simpleDialog;
         private Context context;
         private String title;
         private String message;
@@ -85,9 +87,9 @@ public class SimpleDialog extends Dialog{
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
-            final SimpleDialog dialog = new SimpleDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_normal_layout, null);
-            dialog.addContentView(layout, new ViewGroup.LayoutParams(
+            simpleDialog = new SimpleDialog(context, R.style.Dialog);
+            View layout = inflater.inflate(R.layout.dialog_simple_layout, null);
+            simpleDialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             // set the dialog title
             ((TextView) layout.findViewById(R.id.title)).setText(title);
@@ -104,9 +106,13 @@ public class SimpleDialog extends Dialog{
                                 ViewGroup.LayoutParams.FILL_PARENT,
                                 ViewGroup.LayoutParams.FILL_PARENT));
             }
-            dialog.setContentView(layout);
-            return dialog;
+            simpleDialog.setContentView(layout);
+            return simpleDialog;
         }
 
+        public SimpleDialog getSimpleDialog(){
+            return simpleDialog;
+        }
     }
+
 }

@@ -13,6 +13,9 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentSettingBinding;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarManagerActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.MapDownLoad.MapDownloadActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.SettingManagerActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfo.UserInfoActivity;
 
 /**
  * Created by yangxu on 2016/11/3.
@@ -49,17 +52,20 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
 
     @Override
     public void gotoUserManager() {
-
+        Intent intent = new Intent(mContext, UserInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void gotoMapDownload() {
-
+        Intent intent = new Intent(mContext, MapDownloadActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void gotoSettingManager() {
-
+        Intent intent = new Intent(mContext, SettingManagerActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -26,7 +26,10 @@ public class CertainDialog extends Dialog{
         super(context, theme);
     }
 
+
+
     public static class Builder {
+        private CertainDialog certainDialog;
         private Context context;
         private String title;
         private String message;
@@ -37,6 +40,9 @@ public class CertainDialog extends Dialog{
         public Builder(Context context) {
             this.context = context;
         }
+
+
+
 
         public CertainDialog.Builder setMessage(String message) {
             this.message = message;
@@ -108,7 +114,7 @@ public class CertainDialog extends Dialog{
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final CertainDialog dialog = new CertainDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_normal_layout, null);
+            View layout = inflater.inflate(R.layout.dialog_certain_layout, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             // set the dialog title
@@ -146,6 +152,10 @@ public class CertainDialog extends Dialog{
             }
             dialog.setContentView(layout);
             return dialog;
+        }
+
+        public CertainDialog getCertainDialog(){
+            return certainDialog;
         }
 
     }

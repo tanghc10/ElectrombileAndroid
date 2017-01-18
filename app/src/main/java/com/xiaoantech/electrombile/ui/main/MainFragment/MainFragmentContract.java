@@ -11,16 +11,12 @@ import com.xiaoantech.electrombile.base.BaseView;
 public interface MainFragmentContract {
 
     interface View extends BaseView<Presenter>{
-        void showToast(String errorMeg);
-        void showWaitingDialog(String dialogString);
         void showWeather(int temperature,String weather);
-        void hideWaitingDialog();
         void changeFenceStatus(Boolean isOn,boolean isGet);
         void changeBattery(int battery);
         void changeItinerary(int itinerary);
         void changeGPSPoint(LatLng point);
         void changePlaceInfo(String placeInfo);
-
         void gotoMap();
     }
 

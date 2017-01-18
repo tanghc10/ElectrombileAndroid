@@ -9,6 +9,8 @@ import com.avos.avoscloud.AVUser;
 import com.baidu.mapapi.SDKInitializer;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
+import com.xiaoantech.electrombile.mqtt.MqttManager;
+import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainActivity;
 import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
 
@@ -31,6 +33,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        MqttManager.getInstance().createConnect();
         SDKInitializer.initialize(this);
         AVOSCloud.initialize(this,"5wk8ccseci7lnss55xfxdgj9xn77hxg3rppsu16o83fydjjn","yovqy5zy16og43zwew8i6qmtkp2y6r9b18zerha0fqi5dqsw");
         checkUserStatus();
@@ -42,6 +45,8 @@ public class App extends Application {
         if (null != user){
             //已经有登陆状态
             if(null != LocalDataManager.getInstance().getIMEI()) {
+                MqttManager.getInstance().subscribe(LocalDataManager.getInstance().getIMEI());
+                MqttPublishManager.getInstance().getStatus(LocalDataManager.getInstance().getIMEI());
                 gotoFragmentActivity();
 
                 //TODO: 暂时直接从服务器获取，之后本地化

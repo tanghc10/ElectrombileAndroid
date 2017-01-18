@@ -14,7 +14,7 @@ public interface InputIMEIContract {
     }
 
     interface Presenter extends BasePresenter{
-        void bindIMEI();
+        void bindIMEI(String IMEI);
     }
 
 

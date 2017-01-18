@@ -1,6 +1,9 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
 import com.xiaoantech.electrombile.R;
@@ -8,6 +11,8 @@ import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityCarmanagerBinding;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.model.CarInfoModel;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.CaptureActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoDetail.CarInfoDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +68,19 @@ public class CarManagerActivity extends BaseAcitivity implements  CarManagerCont
         //非绑定列表设备显示
         mAdapter = new SimpleAdapter(this,otherCarList,R.layout.item_othercar_list,new String[]{CarImage,CarName},new int[]{R.id.img_car,R.id.txt_car_name});
         mBinding.listView.setAdapter(mAdapter);
+
+        mBinding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CarManagerActivity.this,CarInfoDetailActivity.class);
+                intent.putExtra("index",position+1);
+                try {
+                    startActivityForResult(intent,0);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -73,5 +91,14 @@ public class CarManagerActivity extends BaseAcitivity implements  CarManagerCont
     @Override
     public void addDevice() {
 //        new CommonDialog(this,"")
+        Intent intent = new Intent(CarManagerActivity.this, CaptureActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoBindedCarInfo(int index) {
+        Intent intent = new Intent(CarManagerActivity.this, CarInfoDetailActivity.class);
+        intent.putExtra("index",index);
+        startActivity(intent);
     }
 }

@@ -75,7 +75,8 @@
         app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintBottom_toBottomOf="@+id/itinerary_Stv"
         app:layout_constraintTop_toTopOf="@+id/itinerary_Stv"
-        android:id="@+id/speed_Stv" />
+        android:id="@+id/speed_Stv"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

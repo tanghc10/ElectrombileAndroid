@@ -12,14 +12,12 @@ import com.xiaoantech.electrombile.manager.JPushManager;
 
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
-
 /**
  * Created by yangxu on 2016/11/7.
  */
 
-public class LeanCLoudManager {
-    private static LeanCLoudManager mInstance   =   null;
+public class LeanCloudManager {
+    private static LeanCloudManager mInstance   =   null;
     private LeanCloudDataManager    leanCloudDataManager;
     private LeanCloudCallback leanCloudCallback;
 
@@ -28,14 +26,14 @@ public class LeanCLoudManager {
     private int    bindFlag;
     private AVObject didObject;
 
-    private LeanCLoudManager(){
+    private LeanCloudManager(){
         leanCloudDataManager = new LeanCloudDataManager();
         leanCloudCallback = new LeanCloudCallback();
     }
 
-    public LeanCLoudManager getInstance(){
+    public static LeanCloudManager getInstance(){
         if (null == mInstance){
-            mInstance = new LeanCLoudManager();
+            mInstance = new LeanCloudManager();
         }
         return mInstance;
     }
@@ -99,12 +97,15 @@ public class LeanCLoudManager {
         if (null != result){
             switch (result){
                 case LEAN_CLOUD_BIND_RESULT_BIND_MUCH:
+                    bindErrorFlag = true;
                     leanCloudCallback.dealWithBindResult(LeanCloudConstant.LeanCloudBindResult.LEAN_CLOUD_BIND_RESULT_BIND_MUCH);
                     break;
                 case LEAN_CLOUD_BIND_RESULT_DID_NONE:
+                    bindErrorFlag = true;
                     leanCloudCallback.dealWithBindResult(LeanCloudConstant.LeanCloudBindResult.LEAN_CLOUD_BIND_RESULT_DID_NONE);
                     break;
                 case LEAN_CLOUD_BIND_RESULT_DID_MUCH:
+                    bindErrorFlag = true;
                     leanCloudCallback.dealWithBindResult(LeanCloudConstant.LeanCloudBindResult.LEAN_CLOUD_BIND_RESULT_DID_MUCH);
                     break;
                 default:
