@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.InputIMEI;
+package com.xiaoantech.electrombile.ui.AddDevice.InputIMEI;
 
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;

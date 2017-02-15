@@ -136,6 +136,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
                 String imei =  BasicDataManager.getInstance().getIMEIList().get(selectedCarIndex);
                 BasicDataManager.getInstance().changeBindIMEI(imei,true);
                 MqttPublishManager.getInstance().getStatus(imei);
+                dialog.dismiss();
             }
         }).create().show();
     }

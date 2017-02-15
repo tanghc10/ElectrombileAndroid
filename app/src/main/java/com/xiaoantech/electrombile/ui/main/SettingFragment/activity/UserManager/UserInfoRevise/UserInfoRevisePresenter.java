@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfoRevise;
 
+import android.net.Uri;
+
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoRevise.CarInfoReviseContract;
 
 /**
@@ -25,5 +27,24 @@ public class UserInfoRevisePresenter implements UserInfoReviseContract.Presenter
 
     }
 
+    @Override
+    public void changeIcon() {
+        mUserInfoReviseView.changeIcon();
+    }
+
+    @Override
+    public void chooseSex() {
+        mUserInfoReviseView.chooseSex();
+    }
+
+    @Override
+    public void chooseBirthDate() {
+        mUserInfoReviseView.chooseBirthDate();
+    }
+
+    @Override
+    public void confirmModify() {
+        mUserInfoReviseView.confirmModify();
+    }
 
 }

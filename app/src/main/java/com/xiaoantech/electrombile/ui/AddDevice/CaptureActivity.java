@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice;
+package com.xiaoantech.electrombile.ui.AddDevice;
 
 
 
@@ -22,8 +22,6 @@ import com.xiaoantech.electrombile.tools.ZXing.decoding.CaptureActivityHandler;
 import com.xiaoantech.electrombile.tools.ZXing.decoding.InactivityTimer;
 import com.xiaoantech.electrombile.tools.ZXing.view.ViewfinderView;
 import com.xiaoantech.electrombile.utils.JSONUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Vector;
 

@@ -11,7 +11,7 @@ import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityCarmanagerBinding;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.model.CarInfoModel;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.CaptureActivity;
+import com.xiaoantech.electrombile.ui.AddDevice.CaptureActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoDetail.CarInfoDetailActivity;
 
 import java.util.ArrayList;
@@ -90,7 +90,6 @@ public class CarManagerActivity extends BaseAcitivity implements  CarManagerCont
 
     @Override
     public void addDevice() {
-//        new CommonDialog(this,"")
         Intent intent = new Intent(CarManagerActivity.this, CaptureActivity.class);
         startActivity(intent);
     }

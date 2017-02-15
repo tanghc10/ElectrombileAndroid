@@ -12,7 +12,7 @@ import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.xiaoantech.electrombile.R;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.CaptureActivity;
+import com.xiaoantech.electrombile.ui.AddDevice.CaptureActivity;
 import com.xiaoantech.electrombile.tools.ZXing.camera.CameraManager;
 import com.xiaoantech.electrombile.tools.ZXing.view.ViewfinderResultPointCallback;
 

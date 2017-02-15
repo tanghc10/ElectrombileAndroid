@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityUserInfoBinding;
+import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfoRevise.UserInfoReviseActivity;
 
 /**
@@ -44,5 +45,24 @@ public class UserInfoActivity extends BaseAcitivity implements UserInfoContract.
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isMale = LocalDataManager.getInstance().getSex();
+        if (isMale){
+            mBinding.txtSex.setText("男");
+        }else{
+            mBinding.txtSex.setText("女");
+        }
+        int birth = LocalDataManager.getInstance().getBirth();
+        int year = birth/10000;
+        int month = (birth - 10000*year)/100;
+        final int day = birth - 10000*year - month*100;
+        mBinding.txtBirth.setText(year + "年" + (month+1) + "月" + day + "日");
+        mBinding.txtUserName.setText(LocalDataManager.getInstance().getUserName());
+        mBinding.txtNickName.setText(LocalDataManager.getInstance().getNickName());
+        mBinding.txtIdentityNum.setText(LocalDataManager.getInstance().getIdentityNum());
     }
 }
