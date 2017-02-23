@@ -4,6 +4,8 @@ import com.baidu.mapapi.model.LatLng;
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,16 +18,17 @@ public interface MainFragmentContract {
     interface View extends BaseView<Presenter>{
         void showWeather(int temperature,String weather);
         void changeFenceStatus(Boolean isOn,boolean isGet);
-        void changeBattery(int battery);
+        void changeBattery(int battery,boolean showTip);
         void changeItinerary(int itinerary);
         void changeGPSPoint(LatLng point);
         void changePlaceInfo(String placeInfo);
         void changeCar();
         void gotoMap();
+        void showWeatherDialog(JSONObject weatherInfo,String placeInfo);
     }
 
     interface Presenter extends BasePresenter{
-        void getWeatherInfo();
+        void showWeatherInfo();
 
         List<Map<String,Object>> getCarListInfo();
 

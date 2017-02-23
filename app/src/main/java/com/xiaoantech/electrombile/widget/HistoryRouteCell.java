@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.widget;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -14,6 +15,9 @@ import com.xiaoantech.electrombile.model.GPSPointModel;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -59,19 +63,23 @@ public class HistoryRouteCell extends ConstraintLayout {
         this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250));
         mTimeQuantumTv = (TextView)findViewById(R.id.timeQuantum_tv);
 
-        mItineraryStv = (UnitTextView) findViewById(R.id.itinerary_Stv);
-        mTimeStv = (TextView)findViewById(R.id.time_Tv);
-        mSpeedStv = (UnitTextView) findViewById(R.id.speed_Stv);
-        setSign();
 
-        setDefaultData();
-        setNum();
+
+        mItineraryStv = (UnitTextView) findViewById(R.id.itinerary_Stv);
+
+        mTimeStv = (TextView)findViewById(R.id.time_Stv);
+        String fontPath = "fonts/dincond-regular.ttf";
+        mTimeStv.setTypeface(Typeface.createFromAsset(getContext().getAssets(),fontPath));
+        mSpeedStv = (UnitTextView) findViewById(R.id.speed_Stv);
 
         mItineraryTv = (TextView)findViewById(R.id.itinerary_tv);
         mTimeTv = (TextView)findViewById(R.id.time_tv);
         mSpeedTv = (TextView)findViewById(R.id.speed_tv);
-        adjustTextViewWidth();
 
+        setSign();
+        setDefaultData();
+        setNum();
+        adjustTextViewWidth();
     }
 
     private void setDefaultData(){
@@ -88,14 +96,8 @@ public class HistoryRouteCell extends ConstraintLayout {
     **调整数字下方textview宽度，使得文字与数字居中对齐
      */
     private void adjustTextViewWidth(){
-        mItineraryTv.setWidth(mItineraryStv.getNumTextWidth());
-
-        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        mTimeStv.measure(w,h);
-        mTimeTv.setWidth(mTimeStv.getMeasuredWidth());
-
-        mSpeedTv.setWidth(mSpeedStv.getNumTextWidth());
+//        mItineraryTv.setWidth(mItineraryStv.getNumTextWidth());
+//        mSpeedTv.setWidth(mSpeedStv.getNumTextWidth());
     }
 
     private void setSign(){
@@ -118,6 +120,13 @@ public class HistoryRouteCell extends ConstraintLayout {
         double hours = timeInterval/3600.0;
         double speed = mItineray/(hours*1000);
         mSpeedStv.setNumText(String.format(Locale.CHINA,"%.1f",speed));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+        String startMinute = sdf.format(new Date(mStartPoint.getTimestamp()*1000));
+        String endMintute = sdf.format(new Date(mEndPoint.getTimestamp()*1000));
+        String timeQuantum = startMinute + "-" + endMintute;
+        mTimeQuantumTv.setText(timeQuantum);
     }
 
     @Override

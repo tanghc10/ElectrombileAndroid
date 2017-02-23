@@ -64,7 +64,7 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
         //TODO:登录成功
         Intent intent = new Intent(LoginActivity.this, FragmentMainActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
     @Override

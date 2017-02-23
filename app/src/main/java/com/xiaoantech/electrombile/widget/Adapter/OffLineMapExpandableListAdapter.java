@@ -44,8 +44,8 @@ public class OffLineMapExpandableListAdapter extends BaseExpandableListAdapter{
         this.offlinemapBeen = offlinemapBeen;
         this.mContext = mContext;
         this.mkOfflineMap = mkOfflineMap;
-        this.downloaddrawable = new IconDrawable(mContext, Iconify.IconValue.zmdi_download);
-        this.closedrawable = new IconDrawable(mContext, Iconify.IconValue.zmdi_close_circle_o);
+        this.downloaddrawable = mContext.getResources().getDrawable(R.drawable.img_download);
+        this.closedrawable = mContext.getResources().getDrawable(R.drawable.img_download_delete);
         this.pausedrawable = new IconDrawable(mContext, Iconify.IconValue.zmdi_pause);
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

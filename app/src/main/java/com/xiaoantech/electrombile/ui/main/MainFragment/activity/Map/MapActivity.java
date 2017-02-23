@@ -6,6 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
@@ -60,7 +64,17 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
     protected void initView() {
         mPresenter = new MapPresenter(this);
         mBinding.setPresenter(mPresenter);
+
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("车辆位置");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapActivity.this.finish();
+            }
+        });
+
         mProgressDialog = new ProgressDialog(this);
+        mBinding.mapView.showZoomControls(false);
         mBaiduMap = mBinding.mapView.getMap();
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
@@ -74,7 +88,7 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
     }
 
     private void initMarker(){
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.online);
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.img_map_location);
         LatLng point = new LatLng(30.5171, 114.4392);
         MarkerOptions option = new MarkerOptions()
                 .position(point)
