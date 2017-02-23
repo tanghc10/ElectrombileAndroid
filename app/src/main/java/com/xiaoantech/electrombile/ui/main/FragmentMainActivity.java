@@ -96,4 +96,9 @@ public class FragmentMainActivity extends FragmentActivity {
 
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }

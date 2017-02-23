@@ -33,6 +33,8 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
 
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
+
+        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
@@ -70,14 +72,15 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
             if (code != MqttCommonConstant.CODE_SUCCESS && code != MqttCommonConstant.CODE_WAITING){
                 dealWithErrorCode(code);
             }else{
+                if (code == MqttCommonConstant.CODE_SUCCESS)
+                    mMapView.showToast("查询成功");
                 JSONObject result = jsonObject.getJSONObject("result");
                 double lat = result.getDouble("lat");
                 double lng = result.getDouble("lng");
                 long timestamp = result.getLong("timestamp");
-                mMapView.showToast("查询成功");
                 LatLng point = new LatLng(lat,lng);
                 mMapView.changeGPSPoint(point);
-                mMapView.changeDateInfo(TimeUtil.getDateStringFromTimeStamp(timestamp));
+                mMapView.changeDateInfo(TimeUtil.getMinuteStringFromTimeStamp(timestamp));
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
             }
         }catch (Exception e) {

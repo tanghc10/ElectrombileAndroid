@@ -9,7 +9,7 @@
 
     <variable
         name="presenter"
-        type="com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.InputIMEI.InputIMEIContract.Presenter" />
+        type="com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIContract.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout

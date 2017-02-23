@@ -22,7 +22,12 @@
             android:layout_height="33.33dp"
             android:layout_weight="1"
             android:layout_gravity="center" />
-
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/img_download_icon"
+            android:layout_gravity="center"
+            />
         <TextView
             android:id="@+id/Item_TextView_Child"
             android:layout_width="0dp"
@@ -48,11 +53,10 @@
 
         <ImageButton
             android:id="@+id/Item_ImageButton_child"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_width="17dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
-            android:layout_weight="1"
             android:background="#00000000"
             android:focusable="false"
             android:scaleType="fitXY"/>

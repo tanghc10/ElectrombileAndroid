@@ -7,6 +7,10 @@
     android:background="#f3f3f3"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/navigation"
+        layout="@layout/bar_navigation_title"
+        />
     <LinearLayout
         android:id="@+id/ll_mapOffline_Location"
         android:layout_width="match_parent"
@@ -17,18 +21,18 @@
             android:layout_marginLeft="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textColor="#7f7f7f"
+            android:text="已下载地图"
            />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="13.33dp"/>
+
+
 
         <ListView
             android:id="@+id/lv_mapOffline_manager"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             tools:listitem="@layout/item_mapofflinelist_child">
         </ListView>
 
@@ -43,8 +47,9 @@
         android:layout_marginLeft="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:textColor="#7f7f7f"
+        android:text="下载地图"
        />
 
     <View

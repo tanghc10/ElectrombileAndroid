@@ -30,7 +30,8 @@ public class BasicDataManager {
     private List<String> IMEIList;
     private List<CarInfoModel> carInfoList;
     private BasicDataManager(){
-
+        this.bindIMEI = LocalDataManager.getInstance().getIMEI();
+        this.IMEIList = LocalDataManager.getInstance().getIMEIList();
     }
 
     public static BasicDataManager getInstance() {
@@ -183,6 +184,9 @@ public class BasicDataManager {
                 }
             }
         }
+
         bindIMEI = IMEI;
+        LocalDataManager.getInstance().setIMEI(IMEI);
+        LocalDataManager.getInstance().setIMEIList(IMEIList);
     }
 }

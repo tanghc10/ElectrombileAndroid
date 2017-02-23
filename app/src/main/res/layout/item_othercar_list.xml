@@ -25,7 +25,7 @@
         app:layout_constraintLeft_toRightOf="@+id/img_car"
         app:layout_constraintCenterY_toCenterY="@+id/img_car"
         android:layout_marginStart="16dp"
-        tools:layout_editor_absoluteY="17dp"
+        tools:layout_editor_absoluteY="16dp"
         android:id="@+id/txt_car_name"/>
 
 </android.support.constraint.ConstraintLayout>
