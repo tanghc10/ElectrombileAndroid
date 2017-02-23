@@ -60,8 +60,7 @@
             android:background="#00000000"
             android:focusable="false"
             android:scaleType="fitXY"
-            android:layout_width="24dp"
-            android:layout_height="21dp" />
+             />
     </LinearLayout>
 
     <View
