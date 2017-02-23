@@ -22,6 +22,13 @@ public class LocalDataManager {
 
     private final String MapType = "MapType";
 
+    private final String Sex = "Sex";
+    private final String Birth = "Birth";
+    private final int    DefaultBirth = 19700101;
+    private final String UserName = "UserName";
+    private final String NickName = "NickName";
+    private final String IdentityNum = "IdentityNum";
+
     private final String IMEI = "IMEI";
     private final String IMEIList = "IMEIList";
 
@@ -39,6 +46,7 @@ public class LocalDataManager {
     public final String MQTTPort_Test = "1883";
     public final String HTTPHost_Test = "http://test.xiaoan110.com";
     public final String HTTPPort_Test = "8081";
+
 
     private SharedPreferences sharedPreferences;
 
@@ -148,5 +156,46 @@ public class LocalDataManager {
                 mapTypeInt = 1;
         }
         sharedPreferences.edit().putInt(MapType,mapTypeInt).apply();
+    }
+
+    public void setSex(boolean isMale){
+        sharedPreferences.edit().putBoolean(Sex,isMale).apply();
+    }
+
+    public boolean getSex(){
+        return sharedPreferences.getBoolean(Sex,true);
+    }
+
+    //Birth存储并没有按照时间戳存储，而是使用8位数存储，格式为yyyymmdd,使用时再进行解析
+    public void setBirth(int birth){
+        sharedPreferences.edit().putInt(Birth,birth).apply();
+    }
+
+    public int getBirth(){
+        return sharedPreferences.getInt(Birth,DefaultBirth);
+    }
+
+    public void setUserName(String userName) {
+        sharedPreferences.edit().putString(UserName,userName).apply();
+    }
+
+    public String getUserName(){
+        return sharedPreferences.getString(UserName,"名称");
+    }
+
+    public void setNickName(String nickName){
+        sharedPreferences.edit().putString(NickName,nickName).apply();
+    }
+
+    public String getNickName(){
+        return sharedPreferences.getString(NickName,"昵称");
+    }
+
+    public void setIdentityNum(String identityNum){
+        sharedPreferences.edit().putString(IdentityNum,identityNum).apply();
+    }
+
+    public String getIdentityNum(){
+        return sharedPreferences.getString(IdentityNum,"");
     }
 }

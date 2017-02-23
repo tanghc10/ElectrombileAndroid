@@ -23,21 +23,16 @@
 
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintRight_toRightOf="@+id/imageView4"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView4"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
-        <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-            android:id="@+id/imageView4" />
+            android:id="@+id/imageView4"
+            android:background="@android:color/holo_orange_light"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="1.0" />
 
         <View
             android:layout_width="1dp"
@@ -48,6 +43,17 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintVertical_bias="0.26" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/btn_unselected"
+            android:id="@+id/img_user_icon"
+            android:onClick="@{() -> presenter.changeIcon()}"
+            app:layout_constraintRight_toRightOf="@+id/imageView4"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView4"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -67,14 +73,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="姓名:"
-                    android:gravity="center"/>
+                    android:text="姓名"
+                    android:gravity="center"
+                    android:textColor="@color/common_google_signin_btn_text_light_pressed"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:textStyle="normal|bold" />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:id="@+id/txt_plate_num"/>
+                    android:id="@+id/txt_user_name"
+                    android:text="    请输入您的姓名"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
 
@@ -88,14 +102,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="昵称:"
-                    android:gravity="center"/>
+                    android:text="昵称"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/common_google_signin_btn_text_light_pressed" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:id="@+id/txt_frame_num"/>
+                    android:id="@+id/txt_nick_name"
+                    android:text="    请输入您的姓名"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
 
@@ -109,14 +131,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text=" 性别: "
-                    android:gravity="center"/>
-                <EditText
+                    android:text=" 性别"
+                    android:gravity="center"
+                    android:textColor="@color/common_google_signin_btn_text_light_pressed"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/txt_sex"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:id="@+id/txt_brand_name"/>
+                    android:text="    请选择"
+                    android:onClick="@{() -> presenter.chooseSex()}"
+                    android:gravity="center"
+                    android:textAlignment="textStart"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable" />
 
             </LinearLayout>
 
@@ -130,13 +161,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="出生日期:"
-                    android:gravity="center"/>
-                <EditText
+                    android:text="出生日期"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/txt_birth"
+                    android:gravity="center"
+                    android:onClick="@{() -> presenter.chooseBirthDate()}"
                     android:layout_weight="1"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:text="    请选择"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
             <LinearLayout
@@ -149,27 +190,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="身份证号:"
-                    android:gravity="center"/>
+                    android:text="身份证号"
+                    android:gravity="center"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/txt_vender_phone"/>
+                    android:id="@+id/txt_identity_num"
+                    android:text="    请输入身份证号"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             android:layout_marginBottom="48dp"
             android:text="修改信息"
+            android:onClick="@{() -> presenter.confirmModify()}"
             android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             android:layout_marginEnd="16dp"
-            app:layout_constraintRight_toRightOf="@+id/constraintLayout" />
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+            android:background="@android:color/holo_orange_light"
+            android:layout_width="310dp"
+            android:textSize="19sp" />
     </android.support.constraint.ConstraintLayout>
 </layout>

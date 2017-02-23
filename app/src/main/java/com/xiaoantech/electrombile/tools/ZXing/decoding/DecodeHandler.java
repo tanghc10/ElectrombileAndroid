@@ -13,7 +13,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.xiaoantech.electrombile.R;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.CaptureActivity;
+import com.xiaoantech.electrombile.ui.AddDevice.CaptureActivity;
 import com.xiaoantech.electrombile.tools.ZXing.camera.CameraManager;
 import com.xiaoantech.electrombile.tools.ZXing.camera.PlanarYUVLuminanceSource;
 

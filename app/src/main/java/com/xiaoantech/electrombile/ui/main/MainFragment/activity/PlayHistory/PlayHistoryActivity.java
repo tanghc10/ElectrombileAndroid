@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -23,6 +26,8 @@ import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityPlayhistoryBinding;
 import com.xiaoantech.electrombile.model.GPSPointModel;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapPresenter;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory.MapListActivity;
+import com.xiaoantech.electrombile.utils.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +98,13 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
 
     @Override
     protected void initView() {
+        ((TextView)findViewById(R.id.navigation_title)).setText("历史轨迹");
+        ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayHistoryActivity.this.finish();
+            }
+        });
         mPresenter = new PlayHistoryPresenter(this);
         mBinding.setPresenter(mPresenter);
         mProgressDialog = new ProgressDialog(this);
@@ -136,7 +148,7 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
         for (GPSPointModel gpsPointModel:pointList){
             points.add(gpsPointModel.getBaiduPoint());
         }
-        OverlayOptions overlayOptions = new PolylineOptions().points(points).width(15).color(0xAAFF0000);
+        OverlayOptions overlayOptions = new PolylineOptions().points(points).width(15).color(0xFF0000);
         mBaiduMap.addOverlay(overlayOptions);
     }
 
@@ -193,6 +205,9 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
             mPlayStatus = playStatus.PLAY_STATUS_END;
         }
         LatLng point = pointList.get(mCurrentPointIndex).getBaiduPoint();
+        long timestamp = pointList.get(mCurrentPointIndex).getTimestamp();
+        mBinding.txtTime.setText(TimeUtil.getMinuteStringFromTimeStamp(timestamp));
+        mBinding.txtSpeed.setText("速度:" + pointList.get(mCurrentPointIndex).getSpeed() + "km/h");
         carMarker.setPosition(point);
         mBinding.skr.setProgress(mCurrentPointIndex);
     }

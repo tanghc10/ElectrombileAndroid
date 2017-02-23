@@ -1,7 +1,6 @@
-package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.AddDevice.InputIMEI;
+package com.xiaoantech.electrombile.ui.AddDevice.InputIMEI;
 
 import android.databinding.DataBindingUtil;
-import android.widget.Toast;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;

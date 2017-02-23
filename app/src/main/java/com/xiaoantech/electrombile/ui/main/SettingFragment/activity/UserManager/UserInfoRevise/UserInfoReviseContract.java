@@ -9,9 +9,18 @@ import com.xiaoantech.electrombile.base.BaseView;
 
 public interface UserInfoReviseContract {
     interface View extends BaseView<Presenter> {
+        void changeIcon();
+        void chooseSex();
+        void chooseBirthDate();
 
+        void confirmModify();
     }
 
     interface Presenter extends BasePresenter {
+        void changeIcon();
+        void chooseSex();
+        void chooseBirthDate();
+
+        void confirmModify();
     }
 }

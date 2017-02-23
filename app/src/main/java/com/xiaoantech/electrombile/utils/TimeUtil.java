@@ -19,9 +19,14 @@ public class TimeUtil {
      *
      * @return dataStr String类的实例
      */
+    public static String getMinuteStringFromTimeStamp(long timestamp){
+        Date date = new Date(timestamp*1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm");
+        return sdf.format(date);
+    }
     public static String getDateStringFromTimeStamp(long timestamp){
         Date date = new Date(timestamp*1000);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
 
