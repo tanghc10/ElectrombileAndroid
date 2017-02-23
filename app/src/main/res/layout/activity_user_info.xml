@@ -11,7 +11,18 @@
             type="com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfo.UserInfoContract.Presenter" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/navigation"
+            layout="@layout/bar_navigation_title"/>
+
+
+        <android.support.constraint.ConstraintLayout
+
+
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,6 +36,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/img_setting_info"
             app:layout_constraintRight_toRightOf="@+id/imageView4"
             app:layout_constraintLeft_toLeftOf="@+id/imageView4"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -198,4 +210,7 @@
             android:background="@color/orange" />
 
     </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
 </layout>
