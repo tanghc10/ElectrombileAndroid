@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
+    <color name="appOrange">#f7c035</color>
     <color name="grey_txt">#e7e7e7</color>
     <color name="button_grey">#aaaaaa</color>
     <color name="button_yellow">#f8c035</color>

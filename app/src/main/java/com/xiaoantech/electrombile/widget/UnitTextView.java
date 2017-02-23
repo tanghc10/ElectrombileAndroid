@@ -1,6 +1,7 @@
 package com.xiaoantech.electrombile.widget;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ public class UnitTextView extends RelativeLayout {
         LayoutInflater.from(context).inflate(R.layout.textview_withunit,this);
         mNumTv = (TextView) findViewById(R.id.num_text);
         mSignTv = (TextView) findViewById(R.id.sign_text);
+        String fontPath = "fonts/dincond-regular.ttf";
+        mNumTv.setTypeface(Typeface.createFromAsset(getContext().getAssets(),fontPath));
     }
 
     public void setNumText(String numText){

@@ -1,30 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="38dp"
+        android:id="@+id/constraintLayout"
+        tools:ignore="MissingConstraints">
 
 
         <TextView
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:textSize="28sp"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:textSize="35sp"
             android:gravity="top|center_horizontal"
             android:text="44.9"
-            android:id="@+id/num_text" />
+            android:textColor="@color/black"
+            android:id="@+id/num_text"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+            app:layout_constraintCenterX_toCenterX="@+id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"/>
         <TextView
 
-            android:layout_width="20dp"
-            android:layout_height="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
             android:text="km"
             android:layout_gravity="start"
-            android:textSize="8sp"
-            android:id="@+id/sign_text"/>
-    </LinearLayout>
-</RelativeLayout>
+            android:textSize="10sp"
+            android:id="@+id/sign_text"
+            app:layout_constraintTop_toTopOf="@+id/num_text"
+            app:layout_constraintLeft_toRightOf="@+id/num_text"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
