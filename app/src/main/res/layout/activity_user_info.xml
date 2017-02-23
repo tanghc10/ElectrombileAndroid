@@ -67,14 +67,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="姓名:"
-                    android:gravity="center"/>
+                    android:text="姓名"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:id="@+id/txt_plate_num"/>
+                    android:gravity="center"
+                    android:id="@+id/txt_user_name"
+                    android:text="    请输入您的姓名"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
 
@@ -88,14 +95,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="昵称:"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="昵称"
+                    android:textSize="18sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:id="@+id/txt_frame_num"/>
+                    android:gravity="center"
+                    android:id="@+id/txt_nick_name"
+                    android:text="    请输入您的昵称" />
 
             </LinearLayout>
 
@@ -109,14 +121,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text=" 性别: "
-                    android:gravity="center"/>
+                    android:text=" 性别"
+                    android:gravity="center"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:id="@+id/txt_brand_name"/>
+                    android:gravity="center"
+                    android:id="@+id/txt_sex"/>
 
             </LinearLayout>
 
@@ -130,12 +145,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="出生日期:"
-                    android:gravity="center"/>
+                    android:text="出生日期"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/txt_birth"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -149,20 +169,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="身份证号:"
-                    android:gravity="center"/>
+                    android:text="身份证号"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/txt_vender_phone"/>
+                    android:gravity="center"
+                    android:id="@+id/txt_identity_num"/>
 
             </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             android:layout_marginBottom="48dp"
@@ -171,7 +194,8 @@
             android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             android:layout_marginEnd="16dp"
-            app:layout_constraintRight_toRightOf="@+id/constraintLayout" />
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+            android:background="@color/orange" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

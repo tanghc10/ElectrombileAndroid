@@ -4,6 +4,9 @@ import com.baidu.mapapi.model.LatLng;
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by yangxu on 2016/11/5.
  */
@@ -17,11 +20,14 @@ public interface MainFragmentContract {
         void changeItinerary(int itinerary);
         void changeGPSPoint(LatLng point);
         void changePlaceInfo(String placeInfo);
+        void changeCar();
         void gotoMap();
     }
 
     interface Presenter extends BasePresenter{
         void getWeatherInfo();
+
+        List<Map<String,Object>> getCarListInfo();
 
         void changeFenceStatus();
 
@@ -32,5 +38,7 @@ public interface MainFragmentContract {
         void getGPSInfo();
 
         void gotoMap();
+
+        void changeCar();
     }
 }

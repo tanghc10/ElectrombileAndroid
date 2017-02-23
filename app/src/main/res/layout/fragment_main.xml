@@ -54,7 +54,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             app:layout_constraintRight_toRightOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/messageButton"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintBottom_toTopOf="@+id/btn_change_car"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:id="@+id/imageView" />
@@ -71,7 +71,9 @@
             app:layout_constraintRight_toRightOf="@+id/constraintLayout"
             android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-            android:id="@+id/button3" />
+            android:id="@+id/btn_change_car"
+            android:text="切换车辆"
+            android:onClick="@{() -> presenter.changeCar()}"/>
 
         <Button
             android:layout_width="0dp"
@@ -79,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-            app:layout_constraintBottom_toBottomOf="@+id/button3"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_change_car"
             app:layout_constraintVertical_bias="0.0"
             android:id="@+id/btn_fencne"
             android:onClick="@{() -> presenter.changeFenceStatus()}"
@@ -89,7 +91,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintBottom_toBottomOf="@+id/button3"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_change_car"
             android:layout_height="wrap_content"
             android:id="@+id/button6" />
 
@@ -136,7 +138,7 @@
             app:layout_constraintRight_toRightOf="@+id/constraintLayout"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/button3"
+            app:layout_constraintTop_toBottomOf="@+id/btn_change_car"
             android:layout_marginTop="80dp" />
         <TextView
             android:layout_height="wrap_content"

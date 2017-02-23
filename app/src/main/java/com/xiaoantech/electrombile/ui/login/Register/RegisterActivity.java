@@ -8,6 +8,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityRegisterBinding;
 import com.xiaoantech.electrombile.ui.login.Login.LoginActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfoRevise.UserInfoReviseActivity;
 
 /**
  * Created by yangxu on 2016/10/31.
@@ -47,7 +48,7 @@ public class RegisterActivity extends BaseAcitivity implements RegisterContract.
 
     @Override
     public void finishRegister(){
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, UserInfoReviseActivity.class);
         startActivity(intent);
     }
 }

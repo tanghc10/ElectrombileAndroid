@@ -60,50 +60,135 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp">
 
-            <com.xiaoantech.electrombile.widget.DrawableTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="车辆管理"
-                android:gravity="center_vertical"
-                android:background="@drawable/layout_selector"
-                android:onClick="@{() -> presenter.gotoCarManager()}"
-                />
-            <com.xiaoantech.electrombile.widget.DrawableTextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="车主信息"
-                android:gravity="center_vertical"
-                android:background="@drawable/layout_selector"
-                android:onClick="@{() -> presenter.gotoUserManager()}"
-                />
+                android:layout_height="wrap_content"
+                android:gravity="right">
 
-            <com.xiaoantech.electrombile.widget.DrawableTextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="6dp"
-                android:text="地图下载"
-                android:gravity="center_vertical"
-                android:background="@drawable/layout_selector"
-                android:onClick="@{() -> presenter.gotoMapDownload()}"
-                />
-            <com.xiaoantech.electrombile.widget.DrawableTextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="设置"
-                android:gravity="center_vertical"
-                android:background="@drawable/layout_selector"
-                android:onClick="@{() -> presenter.gotoSettingManager()}"
-                />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/car_manage"
+                    android:id="@+id/imageView10"
+                    android:layout_weight="1" />
 
-            <com.xiaoantech.electrombile.widget.DrawableTextView
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_height="50dp"
+                    android:text="    车辆管理"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/layout_selector"
+                    android:onClick="@{() -> presenter.gotoCarManager()}"
+                    android:layout_width="310dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/info_owner"
+                    android:id="@+id/imageView11"
+                    android:layout_weight="1" />
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:text="    车主信息"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/layout_selector"
+                    android:onClick="@{() -> presenter.gotoUserManager()}"
+                    android:textSize="17sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    app:srcCompat="@drawable/download_map"
+                    android:id="@+id/imageView12"
+                    android:layout_weight="1"
+                    android:layout_height="50dp" />
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:text="    地图下载"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/layout_selector"
+                    android:onClick="@{() -> presenter.gotoMapDownload()}"
+                    android:textSize="17sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"></LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="37dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/setting"
+                    android:id="@+id/imageView13"
+                    android:layout_weight="0.05" />
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:text="    设置"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/layout_selector"
+                    android:onClick="@{() -> presenter.gotoSettingManager()}"
+                    android:textSize="17sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="6dp"
-                android:text="关于小安宝"
-                android:gravity="center_vertical"
-                android:background="@drawable/layout_selector"
-                android:onClick="@{() -> presenter.gotoAboutUs()}"
-                />
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="37dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/about"
+                    android:id="@+id/imageView15"
+                    android:layout_weight="3.52" />
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="310dp"
+                    android:layout_height="50dp"
+                    android:text="    关于小安宝"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/layout_selector"
+                    android:onClick="@{() -> presenter.gotoAboutUs()}"
+                    android:textSize="17sp"
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:textStyle="normal|bold" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

@@ -73,7 +73,7 @@
             android:label="PlayHistoryActivity"/>
         <activity android:name=".ui.main.SettingFragment.activity.CarManager.CarManagerActivity"
             android:label="CarManager"/>
-        <activity android:name=".ui.main.SettingFragment.activity.CarManager.AddDevice.CaptureActivity"
+        <activity android:name=".ui.AddDevice.CaptureActivity"
             android:label="Capture"/>
         <activity android:name=".ui.main.SettingFragment.activity.CarManager.CarInfoDetail.CarInfoDetailActivity"
             android:label="CarInfo"/>
@@ -93,6 +93,8 @@
             android:label="FindCarMap"/>
         <activity android:name=".ui.main.MainFragment.activity.FindCar.FindCarActivity"
             android:label="FindCar"/>
+        <activity android:name=".ui.AddDevice.ChooseBindActivity"
+            android:label="ChooseBind"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />

@@ -48,14 +48,13 @@
 
         <ImageButton
             android:id="@+id/Item_ImageButton_child"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:background="#00000000"
+            android:background="@drawable/sword"
             android:focusable="false"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:layout_width="24dp"
+            android:layout_height="21dp" />
     </LinearLayout>
 
     <View

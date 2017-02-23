@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f3f3f3"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:backgroundTint="@color/background_grey">
 
     <LinearLayout
         android:id="@+id/ll_mapOffline_Location"
@@ -17,9 +18,9 @@
             android:layout_marginLeft="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:textColor="#7f7f7f"
-           />
+            android:text="已下载地图" />
 
         <View
             android:layout_width="match_parent"
@@ -29,12 +30,9 @@
             android:id="@+id/lv_mapOffline_manager"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            tools:listitem="@layout/item_mapofflinelist_child">
+            tools:listitem="@layout/item_mapofflinelist_child"
+            android:background="@color/avoscloud_feedback_white">
         </ListView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="21.67dp"/>
 
     </LinearLayout>
 
@@ -43,9 +41,9 @@
         android:layout_marginLeft="35dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="17sp"
         android:textColor="#7f7f7f"
-       />
+        android:text="下载地图" />
 
     <View
         android:layout_width="match_parent"
@@ -56,5 +54,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:divider="@null"
-        tools:listitem="@layout/item_mapofflinelist_parent"/>
+        tools:listitem="@layout/item_mapofflinelist_parent"
+        android:background="@color/avoscloud_feedback_white" />
 </LinearLayout>
