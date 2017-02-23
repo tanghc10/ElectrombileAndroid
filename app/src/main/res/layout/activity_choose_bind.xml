@@ -97,10 +97,10 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@color/background_grey"></LinearLayout>
+        android:layout_height="match_parent"
+        />
 </LinearLayout>
 
 

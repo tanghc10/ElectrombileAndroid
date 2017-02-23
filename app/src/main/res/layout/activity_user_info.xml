@@ -25,6 +25,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/img_setting_info"
             app:layout_constraintRight_toRightOf="@+id/imageView4"
             app:layout_constraintLeft_toLeftOf="@+id/imageView4"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
