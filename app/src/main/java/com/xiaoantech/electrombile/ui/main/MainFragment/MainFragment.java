@@ -41,6 +41,7 @@ import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.manager.LocationManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.NotifyHistoryActivity.NotifyHistoryActivity;
 import com.xiaoantech.electrombile.widget.Dialog.CustomDialog;
 import com.xiaoantech.electrombile.widget.Dialog.WeatherInfoDialog;
 
@@ -275,6 +276,12 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
         mMarker.setPosition(point);
         moveMapToCenter(point);
+    }
+
+    @Override
+    public void gotoMessage() {
+        Intent intent = new Intent(mContext, NotifyHistoryActivity.class);
+        startActivity(intent);
     }
 
     @Override

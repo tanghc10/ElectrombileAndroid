@@ -10,6 +10,8 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivitySettingBinding;
 import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.AutoLock.AutoLockActivity;
+
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.ChangePass.ChangePassActivity;
 
 /**
@@ -50,6 +52,12 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
     @Override
     public void gotoChangePass() {
         Intent intent = new Intent(SettingManagerActivity.this, ChangePassActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoAutoLock() {
+        Intent intent = new Intent(SettingManagerActivity.this, AutoLockActivity.class);
         startActivity(intent);
     }
 }

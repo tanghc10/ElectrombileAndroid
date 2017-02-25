@@ -98,6 +98,10 @@
             android:label="ChooseBind"/>
         <activity android:name=".ui.AddDevice.InputIMEI.InputIMEIActivity"
             android:label="InputBind"/>
+        <activity android:name=".ui.main.MainFragment.activity.NotifyHistoryActivity.NotifyHistoryActivity"
+            android:label="notifyHistory"/>
+        <activity android:name=".ui.main.SettingFragment.activity.SettingManager.AutoLock.AutoLockActivity"
+            android:label="autolockSet"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

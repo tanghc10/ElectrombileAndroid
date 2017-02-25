@@ -50,8 +50,8 @@
                     android:text="自动设防设置"
                     android:textSize="17sp"
                     android:textStyle="normal|bold"
-                    android:textColor="@color/avoscloud_feedback_back_background"
-                    android:drawableRight="@drawable/to"/>
+                    android:onClick="@{() -> presenter.gotoAutoLock()}"
+                    android:textColor="@color/avoscloud_feedback_back_background" />
 
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
