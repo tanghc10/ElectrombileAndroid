@@ -91,7 +91,8 @@
                         android:id="@+id/txt_car_name"
                         android:hint="        请输入车辆名称"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -125,7 +126,8 @@
                         android:id="@+id/txt_plate_num"
                         android:hint="        请输入车牌号"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -159,7 +161,8 @@
                         android:id="@+id/txt_frame_num"
                         android:hint="        请输入车架号"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -189,9 +192,10 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/txt_battery_version"
-                        android:hint="        请输入电池型号"
+                        android:hint="        请选择电池型号"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -236,7 +240,8 @@
                         android:id="@+id/txt_brand_name"
                         android:hint="        请输入车辆品牌"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -269,7 +274,8 @@
                         android:id="@+id/txt_vender_phone"
                         android:hint="        请输入厂家电话"
                         android:textSize="16sp"
-                        android:textColor="@color/grey_txt" />
+                        android:textColor="@color/grey_txt"
+                        android:background="@null"/>
 
                 </LinearLayout>
 

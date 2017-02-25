@@ -20,34 +20,9 @@
             android:id="@+id/navigation"
             layout="@layout/bar_navigation_title"/>
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/constraintLayout"
-            tools:ignore="MissingConstraints"
-            android:background="@color/background_grey">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                tools:layout_editor_absoluteY="0dp"
-                tools:layout_editor_absoluteX="0dp"
-                android:orientation="horizontal"
-                android:id="@+id/linearLayout7">
-
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/txt_inputIMEI"
-                android:hint="输入产品序列号"
-                android:layout_width="330dp"
-                android:background="@color/avoscloud_feedback_white"
-                android:layout_height="50dp"
-                tools:layout_editor_absoluteX="54dp"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
-
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="30dp"
@@ -59,6 +34,24 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
                 android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/txt_inputIMEI"
+                android:hint="   输入产品序列号"
+                android:layout_width="330dp"
+                android:background="@color/avoscloud_feedback_white"
+                android:layout_height="50dp"
+                tools:layout_editor_absoluteX="54dp"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/constraintLayout"
+            tools:ignore="MissingConstraints"
+            android:background="@color/background_grey">
 
             <Button
                 android:layout_width="300dp"
@@ -73,8 +66,9 @@
                 android:textAllCaps="false"
                 android:backgroundTint="@color/button_yellow"
                 android:id="@+id/button5"
-                android:layout_marginTop="250dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_inputIMEI" />
+                android:layout_marginTop="200dp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_inputIMEI"
+                android:layout_marginBottom="100dp" />
 
         </android.support.constraint.ConstraintLayout>
 
