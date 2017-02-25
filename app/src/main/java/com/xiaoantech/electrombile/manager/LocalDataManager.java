@@ -48,6 +48,9 @@ public class LocalDataManager {
     public final String HTTPPort_Test = "8081";
 
 
+    private final String AutoLock = "AutoLock";
+    private final String AutoLockPeriod = "AutoLockPeriod";
+
     private SharedPreferences sharedPreferences;
 
     private  static LocalDataManager mInstance = null;
@@ -197,5 +200,21 @@ public class LocalDataManager {
 
     public String getIdentityNum(){
         return sharedPreferences.getString(IdentityNum,"");
+    }
+
+    public void setAutoLock(boolean isOn){
+        sharedPreferences.edit().putBoolean(AutoLock,isOn).apply();
+    }
+
+    public boolean getAutoLock(){
+        return sharedPreferences.getBoolean(AutoLock,false);
+    }
+
+    public void setAutoLockPeriod(int period){
+        sharedPreferences.edit().putInt(AutoLockPeriod,period).apply();
+    }
+
+    public int getAutoLockPeriod(){
+        return sharedPreferences.getInt(AutoLockPeriod,5);
     }
 }

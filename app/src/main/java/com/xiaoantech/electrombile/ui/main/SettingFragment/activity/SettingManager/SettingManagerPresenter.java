@@ -23,6 +23,11 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
     }
 
     @Override
+    public void gotoAutoLock() {
+        mSettingManagerView.gotoAutoLock();
+    }
+
+    @Override
     public void gotoChangePass() {
         mSettingManagerView.gotoChangePass();
     }

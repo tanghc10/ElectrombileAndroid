@@ -212,6 +212,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Override
+    public void gotoMessage() {
+        mMainFragmentView.gotoMessage();
+    }
+
+    @Override
     public List<Map<String, Object>> getCarListInfo() {
         List<String> carNameList = BasicDataManager.getInstance().getIMEIList();
 
