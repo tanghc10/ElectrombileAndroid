@@ -16,6 +16,7 @@ import com.baidu.mapapi.map.offline.MKOfflineMapListener;
 import com.orhanobut.logger.Logger;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.model.OfflineMapModel;
+import com.xiaoantech.electrombile.ui.AddDevice.ChooseBindActivity;
 import com.xiaoantech.electrombile.widget.Adapter.OffLineMapExpandableListAdapter;
 import com.xiaoantech.electrombile.widget.Adapter.OfflineMapManagerAdaper;
 
@@ -46,7 +47,14 @@ public class MapDownloadActivity extends Activity implements MKOfflineMapListene
     }
 
     private void initView() {
-
+        View view = (View)findViewById(R.id.navigation);
+        ((TextView)view.findViewById(R.id.navigation_title)).setText("地图下载");
+        ((RelativeLayout)view.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapDownloadActivity.this.finish();
+            }
+        });
         ExpandableListView allCityList = (ExpandableListView) findViewById(R.id.lv_mapOffline_allCity);
         ListView managerList = (ListView) findViewById(R.id.lv_mapOffline_manager);
         ArrayList<OfflineMapModel> allCities = new ArrayList<OfflineMapModel>();

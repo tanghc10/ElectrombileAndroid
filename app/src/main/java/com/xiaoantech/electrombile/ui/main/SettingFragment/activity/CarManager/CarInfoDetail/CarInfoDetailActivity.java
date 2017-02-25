@@ -2,12 +2,16 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityCarinfoDetailBinding;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.model.CarInfoModel;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoRevise.CarInfoReviseActivity;
 
 /**
@@ -37,6 +41,13 @@ public class CarInfoDetailActivity extends BaseAcitivity implements CarInfoDetai
         mPresenter = new CarInfoDetailPresenter(this);
         mBinding.setPresenter(mPresenter);
         mBinding.setCarInfo(mCarInfoModel);
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("车辆信息");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CarInfoDetailActivity.this.finish();
+            }
+        });
         //TODO:设置车辆信息
     }
 

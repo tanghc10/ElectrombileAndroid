@@ -2,11 +2,16 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingMana
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivitySettingBinding;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.AutoLock.AutoLockActivity;
+
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.ChangePass.ChangePassActivity;
 
 /**
@@ -30,7 +35,13 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
     @Override
     protected void initView() {
         mPresenter = new SettingManagerPresenter(this);
-        mBinding.setPresenter(mPresenter);
+        mBinding.setPresenter(mPresenter);((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("设置");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingManagerActivity.this.finish();
+            }
+        });
     }
 
     @Override

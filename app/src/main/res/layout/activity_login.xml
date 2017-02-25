@@ -103,7 +103,8 @@
                     android:id="@+id/text_password"
                     android:layout_height="match_parent"
                     android:layout_width="300dp"
-                    android:hint="请输入6-20位密码" />
+                    android:hint="请输入6-20位密码"
+                    android:background="@null"/>
 
             </LinearLayout>
 

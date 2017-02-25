@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/constraintLayout2"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            android:background="@color/background_grey">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -41,7 +42,8 @@
                     android:text="推送设置"
                     android:textSize="17sp"
                     android:textColor="@color/avoscloud_feedback_back_background"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:drawableRight="@drawable/to"/>
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
@@ -59,10 +61,10 @@
                     android:onClick="@{() -> presenter.gotoChangePass()}"
                     android:textSize="17sp"
                     android:textStyle="normal|bold"
-                    android:textColor="@color/avoscloud_feedback_back_background" />
+                    android:textColor="@color/avoscloud_feedback_back_background"
+                    android:drawableRight="@drawable/to"/>
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
-                    android:layout_marginTop="20dp"
                     style="@style/clickableLayout"
                     android:text="清空缓存"
                     android:textStyle="normal|bold"

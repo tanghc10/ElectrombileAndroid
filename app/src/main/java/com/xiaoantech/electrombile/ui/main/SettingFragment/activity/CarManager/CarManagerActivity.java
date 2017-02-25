@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
@@ -13,6 +15,7 @@ import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.model.CarInfoModel;
 import com.xiaoantech.electrombile.ui.AddDevice.CaptureActivity;
 import com.xiaoantech.electrombile.ui.AddDevice.ChooseBindActivity;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoDetail.CarInfoDetailActivity;
 
 import java.util.ArrayList;
@@ -61,6 +64,14 @@ public class CarManagerActivity extends BaseAcitivity implements  CarManagerCont
     protected void initView() {
         mPresenter = new CarManagerPresenter(this);
         mBinding.setPresenter(mPresenter);
+
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("车辆管理");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CarManagerActivity.this.finish();
+            }
+        });
 
         //已绑定设备显示
         mBinding.imgBindCar.setImageResource(R.drawable.othercar);
