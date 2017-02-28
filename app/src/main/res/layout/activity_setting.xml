@@ -66,6 +66,7 @@
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
+                    android:onClick="@{() -> presenter.gotoPhoneAlarm()}"
                     android:text="清空缓存"
                     android:textStyle="normal|bold"
                     android:textSize="17sp"

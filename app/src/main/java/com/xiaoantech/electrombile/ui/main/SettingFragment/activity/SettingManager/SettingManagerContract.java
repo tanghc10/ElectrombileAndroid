@@ -12,10 +12,12 @@ public interface SettingManagerContract {
     interface View extends BaseView<Presenter> {
         void gotoChangePass();
         void gotoAutoLock();
+        void gotoPhoneAlarm();
     }
 
     interface Presenter extends BasePresenter{
         void gotoChangePass();
         void gotoAutoLock();
+        void gotoPhoneAlarm();
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.xiaoantech.electrombile.constant.TimerConstant;
 
 /**
@@ -62,6 +63,17 @@ public abstract class BaseAcitivity extends AppCompatActivity {
 
     public void hideWaitingDialog() {
         mProgressDialog.cancel();
+        handler.removeMessages(TimerConstant.TimerMessageWhat);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        AVAnalytics.onPause(this);
+    }
 }

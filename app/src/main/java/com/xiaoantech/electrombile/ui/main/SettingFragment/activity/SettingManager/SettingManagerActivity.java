@@ -13,6 +13,7 @@ import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.AutoLock.AutoLockActivity;
 
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.ChangePass.ChangePassActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity;
 
 /**
  * Created by yangxu on 2016/12/14.
@@ -58,6 +59,12 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
     @Override
     public void gotoAutoLock() {
         Intent intent = new Intent(SettingManagerActivity.this, AutoLockActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoPhoneAlarm() {
+        Intent intent = new Intent(SettingManagerActivity.this, PhoneAlarmActivity.class);
         startActivity(intent);
     }
 }
