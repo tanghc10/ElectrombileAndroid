@@ -36,7 +36,8 @@
                 android:layout_marginLeft="30dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"/>
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                android:layout_marginStart="30dp" />
 
 
             <Button
@@ -46,9 +47,8 @@
                 android:background="@drawable/shape"
                 android:id="@+id/btn_autolock"
                 android:onClick="@{ () -> presenter.changeAutoLock()}"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                app:layout_constraintRight_toRightOf="@+id/constraintLayout"/>
+                tools:layout_editor_absoluteY="6dp"
+                tools:layout_editor_absoluteX="323dp" />
         </android.support.constraint.ConstraintLayout>
 
         <View
@@ -71,18 +71,16 @@
                 android:layout_marginLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_5_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_5_minutes"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_5_minutes"/>
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_5_minutes"
+                android:layout_marginStart="20dp" />
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/btn_unselected"
-                android:layout_marginRight="20dp"
                 android:id="@+id/img_5_minutes"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_5_minutes"
-                app:layout_constraintRight_toRightOf="@+id/constraintLayout_5_minutes"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout_5_minutes"
-                android:layout_marginEnd="20dp" />
+                tools:layout_editor_absoluteY="15dp"
+                tools:layout_editor_absoluteX="361dp" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -107,7 +105,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_10_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_10_minutes"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_10_minutes"
-                />
+                android:layout_marginStart="20dp" />
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -140,7 +138,8 @@
                 android:layout_marginLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_15_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_15_minutes"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_15_minutes"/>
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_15_minutes"
+                android:layout_marginStart="20dp" />
 
             <ImageView
                 android:layout_width="30dp"

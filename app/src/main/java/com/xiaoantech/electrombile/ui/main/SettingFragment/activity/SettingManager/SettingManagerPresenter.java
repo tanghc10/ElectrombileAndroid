@@ -31,4 +31,9 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
     public void gotoChangePass() {
         mSettingManagerView.gotoChangePass();
     }
+
+    @Override
+    public void gotoPhoneAlarm() {
+        mSettingManagerView.gotoPhoneAlarm();
+    }
 }
