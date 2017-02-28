@@ -11,11 +11,12 @@ public interface AutoLockContract {
 
     interface View extends BaseView<Presenter>{
         void changeAutoLockState(boolean isOn);
-
+        void changeAutoLockPeriodImg(int Period);
     }
 
     interface Presenter extends BasePresenter{
         void changeAutoLock();
+        void changeAutoLockPeriod(int period);
     }
 
 }

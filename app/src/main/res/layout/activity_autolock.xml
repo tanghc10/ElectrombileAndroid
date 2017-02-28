@@ -15,7 +15,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout">
 
         <include
             android:id="@+id/navigation"
@@ -31,7 +32,7 @@
                 android:layout_height="0dp"
                 android:text="自动设防"
                 android:gravity="center"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="30dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
@@ -41,30 +42,32 @@
 
             <Button
                 android:layout_width="88dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="已开启"
+                android:background="@drawable/shape"
                 android:id="@+id/btn_autolock"
                 android:onClick="@{ () -> presenter.changeAutoLock()}"
                 tools:layout_editor_absoluteY="6dp"
                 tools:layout_editor_absoluteX="323dp" />
         </android.support.constraint.ConstraintLayout>
 
-        <!--<view-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="10dp"-->
-            <!--android:background="@color/lightgray"-->
-            <!--/>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/background_grey"/>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/constraintLayout_5_minutes"
+            android:onClick="@{ () -> presenter.changeAutoLockPeriod(5) }"
             tools:ignore="MissingConstraints">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:text="5分钟"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_5_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_5_minutes"
@@ -81,16 +84,22 @@
 
         </android.support.constraint.ConstraintLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_grey"/>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/constraintLayout_10_minutes"
+            android:onClick="@{ () -> presenter.changeAutoLockPeriod(10) }"
             tools:ignore="MissingConstraints">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="10分钟"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_10_minutes"
@@ -109,17 +118,23 @@
                 android:layout_marginEnd="20dp" />
         </android.support.constraint.ConstraintLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_grey"/>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/constraintLayout_15_minutes"
+            android:onClick="@{ () -> presenter.changeAutoLockPeriod(15) }"
             tools:ignore="MissingConstraints">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="15分钟"
                 android:gravity="center"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_15_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_15_minutes"
@@ -138,7 +153,10 @@
                 android:layout_marginEnd="20dp" />
         </android.support.constraint.ConstraintLayout>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_grey"/>
     </LinearLayout>
 
 </layout>
