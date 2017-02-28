@@ -2,11 +2,14 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingMana
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
@@ -17,6 +20,7 @@ import com.xiaoantech.electrombile.event.cmd.AutoPeriodEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,6 +54,19 @@ public class AutoLockActivity extends BaseAcitivity implements AutoLockContract.
     protected void initView() {
         mPresenter = new AutoLockPresenter(this);
         mBinding.setPresenter(mPresenter);
+       if (LocalDataManager.getInstance().getAutoLock()){
+            changeAutoLockPeriodImg(LocalDataManager.getInstance().getAutoLockPeriod());
+        }else {
+            changeAutoLockPeriodImg(0);
+            mBinding.btnAutolock.setText("已关闭");
+        }
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("自动设防设置");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AutoLockActivity.this.finish();
+            }
+        });
     }
 
     @Override
@@ -59,73 +76,63 @@ public class AutoLockActivity extends BaseAcitivity implements AutoLockContract.
 
     @Override
     public void changeAutoLockState(boolean isOn) {
-        if (isOn){
+        if (isOn) {
             mBinding.btnAutolock.setText("已开启");
-        }else {
+            changeAutoLockPeriodImg(5);
+        } else {
             mBinding.btnAutolock.setText("已关闭");
+            changeAutoLockPeriodImg(0);
         }
         showToast("设置成功");
     }
 
-    //    private ImageView imageView_5_minutes;
-//    private ImageView imageView_10_minutes;
-//    private ImageView imageView_15_minutes;
-//    private Button           btn_autolock;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        try {
-//            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_autolock);
-//
-//            imageView_5_minutes = (ImageView) findViewById(R.id.img_5_minutes);
-//            imageView_10_minutes = (ImageView) findViewById(R.id.img_10_minutes);
-//            imageView_15_minutes = (ImageView) findViewById(R.id.img_10_minutes);
-//            btn_autolock = (Button) findViewById(R.id.btn_autolock);
-//
-//            btn_autolock.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (!LocalDataManager.getInstance().getAutoLock()){
-//                        MqttPublishManager.getInstance().autoLockOn(BasicDataManager.getInstance().getBindIMEI());
-//                    }else {
-//                        MqttPublishManager.getInstance().autoLockOff(BasicDataManager.getInstance().getBindIMEI());
-//                    }
-//                }
-//            });
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        EventBus.getDefault().register(this);
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        EventBus.getDefault().unregister(this);
-//    }
-//
-//    public void constraintOnClick(View view){
-//        switch (view.getId()){
-//            case R.id.constraintLayout_5_minutes:
-//                MqttPublishManager.getInstance().setAutoPeriod(BasicDataManager.getInstance().getBindIMEI(),5);
-//                break;
-//            case R.id.constraintLayout_10_minutes:
-//                MqttPublishManager.getInstance().setAutoPeriod(BasicDataManager.getInstance().getBindIMEI(),10);
-//                break;
-//            case R.id.constraintLayout_15_minutes:
-//                MqttPublishManager.getInstance().setAutoPeriod(BasicDataManager.getInstance().getBindIMEI(),15);
-//                break;
-//        }
-//    }
+    public void changeAutoLockPeriodImg(int Period) {
+        switch (Period){
+            case 5:
+                MarkImage_5minutes();
+                break;
+            case 10:
+                MarkImage_10minutes();
+                break;
+            case 15:
+                MarkImage_15minutes();
+                break;
+            default:
+                MarkImage_Nominutes();
+        }
+    }
 
+    public void MarkImage_Nominutes() {
+        mBinding.img5Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img10Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img15Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+    }
+    public void MarkImage_5minutes() {
+        mBinding.img5Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_selected));
+        mBinding.img10Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img15Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+    }
+    public void MarkImage_10minutes() {
+        mBinding.img5Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img10Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_selected));
+        mBinding.img15Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+    }
+    public void MarkImage_15minutes() {
+        mBinding.img5Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img10Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_unselected));
+        mBinding.img15Minutes.setImageDrawable(this.getResources().getDrawable(R.drawable.btn_selected));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
 
 }

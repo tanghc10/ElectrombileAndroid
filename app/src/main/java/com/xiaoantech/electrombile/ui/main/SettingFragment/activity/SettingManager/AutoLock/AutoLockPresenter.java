@@ -7,6 +7,7 @@ import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
@@ -27,12 +28,12 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
 
     @Override
     public void subscribe() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void unsubscribe() {
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -45,7 +46,17 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
         mAutoLock.showWaitingDialog("正在设置");
     }
 
-
+    @Override
+    public void changeAutoLockPeriod(int period) {
+        if (LocalDataManager.getInstance().getAutoLock()){
+            MqttPublishManager.getInstance().setAutoPeriod(BasicDataManager.getInstance().getBindIMEI(),period);
+            LocalDataManager.getInstance().setAutoLockPeriod(period);
+            mAutoLock.changeAutoLockPeriodImg(period);
+            mAutoLock.showWaitingDialog("正在设置");
+        }else {
+            mAutoLock.showToast("请先打开自动设防");
+        }
+    }
 
     private void dealWithErrorCode(int errorCode){
         if (errorCode == 100){
@@ -83,11 +94,22 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
         JSONObject object = event.getJsonObject();
         try {
             int code = object.getInt("code");
+            int Period = 0;
             if (code == 0){
                 if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_AUTOPERIOD_SET){
-
+                    mAutoLock.showToast("设置成功");
+                    Period= object.getJSONObject("result").getInt("period");
+                    if (Period != 0){
+                        mAutoLock.changeAutoLockPeriodImg(Period);
+                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
+                    }
                 }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_AUTOPERIOD_GET){
-
+                    mAutoLock.showToast("设置成功");
+                    Period= object.getJSONObject("result").getInt("period");
+                    if (Period != 0) {
+                        mAutoLock.changeAutoLockPeriodImg(Period);
+                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
+                    }
                 }
             }else {
                 dealWithErrorCode(code);
@@ -96,6 +118,5 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
             e.printStackTrace();
         }
     }
-
 
 }

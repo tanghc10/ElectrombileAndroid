@@ -48,6 +48,7 @@
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
                     android:text="自动设防设置"
+                    android:drawableRight="@drawable/to"
                     android:textSize="17sp"
                     android:textStyle="normal|bold"
                     android:onClick="@{() -> presenter.gotoAutoLock()}"
