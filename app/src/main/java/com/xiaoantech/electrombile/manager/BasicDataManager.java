@@ -41,6 +41,14 @@ public class BasicDataManager {
         return mInstance;
     }
 
+    public void initFromLocal(){
+        bindIMEI = LocalDataManager.getInstance().getIMEI();
+        IMEIList = LocalDataManager.getInstance().getIMEIList();
+        carInfoList = LocalDataManager.getInstance().getCarInfoList();
+        if (carInfoList.size() > 0)
+            bindCarInfo = carInfoList.get(0);
+    }
+
     public void fetchBasicDataIMEIList(){
         AVQuery<AVObject> query = new AVQuery<>(LeanCloudConstant.BindTable);
         query.whereEqualTo(LeanCloudConstant.User,AVUser.getCurrentUser());
@@ -173,20 +181,23 @@ public class BasicDataManager {
             carInfoList.add(0,new CarInfoModel(IMEI));
         }else {
             for (int i = 0; i < IMEIList.size(); i++) {
-                if (IMEIList.get(i).equals(IMEI)){
+                if (IMEIList.get(i).equals(IMEI)) {
                     CarInfoModel tmp = carInfoList.get(i);
 
                     IMEIList.remove(i);
-                    IMEIList.add(0,IMEI);
+                    IMEIList.add(0, IMEI);
 
                     carInfoList.remove(i);
-                    carInfoList.add(0,tmp);
+                    carInfoList.add(0, tmp);
                 }
             }
         }
-
-        bindIMEI = IMEI;
+        MqttManager.getInstance().unsubScribe(bindIMEI);
+        MqttManager.getInstance().subscribe(IMEI);
+        BasicDataManager.getInstance().setBindIMEI(IMEI);
         LocalDataManager.getInstance().setIMEI(IMEI);
         LocalDataManager.getInstance().setIMEIList(IMEIList);
     }
+
+
 }

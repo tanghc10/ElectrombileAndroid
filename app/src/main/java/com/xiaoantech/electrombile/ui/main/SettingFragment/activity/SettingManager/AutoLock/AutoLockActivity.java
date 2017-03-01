@@ -1,31 +1,15 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.AutoLock;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.media.Image;
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
-import com.xiaoantech.electrombile.constant.EventBusConstant;
 import com.xiaoantech.electrombile.databinding.ActivityAutolockBinding;
-import com.xiaoantech.electrombile.event.cmd.AutoLockEvent;
-import com.xiaoantech.electrombile.event.cmd.AutoPeriodEvent;
-import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
-import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
-import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
 /**
  * Created by yangxu on 2017/2/23.
@@ -42,12 +26,7 @@ public class AutoLockActivity extends BaseAcitivity implements AutoLockContract.
 
     @Override
     protected void bindData() {
-        try {
             mBinding = DataBindingUtil.setContentView(this, R.layout.activity_autolock);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override

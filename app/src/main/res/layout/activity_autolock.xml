@@ -47,8 +47,10 @@
                 android:background="@drawable/shape"
                 android:id="@+id/btn_autolock"
                 android:onClick="@{ () -> presenter.changeAutoLock()}"
-                tools:layout_editor_absoluteY="6dp"
-                tools:layout_editor_absoluteX="323dp" />
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="@id/constraintLayout"
+                app:layout_constraintBottom_toBottomOf="@id/constraintLayout"/>
         </android.support.constraint.ConstraintLayout>
 
         <View
@@ -79,8 +81,11 @@
                 android:layout_height="30dp"
                 android:background="@drawable/btn_unselected"
                 android:id="@+id/img_5_minutes"
-                tools:layout_editor_absoluteY="15dp"
-                tools:layout_editor_absoluteX="361dp" />
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_5_minutes"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout_5_minutes"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout_5_minutes"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp" />
 
         </android.support.constraint.ConstraintLayout>
 

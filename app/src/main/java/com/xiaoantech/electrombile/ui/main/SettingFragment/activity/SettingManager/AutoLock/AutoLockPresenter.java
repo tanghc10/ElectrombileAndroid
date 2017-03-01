@@ -19,6 +19,7 @@ import org.json.JSONObject;
 public class AutoLockPresenter implements AutoLockContract.Presenter {
     private final static String TAG = "AutoLockPresenter";
     private AutoLockContract.View mAutoLock;
+    private int   autoLockPeriod;
 
 
     protected AutoLockPresenter(AutoLockContract.View autoLock){
@@ -52,6 +53,7 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
             MqttPublishManager.getInstance().setAutoPeriod(BasicDataManager.getInstance().getBindIMEI(),period);
             LocalDataManager.getInstance().setAutoLockPeriod(period);
             mAutoLock.changeAutoLockPeriodImg(period);
+            autoLockPeriod = period;
             mAutoLock.showWaitingDialog("正在设置");
         }else {
             mAutoLock.showToast("请先打开自动设防");
@@ -98,18 +100,22 @@ public class AutoLockPresenter implements AutoLockContract.Presenter {
             if (code == 0){
                 if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_AUTOPERIOD_SET){
                     mAutoLock.showToast("设置成功");
-                    Period= object.getJSONObject("result").getInt("period");
-                    if (Period != 0){
-                        mAutoLock.changeAutoLockPeriodImg(Period);
-                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
-                    }
+                    mAutoLock.changeAutoLockPeriodImg(autoLockPeriod);
+                    LocalDataManager.getInstance().setAutoLockPeriod(autoLockPeriod);
+//                    Period= object.getJSONObject("result").getInt("period");
+//                    if (Period != 0){
+//                        mAutoLock.changeAutoLockPeriodImg(Period);
+//                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
+//                    }
                 }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_AUTOPERIOD_GET){
                     mAutoLock.showToast("设置成功");
-                    Period= object.getJSONObject("result").getInt("period");
-                    if (Period != 0) {
-                        mAutoLock.changeAutoLockPeriodImg(Period);
-                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
-                    }
+                    mAutoLock.changeAutoLockPeriodImg(autoLockPeriod);
+                    LocalDataManager.getInstance().setAutoLockPeriod(autoLockPeriod);
+//                    Period= object.getJSONObject("result").getInt("period");
+//                    if (Period != 0) {
+//                        mAutoLock.changeAutoLockPeriodImg(Period);
+//                        LocalDataManager.getInstance().setAutoLockPeriod(Period);
+//                    }
                 }
             }else {
                 dealWithErrorCode(code);
