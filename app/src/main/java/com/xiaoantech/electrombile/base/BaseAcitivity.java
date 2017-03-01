@@ -66,14 +66,4 @@ public abstract class BaseAcitivity extends AppCompatActivity {
         handler.removeMessages(TimerConstant.TimerMessageWhat);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AVAnalytics.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        AVAnalytics.onPause(this);
-    }
 }

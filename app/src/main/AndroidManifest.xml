@@ -113,7 +113,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />
         <meta-data android:name="leancloud" android:value="LeanCloud"/>
-        
+
     </application>
 
 </manifest>

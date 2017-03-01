@@ -2,12 +2,16 @@ package com.xiaoantech.electrombile.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
+import com.alibaba.fastjson.JSON;
 import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.constant.LayoutConstant;
+import com.xiaoantech.electrombile.model.CarInfoModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,7 @@ public class LocalDataManager {
 
     private final String IMEI = "IMEI";
     private final String IMEIList = "IMEIList";
+    private final String CarInfoList = "CarInfoList";
 
     private final String MQTTHost = "MQTTHost";
     private final String MQTTPort = "MQTTPort";
@@ -102,31 +107,70 @@ public class LocalDataManager {
         return imeiList;
     }
 
+    public void setCarInfoList(List<CarInfoModel> carInfoList){
+        if (carInfoList == null){
+            sharedPreferences.edit().putString(CarInfoList,null).apply();
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject;
+        try {
+            for (CarInfoModel carInfoModel:carInfoList){
+                jsonObject = new JSONObject();
+                jsonObject.put("name",carInfoModel.getName());
+                jsonObject.put("IMEI",carInfoModel.getIMEI());
+                jsonObject.put("bindTime",carInfoModel.getBindTime());
+                jsonObject.put("cropImage",carInfoModel.getCropImage());
+                jsonArray.put(jsonObject);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        sharedPreferences.edit().putString("",jsonArray.toString()).apply();
+    }
+
+    public List<CarInfoModel> getCarInfoList(){
+        List<CarInfoModel> carInfoList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(sharedPreferences.getString(CarInfoList," "));
+            for (int i = 0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                CarInfoModel carInfoModel = new CarInfoModel(jsonObject.getString("IMEI"),jsonObject.getLong("bindTime"));
+                carInfoModel.setName(jsonObject.getString("name"));
+                carInfoModel.setCropImage((Bitmap) jsonObject.get("cropImage"));
+                carInfoList.add(carInfoModel);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return carInfoList;
+    }
+
     public void setMQTTHost(String mqttHost){
         sharedPreferences.edit().putString(MQTTHost,mqttHost).apply();
     }
     public String getMQTTHost() {
-        return sharedPreferences.getString(MQTTHost,MQTTHost_Release);
+        return sharedPreferences.getString(MQTTHost,MQTTHost_Test);
     }
 
     public void setMQTTPort(String mqttPort) {
         sharedPreferences.edit().putString(MQTTPort,mqttPort).apply();
     }
     public String getMQTTPort() {
-        return sharedPreferences.getString(MQTTPort,MQTTPort_Release);
+        return sharedPreferences.getString(MQTTPort,MQTTPort_Test);
     }
 
     public void setHTTPHost(String httpHost) {
         sharedPreferences.edit().putString(HTTPHost,httpHost).apply();
     }
     public String getHTTPHost(){
-        return sharedPreferences.getString(HTTPHost,HTTPHost_Release);
+        return sharedPreferences.getString(HTTPHost,HTTPHost_Test);
     }
     public void setHTTPPort(String httpPort){
         sharedPreferences.edit().putString(HTTPPort,httpPort).apply();
     }
     public String getHTTPPort(){
-        return sharedPreferences.getString(HTTPPort,HTTPPort_Release);
+        return sharedPreferences.getString(HTTPPort,HTTPPort_Test);
     }
 
     public LayoutConstant.MapType getMapType(){
