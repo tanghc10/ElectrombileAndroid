@@ -36,4 +36,9 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
     public void gotoPhoneAlarm() {
         mSettingManagerView.gotoPhoneAlarm();
     }
+
+    @Override
+    public void logout() {
+        mSettingManagerView.logout();
+    }
 }

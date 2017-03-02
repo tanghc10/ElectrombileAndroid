@@ -46,5 +46,7 @@ public interface MainFragmentContract {
         void changeCar();
 
         void gotoMessage();
+
+        void getWeatherInfo();
     }
 }
