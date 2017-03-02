@@ -70,9 +70,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
 
-        MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
-        getItinerary();
-        getWeatherInfo();
     }
 
     @Override

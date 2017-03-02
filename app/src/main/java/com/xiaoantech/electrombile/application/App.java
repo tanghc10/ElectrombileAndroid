@@ -46,13 +46,12 @@ public class App extends Application {
         AVUser user = AVUser.getCurrentUser();
         if (null != user){
             //已经有登陆状态
-            if(null != LocalDataManager.getInstance().getIMEI()) {
+            if(null != LocalDataManager.getInstance().getIMEI() && !LocalDataManager.getInstance().getIMEI().isEmpty()) {
                 MqttManager.getInstance().subscribe(LocalDataManager.getInstance().getIMEI());
-                MqttPublishManager.getInstance().getStatus(LocalDataManager.getInstance().getIMEI());
                 gotoFragmentActivity();
 
                 //TODO: 暂时直接从服务器获取，之后本地化
-                BasicDataManager.getInstance().fetchBasicDataIMEIList();
+                BasicDataManager.getInstance().initFromLocal();
             }else {
                 gotoLoginActivity();
             }

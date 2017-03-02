@@ -3,11 +3,13 @@ package com.xiaoantech.electrombile.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.constant.LayoutConstant;
 import com.xiaoantech.electrombile.model.CarInfoModel;
+import com.xiaoantech.electrombile.utils.BitmapUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,6 +74,11 @@ public class LocalDataManager {
         sharedPreferences = context.getSharedPreferences(SHARE_PREFERENCES,Context.MODE_PRIVATE);
     }
 
+    public void cleanDevice(){
+        setIMEI("");
+    }
+
+
     public void setIMEI(String imei) {
         sharedPreferences.edit().putString(IMEI,imei).apply();
     }
@@ -82,7 +89,7 @@ public class LocalDataManager {
 
     public void setIMEIList(List<String> imeiList) {
         if (imeiList == null){
-            sharedPreferences.edit().putString(IMEIList," ").apply();
+            sharedPreferences.edit().putString(IMEIList,"").apply();
             return;
         }
 
@@ -97,7 +104,7 @@ public class LocalDataManager {
         List<String> imeiList = new ArrayList<>();
         JSONArray jsonArray;
         try{
-            jsonArray = new JSONArray(sharedPreferences.getString(IMEIList," "));
+            jsonArray = new JSONArray(sharedPreferences.getString(IMEIList,""));
             for (int i = 0; i < jsonArray.length(); i++){
                 imeiList.add(jsonArray.getString(i));
             }
@@ -109,7 +116,7 @@ public class LocalDataManager {
 
     public void setCarInfoList(List<CarInfoModel> carInfoList){
         if (carInfoList == null){
-            sharedPreferences.edit().putString(CarInfoList,null).apply();
+            sharedPreferences.edit().putString(CarInfoList,"").apply();
         }
 
         JSONArray jsonArray = new JSONArray();
@@ -120,13 +127,13 @@ public class LocalDataManager {
                 jsonObject.put("name",carInfoModel.getName());
                 jsonObject.put("IMEI",carInfoModel.getIMEI());
                 jsonObject.put("bindTime",carInfoModel.getBindTime());
-                jsonObject.put("cropImage",carInfoModel.getCropImage());
+                jsonObject.put("cropImage", BitmapUtil.convertBitmapTOString(carInfoModel.getCropImage()));
                 jsonArray.put(jsonObject);
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
-        sharedPreferences.edit().putString("",jsonArray.toString()).apply();
+        sharedPreferences.edit().putString(CarInfoList,jsonArray.toString()).apply();
     }
 
     public List<CarInfoModel> getCarInfoList(){
@@ -136,11 +143,11 @@ public class LocalDataManager {
             for (int i = 0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 CarInfoModel carInfoModel = new CarInfoModel(jsonObject.getString("IMEI"),jsonObject.getLong("bindTime"));
+                carInfoModel.setCropImage(BitmapUtil.convertStringToBitmap(jsonObject.getString("cropImage")));
                 carInfoModel.setName(jsonObject.getString("name"));
-                carInfoModel.setCropImage((Bitmap) jsonObject.get("cropImage"));
                 carInfoList.add(carInfoModel);
             }
-        }catch (JSONException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return carInfoList;

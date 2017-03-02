@@ -13,11 +13,13 @@ public interface SettingManagerContract {
         void gotoChangePass();
         void gotoAutoLock();
         void gotoPhoneAlarm();
+        void logout();
     }
 
     interface Presenter extends BasePresenter{
         void gotoChangePass();
         void gotoAutoLock();
         void gotoPhoneAlarm();
+        void logout();
     }
 }
