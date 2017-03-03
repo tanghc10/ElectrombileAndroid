@@ -17,7 +17,7 @@ import com.xiaoantech.electrombile.event.cmd.BatteryEvent;
 import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
-import com.xiaoantech.electrombile.event.http.HttpEvent;
+import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
@@ -125,7 +125,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onHttpEvent(HttpEvent event){
+    public void onHttpEvent(HttpGetEvent event){
         if (event.getRequestType() == HttpManager.getType.GET_TYPE_WEATHER){
             didReceiveWeather(event.getResult());
         }else if (event.getRequestType() == HttpManager.getType.GET_TYPE_TODAYITINERARY){

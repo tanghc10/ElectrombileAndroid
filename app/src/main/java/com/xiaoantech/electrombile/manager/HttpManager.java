@@ -1,21 +1,18 @@
 package com.xiaoantech.electrombile.manager;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
-import com.xiaoantech.electrombile.event.http.HttpEvent;
+import android.os.Bundle;
+
+import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.HttpPostEvent;
+import com.xiaoantech.electrombile.event.http.HttpPutEvent;
+import com.xiaoantech.electrombile.event.http.HttpDeleteEvent;
 import com.xiaoantech.electrombile.utils.StreamToStringUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by yangxu on 2016/11/7.
@@ -26,21 +23,134 @@ public class HttpManager {
         GET_TYPE_WEATHER,
         GET_TYPE_TODAYITINERARY,
         GET_TYPE_ROUTES,
-        GET_TYPE_GPS_POINTS
+        GET_TYPE_GPS_POINTS,
+        GET_TYPE_ALARMPHONE
     }
-    public static void getHttpResult(String url, final getType type){
-        final String Url = url;
+    public enum postType{
+        POST_TYPE_WEATHER,
+        POST_TYPE_TODAYITINERARY,
+        POST_TYPE_ROUTES,
+        POST_TYPE_GPS_POINTS,
+        POST_TYPE_ALARMPHONE
+    }
+    public enum putType{
+        PUT_TYPE_WEATHER,
+        PUT_TYPE_TODAYITINERARY,
+        PUT_TYPE_ROUTES,
+        PUT_TYPE_GPS_POINTS,
+        PUT_TYPE_ALARMPHONE
+    }
+    public enum deleteType{
+        DELETE_TYPE_WEATHER,
+        DELETE_TYPE_TODAYITINERARY,
+        DELETE_TYPE_ROUTES,
+        DELETE_TYPE_GPS_POINTS,
+        DELETE_TYPE_ALARMPHONE
+    }
+    public static void getHttpResult(final String url, final getType gettype){
         new Thread(new Runnable(){
             @Override
             public void run() {
                 HttpURLConnection connection;
                 try {
-                    URL getURL = new URL(Url);
+                    URL getURL = new URL(url);
                     connection = (HttpURLConnection) getURL.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(5000);
                     String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                    EventBus.getDefault().post(new HttpEvent(type,StringUtil.decodeUnicode(result),true));
+                    EventBus.getDefault().post(new HttpGetEvent(gettype,StringUtil.decodeUnicode(result),true));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void postHttpResult(final String url, final postType posttype, final String body) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection;
+                byte[] bytes = body.getBytes();
+                try {
+                    URL getURL = new URL(url);
+                    connection = (HttpURLConnection) getURL.openConnection();
+                    connection.setRequestMethod("POST");
+                    connection.setConnectTimeout(5000);
+                    connection.setUseCaches(false);        //设置不进行缓存
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Connection", "keep-alive");
+                    connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpPostEvent(posttype,StringUtil.decodeUnicode(result),true));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void putHttpResult(final String url, final putType puttype, final String body) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection;
+                byte[] bytes = body.getBytes();
+                try {
+                    URL getURL = new URL(url);
+                    connection = (HttpURLConnection) getURL.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestMethod("PUT");
+                    connection.setConnectTimeout(5000);
+                    connection.setUseCaches(false);
+                    connection.setInstanceFollowRedirects(true);        //设置不进行缓存
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Connection", "keep-alive");
+                    connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpPutEvent(puttype,StringUtil.decodeUnicode(result),true));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void deleteHttpResult(final String url, final deleteType deletetype, final String body) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection;
+                byte[] bytes = body.getBytes();
+                try {
+                    URL getURL = new URL(url);
+                    connection = (HttpURLConnection) getURL.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestMethod("DELETE");
+                    connection.setConnectTimeout(5000);
+                    connection.setUseCaches(false);
+                    connection.setInstanceFollowRedirects(true);        //设置不进行缓存
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Connection", "keep-alive");
+                    connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpDeleteEvent(deletetype,StringUtil.decodeUnicode(result),true));
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }

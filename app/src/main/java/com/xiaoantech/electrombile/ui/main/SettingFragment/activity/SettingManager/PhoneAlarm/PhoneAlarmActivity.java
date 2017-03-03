@@ -49,4 +49,8 @@ public class PhoneAlarmActivity extends BaseAcitivity implements PhoneAlarmContr
     public void setPresenter(PhoneAlarmContract.Presenter Presenter) {
         this.mPresenter = Presenter;
     }
+
+    public void putAlarmPhoneFormHttp(){
+        mPresenter.putAlarmPhoneFormHttp();
+    }
 }
