@@ -86,7 +86,6 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
     public void putAlarmPhoneFormHttp(){
         String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
         String url = baseUrl + "/v1/telephone/"+BasicDataManager.getInstance().getBindIMEI();
-        ;
         String body = "{\"caller\":\"0\"}";
         HttpManager.putHttpResult(url, HttpManager.putType.PUT_TYPE_ALARMPHONE, body);
     }

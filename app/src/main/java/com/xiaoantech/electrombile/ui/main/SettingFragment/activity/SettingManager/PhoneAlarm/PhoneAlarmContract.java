@@ -10,7 +10,6 @@ import com.xiaoantech.electrombile.base.BaseView;
 public interface PhoneAlarmContract {
 
     interface View extends BaseView<Presenter>{
-        void putAlarmPhoneFormHttp();
     }
 
     interface Presenter extends BasePresenter{
