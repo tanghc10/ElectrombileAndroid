@@ -53,7 +53,7 @@ public class PhoneAlarmActivity extends BaseAcitivity implements PhoneAlarmContr
     }
 
     public void setAlarmPhoneTest(){
-        Button button = mBinding.btnStartTest;
+        Button button =(Button)findViewById(R.id.btn_start_test);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

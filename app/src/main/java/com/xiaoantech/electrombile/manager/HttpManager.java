@@ -11,6 +11,9 @@ import com.xiaoantech.electrombile.utils.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -82,8 +85,9 @@ public class HttpManager {
                     connection.setDoInput(true);
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setRequestProperty("Connection", "keep-alive");
-                    connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-
+                    connection.setRequestProperty("Content-Length", "30");
+                    connection.setRequestProperty("Token", body);
+                    connection.connect();
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
@@ -109,17 +113,32 @@ public class HttpManager {
                     connection.setDoInput(true);
                     connection.setRequestMethod("PUT");
                     connection.setConnectTimeout(5000);
-                    connection.setUseCaches(false);
-                    connection.setInstanceFollowRedirects(true);        //设置不进行缓存
+                    connection.setUseCaches(false);        //设置不用缓存
+                    connection.setInstanceFollowRedirects(true);
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setRequestProperty("Connection", "keep-alive");
-                    connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-
-                    int response = connection.getResponseCode();
-                    if (response == HttpURLConnection.HTTP_OK){
+                    connection.setRequestProperty("Content-Length", String.valueOf(bytes));
+                    //connection.setRequestProperty("Token", body);
+                    OutputStream out = connection.getOutputStream();
+                    out.write(bytes);
+                    out.flush();
+                    out.close();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String lines;
+                    StringBuffer sb = new StringBuffer("");
+                    while ((lines = reader.readLine()) != null){
+                        lines = new String(lines.getBytes(), "utf-8");
+                        sb.append(lines);
+                    }
+                    /*
+                    if (connection.getResponseCode() == 200){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
                         EventBus.getDefault().post(new HttpPutEvent(puttype,StringUtil.decodeUnicode(result),true));
                     }
+                    */
+                    System.out.println(sb);
+                    reader.close();
+                    connection.disconnect();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -140,8 +159,8 @@ public class HttpManager {
                     connection.setDoInput(true);
                     connection.setRequestMethod("DELETE");
                     connection.setConnectTimeout(5000);
-                    connection.setUseCaches(false);
-                    connection.setInstanceFollowRedirects(true);        //设置不进行缓存
+                    connection.setUseCaches(false);        //设置不进行缓存
+                    connection.setInstanceFollowRedirects(true);
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setRequestProperty("Connection", "keep-alive");
                     connection.setRequestProperty("Content-Length", String.valueOf(bytes.length));
