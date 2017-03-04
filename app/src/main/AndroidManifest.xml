@@ -109,6 +109,8 @@
             android:label="autolockSet"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity"
             android:label="PhoneAlarm"/>
+        <activity android:name=".ui.main.Unkown.Record.RecordActivity"
+            android:label="Record"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />
