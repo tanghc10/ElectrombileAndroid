@@ -118,7 +118,7 @@ public class HttpManager {
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setRequestProperty("Connection", "keep-alive");
                     connection.setRequestProperty("Content-Length", String.valueOf(bytes));
-                    //connection.setRequestProperty("Token", body);
+                    connection.connect();
                     OutputStream out = connection.getOutputStream();
                     out.write(bytes);
                     out.flush();
@@ -130,15 +130,32 @@ public class HttpManager {
                         lines = new String(lines.getBytes(), "utf-8");
                         sb.append(lines);
                     }
+                    if (connection.getResponseCode() == 200){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpPutEvent(puttype,StringUtil.decodeUnicode(result.toString()),true));
+                    }else {
+                        connection.disconnect();
+                    }
+                    /*OutputStream out = connection.getOutputStream();
+                    out.write(bytes);
+                    out.flush();
+                    out.close();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String lines;
+                    StringBuffer sb = new StringBuffer("");
+                    while ((lines = reader.readLine()) != null){
+                        lines = new String(lines.getBytes(), "utf-8");
+                        sb.append(lines);
+                    }*/
                     /*
                     if (connection.getResponseCode() == 200){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
                         EventBus.getDefault().post(new HttpPutEvent(puttype,StringUtil.decodeUnicode(result),true));
                     }
-                    */
+
                     System.out.println(sb);
                     reader.close();
-                    connection.disconnect();
+                    connection.disconnect();*/
                 }catch (Exception e){
                     e.printStackTrace();
                 }
