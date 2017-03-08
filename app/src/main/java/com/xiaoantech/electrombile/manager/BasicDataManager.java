@@ -10,10 +10,11 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetDataCallback;
+import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.constant.LeanCloudConstant;
 import com.xiaoantech.electrombile.model.CarInfoModel;
 import com.xiaoantech.electrombile.mqtt.MqttManager;
-import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,7 +83,7 @@ public class BasicDataManager {
                             fetchBasicDataCarName(IMEI,i);
                         }
                         LocalDataManager.getInstance().setIMEIList(IMEIList);
-
+                        LocalDataManager.getInstance().setCarInfoList(carInfoList);
                     }
                 }else {
                     e.printStackTrace();
@@ -119,6 +120,9 @@ public class BasicDataManager {
                         if (null != object.get(LeanCloudConstant.Image)){
                            fetchBasicDataCarImage(object.getAVFile(LeanCloudConstant.Image),index);
                         }else {
+
+                            Bitmap bitmap = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.othercar);
+                            carInfoModel.setCropImage(bitmap);
                             //TODO:User didn't set picture
                         }
                     }
@@ -192,11 +196,13 @@ public class BasicDataManager {
                 }
             }
         }
+        bindCarInfo = carInfoList.get(0);
         MqttManager.getInstance().unsubScribe(bindIMEI);
         MqttManager.getInstance().subscribe(IMEI);
         BasicDataManager.getInstance().setBindIMEI(IMEI);
         LocalDataManager.getInstance().setIMEI(IMEI);
         LocalDataManager.getInstance().setIMEIList(IMEIList);
+        LocalDataManager.getInstance().setCarInfoList(carInfoList);
     }
 
 

@@ -1,12 +1,13 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 
 import android.view.LayoutInflater;
@@ -62,6 +63,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     private static int          selectedCarIndex;
     private static View         selectedView;
     private List<Map<String,Object>> carNameList;
+    private boolean             isVisible;
 
     @Nullable
     @Override
@@ -98,6 +100,12 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         });
         initMarker();
         setFonts();
+
+        if(isVisible){
+            MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
+            mPresenter.getItinerary();
+            mPresenter.getWeatherInfo();
+        }
     }
 
     public void setFonts(){
@@ -202,6 +210,8 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         super.onResume();
         mPresenter.subscribe();
         mBinding.mapview.onResume();
+
+
     }
     @Override
     public void onPause(){
@@ -300,4 +310,13 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         initChangeCarDialog();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            isVisible = true;
+        }else {
+            isVisible = false;
+        }
+    }
 }
