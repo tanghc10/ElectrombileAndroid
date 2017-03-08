@@ -1,12 +1,21 @@
 package com.xiaoantech.electrombile.ui.main.Unkown.Record;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.HttpHandler;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.xiaoantech.electrombile.constant.HandlerConstant;
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpPostEvent;
+import com.xiaoantech.electrombile.event.notify.RecordEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
@@ -17,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -174,5 +184,39 @@ public class RecordPresenter implements RecordContract.Presenter{
                 e.printStackTrace();
             }
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRecordEvent(RecordEvent event){
+        JSONObject jsonObject = event.getJsonObject();
+        try {
+            JSONObject data = jsonObject.getJSONObject("data");
+            if (data.has("fileName")){
+                String file = data.getString("fileName");
+                String fileName = file.split("\\.")[0];
+
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void downloadFile(String fileName){
+//        String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/record?name=" +fileName;
+//        HttpHandler<File> httpHandler = new HttpUtils().download(HttpRequest.HttpMethod.GET,url, APK_dir + fileName, null, new RequestCallBack<File>() {
+//            @Override
+//            public void onSuccess(ResponseInfo<File> responseInfo) {
+//                Message message = new Message();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("filePath",APK_dir+fileName);
+//                message.setData(bundle);
+//                message.what = 11;
+//                mHander.sendMessage(message);
+//            }
+//            @Override
+//            public void onFailure(HttpException error, String msg) {
+//                mHander.sendEmptyMessage(110);
+//                Log.d("Failure",msg);
+//            }
+//        });
     }
 }

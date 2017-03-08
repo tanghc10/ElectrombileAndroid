@@ -17,6 +17,7 @@ import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.fourtt.FourTT;
 import com.xiaoantech.electrombile.event.gps.GPSEvent;
 import com.xiaoantech.electrombile.event.notify.NotifyEvent;
+import com.xiaoantech.electrombile.event.notify.RecordEvent;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -153,7 +154,8 @@ public class MqttCallbackBus implements MqttCallback {
                 case MqttCallbackConstant.NOTIFY_BATTERY:
                     EventBus.getDefault().post(new com.xiaoantech.electrombile.event.notify.BatteryEvent(EventBusConstant.notifyType.NOTIFY_TYPE_BATTERY, jsonObject));
                     break;
-
+                case MqttCallbackConstant.NOTIFY_RECORD:
+                    EventBus.getDefault().post(new RecordEvent(EventBusConstant.notifyType.NOTIFY_TYPE_RECORD,jsonObject));
             }
         } catch (JSONException e) {
             e.printStackTrace();
