@@ -54,6 +54,10 @@ public class GPSPointModel {
         this.lng = lng;
     }
 
+    public int getSpeed(){
+        return speed;
+    }
+
     @Override
     public String toString(){
         return timestamp + "   " + lat + "    " + lng;

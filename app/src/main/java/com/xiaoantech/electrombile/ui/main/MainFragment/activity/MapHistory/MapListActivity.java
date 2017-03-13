@@ -7,19 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.constant.TimerConstant;
 import com.xiaoantech.electrombile.model.GPSPointModel;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapContract;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.PlayHistory.PlayHistoryActivity;
+import com.xiaoantech.electrombile.utils.TimeUtil;
 import com.xiaoantech.electrombile.widget.HistoryRouteCell;
 
 import org.json.JSONObject;
@@ -43,6 +47,15 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maplist);
+
+        ((TextView)findViewById(R.id.navigation_title)).setText("行车历史");
+        ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapListActivity.this.finish();
+            }
+        });
+
         mPresenter = new MapListPresenter(this);
         mPresenter.getSevenDayRoute(0);
         mProgressDialog = new ProgressDialog(this);
@@ -95,15 +108,16 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         public int sectionPosition;
         public int listPosition;
         public String text;
+        public int sectionIndex;
         public Item(int type,HistoryRouteCell listViewCell){
             this.type = type;
             this.cell = listViewCell;
             this.text = listViewCell.toString();
         }
 
-        public Item(int type,String text){
+        public Item(int type,int index){
             this.type = type;
-            this.text = text;
+            this.sectionIndex = index;
         }
     }
 
@@ -134,7 +148,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
             prepareSections(sectionNum);
             int sectionPosition = 0, listPosition = 0;
             for (int i = 0;i < sectionNum;i++){
-                Item section = new Item(Item.SECTION,String.valueOf(mSectionToList.get(i)));
+                Item section = new Item(Item.SECTION,mSectionToList.get(i));
                 section.sectionPosition = sectionPosition;
                 section.listPosition = listPosition++;
                 onSectionAdded(section,sectionPosition);
@@ -163,7 +177,10 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
             Item item = getItem(position);
             if (item.type == Item.SECTION){
                 TextView view = new TextView(getContext());
-                view.setText(item.text);
+                view.setHeight(70);
+                view.setTextSize(20);
+                view.setGravity(Gravity.CENTER_VERTICAL);
+                view.setText("      "+TimeUtil.getDateStringFromTimeStamp(TimeUtil.getCurrentTime()-item.sectionIndex*86400));
                 return view;
             }else {
                 return item.cell;

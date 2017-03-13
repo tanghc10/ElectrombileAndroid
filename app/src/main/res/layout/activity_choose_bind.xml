@@ -6,7 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+    <include
+        android:id="@+id/navigation"
+        layout="@layout/bar_navigation_title"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -91,16 +93,17 @@
             <View
                 android:layout_width="395dp"
                 android:layout_height="1dp"
+                android:background="@color/gray"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_input"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_input"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout_input" />
 
         </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@color/background_grey"></LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/background_grey" />
 </LinearLayout>
 
 

@@ -19,10 +19,18 @@
         android:background="@color/background_grey">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/navigation"
+                layout="@layout/bar_navigation_title"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:layout_editor_absoluteY="29dp"
+            tools:layout_editor_absoluteY="54dp"
             app:layout_constraintRight_toRightOf="@+id/activity_loginmain"
             app:layout_constraintLeft_toLeftOf="@+id/activity_loginmain"
             app:layout_constraintHorizontal_bias="1.0"
