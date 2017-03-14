@@ -92,9 +92,9 @@
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
                 android:layout_width="650px"
                 app:layout_constraintHorizontal_bias="0.6"
-                android:backgroundTint="@color/orange"
+                android:background="@drawable/shape"
                 android:onClick="@{ () -> presenter.logout()}"
-                android:layout_marginTop="200px"
+                android:layout_marginTop="150px"
                 android:layout_marginBottom="150px" />
 
         </android.support.constraint.ConstraintLayout>
