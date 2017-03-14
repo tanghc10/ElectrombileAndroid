@@ -11,15 +11,11 @@
         android:id="@+id/activity_loginmain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_editor_absoluteX="0dp"
-        app:layout_editor_absoluteY="80dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="80dp"
         tools:ignore="MissingConstraints"
         android:background="@color/background_grey">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="720px"
             android:layout_height="wrap_content">
             <include
                 android:id="@+id/navigation"
@@ -30,7 +26,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:layout_editor_absoluteY="54dp"
             app:layout_constraintRight_toRightOf="@+id/activity_loginmain"
             app:layout_constraintLeft_toLeftOf="@+id/activity_loginmain"
             app:layout_constraintHorizontal_bias="1.0"
@@ -38,12 +33,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp">
+                android:layout_height="30dp"
+                android:background="@color/background_grey">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:text="     请填写必要信息"
+                    android:layout_height="60px"
+                    android:text="请填写必要信息"
+                    android:layout_marginLeft="33px"
                     android:textColor="@color/dimgrey"
                     android:background="@color/background_grey" />
             </LinearLayout>
