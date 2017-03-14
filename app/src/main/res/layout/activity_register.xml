@@ -99,7 +99,7 @@
                     android:id="@+id/identifiedCode_btn"
                     android:layout_width="180px"
                     android:text="接收验证码"
-                    android:textSize="20px"
+                    android:textSize="25px"
                     android:onClick="@{() -> presenter.getIdentifiedCode(phoneNumEdtTxt.getText().toString())}"
                     android:layout_height="100px" />
             </LinearLayout>
@@ -188,12 +188,11 @@
                     android:layout_width="189dp"
                     android:layout_height="56dp"
                     android:id="@+id/textView4"
-                    android:textSize="15sp"
+                    android:textSize="30px"
                     android:layout_weight="0.08"
                     android:gravity="center"
                     android:textColor="@color/avoscloud_feedback_back_background" />
             </LinearLayout>
-
         </LinearLayout>
         </android.support.constraint.ConstraintLayout>
 </layout>
