@@ -24,7 +24,7 @@
             android:background="@color/avoscloud_feedback_white">
             <include
                 android:id="@+id/navigation"
-                layout="@layout/bar_navigation_title"/>
+                layout="@layout/bar_navigation_for_regist"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
