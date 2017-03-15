@@ -91,10 +91,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="请输入车辆名称"
+                        android:hint="请输入车辆名称"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -127,10 +127,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="请输入车牌号"
+                        android:hint="请输入车牌号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -161,12 +161,12 @@
                         android:id="@+id/txt_frame_num"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="50px"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="请输入车架号"
-                        android:layout_marginLeft="50px"
+                        android:hint="请输入车架号"
+                        android:textColorHint="@color/grey_txt"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -200,12 +200,11 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请输入电池型号"
+                        android:hint="请选择电池型号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -246,10 +245,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="请输入品牌"
+                        android:hint="请输入品牌"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -282,10 +281,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="请输入厂家电话"
+                        android:hint="请输入厂家电话"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>

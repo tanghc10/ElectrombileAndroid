@@ -90,7 +90,8 @@
                     android:layout_width="550px"
                     android:layout_height="match_parent"
                     android:background="@color/avoscloud_feedback_white"
-                    android:hint="请输入手机号" />
+                    android:hint="请输入手机号"
+                    android:textColorHint="@color/grey_txt"/>
 
             </LinearLayout>
 
@@ -118,6 +119,7 @@
                     android:layout_height="match_parent"
                     android:layout_width="550px"
                     android:hint="请输入6-20位密码"
+                    android:textColorHint="@color/grey_txt"
                     android:password="true"
                     android:background="@null"/>
 

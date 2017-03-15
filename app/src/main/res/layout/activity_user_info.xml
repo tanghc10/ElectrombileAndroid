@@ -96,10 +96,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请输入您的姓名"
+                        android:hint="请输入您的姓名"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
                         android:textSize="35px" />
 
                 </LinearLayout>
@@ -133,10 +133,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请输入您的昵称"
+                        android:hint="请输入您的昵称"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
                         android:textSize="35px" />
 
                 </LinearLayout>
@@ -170,10 +170,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请选择"
+                        android:hint="请选择"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textAlignment="textStart"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
                         android:textSize="35px" />
 
                 </LinearLayout>
@@ -208,9 +208,9 @@
                         android:layout_marginLeft="50px"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请选择"
+                        android:hint="请选择"
+                        android:textColorHint="@color/grey_txt"
                         android:textAlignment="textStart"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
                         android:textSize="35px" />
 
                 </LinearLayout>
@@ -245,9 +245,9 @@
                         android:layout_marginLeft="50px"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="请输入身份证号"
+                        android:hint="请输入身份证号"
+                        android:textColorHint="@color/grey_txt"
                         android:textAlignment="textStart"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
                         android:textSize="35px" />
 
                 </LinearLayout>

@@ -38,6 +38,7 @@
                 android:layout_marginLeft="50px"
                 android:background="@color/avoscloud_feedback_white"
                 android:hint="输入产品序列号"
+                android:textColorHint="@color/grey_txt"
                 android:textSize="35px"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 

@@ -91,9 +91,9 @@
                         android:text="@{carInfo.IMEI}"
                         android:id="@+id/txt_car_name"
                         android:hint="请输入车辆名称"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -128,9 +128,9 @@
                         android:text="@{carInfo.name}"
                         android:id="@+id/txt_plate_num"
                         android:hint="请输入车牌号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -165,9 +165,9 @@
                         android:text="@{String.valueOf(carInfo.bindTime) }"
                         android:id="@+id/txt_frame_num"
                         android:hint="请输入车架号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -200,9 +200,9 @@
                         android:layout_gravity="center_vertical"
                         android:id="@+id/txt_battery_version"
                         android:hint="请选择电池型号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -253,9 +253,9 @@
                         android:text="@{carInfo.IMEI}"
                         android:id="@+id/txt_brand_name"
                         android:hint="请输入车辆品牌"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -289,9 +289,9 @@
                         android:text="@{carInfo.IMEI}"
                         android:id="@+id/txt_vender_phone"
                         android:hint="请输入厂家电话"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:textColor="@color/grey_txt"
                         android:background="@null"/>
                 </LinearLayout>
 

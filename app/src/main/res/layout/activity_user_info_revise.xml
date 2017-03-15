@@ -94,12 +94,11 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:id="@+id/txt_user_name"
-                        android:text="请输入您的姓名"
+                        android:hint="请输入您的姓名"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:background="@null"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
-                         />
+                        android:background="@null" />
 
                 </LinearLayout>
 
@@ -132,12 +131,11 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:id="@+id/txt_nick_name"
-                        android:text="请输入您的姓名"
+                        android:hint="请输入您的昵称"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:background="@null"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
-                        />
+                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -170,11 +168,11 @@
                         android:id="@+id/txt_sex"
                         android:layout_weight="1"
                         android:text="请选择"
+                        android:textColor="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:onClick="@{() -> presenter.chooseSex()}"
                         android:gravity="center_vertical"
-                        android:textSize="35px"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable" />
+                        android:textSize="35px"/>
 
                 </LinearLayout>
 
@@ -206,10 +204,10 @@
                         android:onClick="@{() -> presenter.chooseBirthDate()}"
                         android:layout_weight="1"
                         android:text="请选择"
+                        android:textColor="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:gravity="center_vertical"
-                        android:textSize="35px"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable" />
+                        android:textSize="35px" />
 
                 </LinearLayout>
 
@@ -241,12 +239,11 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/txt_identity_num"
-                        android:text="请输入身份证号"
+                        android:hint="请输入身份证号"
+                        android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="50px"
                         android:textSize="35px"
-                        android:background="@null"
-                        android:textColor="?android:attr/textColorSecondaryNoDisable"
-                         />
+                        android:background="@null"/>
                 </LinearLayout>
             </LinearLayout>
 

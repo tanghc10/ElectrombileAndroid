@@ -35,8 +35,6 @@
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 android:layout_marginTop="100px"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                app:layout_constraintBottom_toTopOf="@+id/view"
-
                 android:id="@+id/linearLayout2"
                 app:layout_constraintVertical_bias="1.0"
                 android:background="@color/avoscloud_feedback_white">
@@ -62,9 +60,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:hint="6-20位数字或字母"
+                        android:textColorHint="@color/grey_txt"
                         android:background="@null"
                         android:id="@+id/edt_pass_1"
-                        android:textColor="@color/grey_txt"
                         android:textSize="35px" />
                 </LinearLayout>
 
@@ -90,12 +88,12 @@
 
                     <EditText
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="请确保两次输入一致"
+                        android:textColorHint="@color/grey_txt"
                         android:gravity="center_vertical"
                         android:id="@+id/edt_pass_2"
-                        android:textColor="@color/grey_txt"
                         android:textSize="35px"
                         android:background="@null"/>
                 </LinearLayout>
