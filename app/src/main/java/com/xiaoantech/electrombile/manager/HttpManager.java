@@ -34,7 +34,8 @@ public class HttpManager {
         POST_TYPE_TODAYITINERARY,
         POST_TYPE_ROUTES,
         POST_TYPE_GPS_POINTS,
-        POST_TYPE_ALARMPHONE
+        POST_TYPE_ALARMPHONE,
+        POST_TYPE_DEVICE
     }
     public enum putType{
         PUT_TYPE_WEATHER,
@@ -62,37 +63,6 @@ public class HttpManager {
                     connection.setConnectTimeout(5000);
                     String result = StreamToStringUtil.StreamToString(connection.getInputStream());
                     EventBus.getDefault().post(new HttpGetEvent(gettype,StringUtil.decodeUnicode(result),true));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    public static void postHttpResult(final String url, final postType posttype, final String body) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection connection;
-                byte[] bytes = body.getBytes();
-                try {
-                    URL getURL = new URL(url);
-                    connection = (HttpURLConnection) getURL.openConnection();
-                    connection.setRequestMethod("POST");
-                    connection.setConnectTimeout(5000);
-                    connection.setUseCaches(false);        //设置不进行缓存
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    connection.setRequestProperty("Connection", "keep-alive");
-                    connection.setRequestProperty("Content-Length", "30");
-                    connection.setRequestProperty("Token", body);
-                    connection.connect();
-                    int response = connection.getResponseCode();
-                    if (response == HttpURLConnection.HTTP_OK){
-                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                        EventBus.getDefault().post(new HttpPostEvent(posttype,StringUtil.decodeUnicode(result),true));
-                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -194,4 +164,35 @@ public class HttpManager {
         }).start();
     }
 
+
+    public static void postHttpResult(final String url, final postType postType , final HttpConstant.HttpCmd cmd, final String body){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bytes = body.getBytes();
+                HttpURLConnection connection;
+                try{
+                    URL postURL = new URL(url);
+                    connection = (HttpURLConnection) postURL.openConnection();
+                    connection.setConnectTimeout(5000);
+                    connection.setRequestMethod("POST");
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+                    connection.setUseCaches(false);
+                    connection.setRequestProperty("Content-Type","application/json");
+                    connection.setRequestProperty("Content-Length",String.valueOf(bytes.length));
+                    OutputStream outputStream = connection.getOutputStream();
+                    outputStream.write(bytes);
+
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpPostEvent(postType,StringUtil.decodeUnicode(result),true,cmd));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }
