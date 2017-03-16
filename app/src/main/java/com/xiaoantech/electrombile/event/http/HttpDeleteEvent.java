@@ -2,28 +2,26 @@ package com.xiaoantech.electrombile.event.http;
 
 import com.xiaoantech.electrombile.manager.HttpManager;
 
-import org.json.JSONObject;
-
 /**
- * Created by yangxu on 2016/11/7.
+ * Created by tanghuichuan on 2017/3/2.
  */
 
-public class HttpEvent {
-    protected HttpManager.getType      type;
+public class HttpDeleteEvent {
+    protected HttpManager.deleteType type;
     protected String resultStr;
     protected boolean isSuccess;
 
-    public HttpEvent(HttpManager.getType type,String result,boolean isSuccess){
+    public HttpDeleteEvent(HttpManager.deleteType type, String resultStr, boolean isSuccess){
         this.type = type;
-        this.resultStr = result;
+        this.resultStr = resultStr;
         this.isSuccess = isSuccess;
     }
 
-    public String getResult() {
+    public String getResultStr(){
         return resultStr;
     }
 
-    public HttpManager.getType getRequestType() {
+    public HttpManager.deleteType getRequestType(){
         return type;
     }
 

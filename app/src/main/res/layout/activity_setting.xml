@@ -67,10 +67,10 @@
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
-                    android:onClick="@{() -> presenter.gotoPhoneAlarm()}"
                     android:text="清空缓存"
                     android:textStyle="normal|bold"
                     android:textSize="17sp"
+                    android:onClick="@{ () -> presenter.gotoPhoneAlarm() }"
                     android:textColor="@color/avoscloud_feedback_back_background" />
             </LinearLayout>
 
