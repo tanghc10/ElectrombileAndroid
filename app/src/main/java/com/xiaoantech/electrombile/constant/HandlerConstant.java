@@ -7,4 +7,11 @@ package com.xiaoantech.electrombile.constant;
 public class HandlerConstant {
     public static final int TimerWhat0 = 0x01;
 
+
+
+
+
+    //FileDownLoad
+    public static final int FileDownLoadSuccess = 0x60;
+    public static final int FileDownLoadFail = 0x61;
 }

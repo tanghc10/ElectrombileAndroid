@@ -52,7 +52,7 @@ public class LocalDataManager {
     public final String MQTTHost_Test = "test.xiaoan110.com";
     public final String MQTTPort_Test = "1883";
     public final String HTTPHost_Test = "http://test.xiaoan110.com";
-    public final String HTTPPort_Test = "8081";
+    public final String HTTPPort_Test = "8083";
 
 
     private final String AutoLock = "AutoLock";

@@ -24,6 +24,7 @@ public class APKDirUtil {
         if (!destDir.exists()) {// 判断文件夹是否存在
             destDir.mkdirs();
         }
+        return APK_dir;
     }
 
     private static boolean isHasSdcard() {

@@ -13,6 +13,9 @@ public interface RecordContract {
         void startRecord();
         void stopRecord();
         void changeCutDownText(String title);
+        void startPlay(String filePath);
+        void changePlayStatus();
+        void stopPlay();
 //        void changeButtonStatus(int buttonID,boolean isEnable);
     }
 

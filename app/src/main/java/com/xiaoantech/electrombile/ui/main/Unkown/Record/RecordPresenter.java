@@ -19,6 +19,7 @@ import com.xiaoantech.electrombile.event.notify.RecordEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
+import com.xiaoantech.electrombile.utils.APKDirUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,25 +42,36 @@ public class RecordPresenter implements RecordContract.Presenter{
     private Timer               timer;
     private int                 secondLeft;
 
-    Handler mHandler = new Handler(new Handler.Callback() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (msg.what == HandlerConstant.TimerWhat0){
-                secondLeft --;
-                if (secondLeft <= 0){
-                    if (timer != null){
-                        timer.cancel();
+            switch (msg.what){
+                case HandlerConstant.TimerWhat0:
+                    secondLeft --;
+                    if (secondLeft <= 0){
+                        if (timer != null){
+                            timer.cancel();
+                        }
+                        mRecordView.stopRecord();
+                    }else {
+                        mRecordView.changeCutDownText(secondLeft + "");
                     }
-                    mRecordView.stopRecord();
-                }else {
-                    mRecordView.changeCutDownText(secondLeft + "");
-                }
+                    break;
+                case HandlerConstant.FileDownLoadSuccess:
+                    Bundle bundle = msg.getData();
+                    String filePath = bundle.getString("filePath");
+                    mRecordView.startPlay(filePath);
+                    recordStatus = RecordStatus.RecordStatus_Play;
+                    break;
+                case HandlerConstant.FileDownLoadFail:
+                    mRecordView.showToast("下载失败");
+                    break;
             }
             return false;
         }
     });
 
-    enum RecordStatus{
+    private enum RecordStatus{
         RecordStatus_Start,
         RecordStatus_Record,
         RecordStatus_Play,
@@ -88,6 +100,8 @@ public class RecordPresenter implements RecordContract.Presenter{
             mRecordView.showWaitingDialog("开启录音中");
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+ LocalDataManager.getInstance().getHTTPPort() + "/v1/device";
             HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD,getPostBody(8));
+        }else if (recordStatus == RecordStatus.RecordStatus_Play){
+            mRecordView.stopPlay();
         }
     }
 
@@ -97,7 +111,8 @@ public class RecordPresenter implements RecordContract.Presenter{
             mRecordView.showWaitingDialog("停止录音中");
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
             HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD,getPostBody(9));
-
+        }else if (recordStatus == RecordStatus.RecordStatus_Play){
+            mRecordView.changePlayStatus();
         }
     }
 
@@ -160,30 +175,37 @@ public class RecordPresenter implements RecordContract.Presenter{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostEvent(HttpPostEvent event){
-        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE && event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD){
-            try {
-                JSONObject jsonObject = new JSONObject(event.getResult());
-                if (jsonObject.has("code")) {
-                    int code = jsonObject.getInt("code");
-                    if (code == 0){
-                        recordStatus = RecordStatus.RecordStatus_Record;
-                        mRecordView.startRecord();
-                        secondLeft = 60;
-                        timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                mHandler.sendEmptyMessage(HandlerConstant.TimerWhat0);
-                            }
-                        }, 1000, 1000);
-                    }else {
-                        dealWithErrorCode(code);
+
+        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE){
+            if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD){
+                try {
+                    JSONObject jsonObject = new JSONObject(event.getResult());
+                    if (jsonObject.has("code")) {
+                        int code = jsonObject.getInt("code");
+                        if (code == 0){
+                            recordStatus = RecordStatus.RecordStatus_Record;
+                            mRecordView.startRecord();
+                            secondLeft = 60;
+                            timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    mHandler.sendEmptyMessage(HandlerConstant.TimerWhat0);
+                                }
+                            }, 1000, 1000);
+                        }else {
+                            dealWithErrorCode(code);
+                        }
                     }
+                }catch (JSONException e){
+                    e.printStackTrace();
                 }
-            }catch (JSONException e){
-                e.printStackTrace();
+            }else if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD){
+                timer.cancel();
+                mRecordView.stopRecord();
             }
         }
+
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecordEvent(RecordEvent event){
@@ -193,7 +215,7 @@ public class RecordPresenter implements RecordContract.Presenter{
             if (data.has("fileName")){
                 String file = data.getString("fileName");
                 String fileName = file.split("\\.")[0];
-
+                downloadFile(fileName);
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -201,22 +223,23 @@ public class RecordPresenter implements RecordContract.Presenter{
     }
 
     private void downloadFile(String fileName){
-//        String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/record?name=" +fileName;
-//        HttpHandler<File> httpHandler = new HttpUtils().download(HttpRequest.HttpMethod.GET,url, APK_dir + fileName, null, new RequestCallBack<File>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<File> responseInfo) {
-//                Message message = new Message();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("filePath",APK_dir+fileName);
-//                message.setData(bundle);
-//                message.what = 11;
-//                mHander.sendMessage(message);
-//            }
-//            @Override
-//            public void onFailure(HttpException error, String msg) {
-//                mHander.sendEmptyMessage(110);
-//                Log.d("Failure",msg);
-//            }
-//        });
+        String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/record?name=" +fileName;
+        final String apk_path = APKDirUtil.initAPKDir() + fileName;
+        HttpHandler<File> httpHandler = new HttpUtils().download(HttpRequest.HttpMethod.GET,url, apk_path, null, new RequestCallBack<File>() {
+            @Override
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+                Message message = new Message();
+                Bundle bundle = new Bundle();
+                bundle.putString("filePath",apk_path);
+                message.setData(bundle);
+                message.what = HandlerConstant.FileDownLoadSuccess;
+                mHandler.sendMessage(message);
+            }
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                mHandler.sendEmptyMessage(HandlerConstant.FileDownLoadFail);
+                Log.d("Failure",msg);
+            }
+        });
     }
 }
