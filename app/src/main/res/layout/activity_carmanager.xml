@@ -60,7 +60,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/img_bind_car"
                 android:layout_marginStart="24dp"
                 tools:layout_editor_absoluteY="88dp"
-                android:textColor="@color/avoscloud_feedback_thread_header_background" />
+                />
 
             <View
                 android:layout_width="1dp"
@@ -122,7 +122,6 @@
                 android:layout_width="0dp"
                 android:layout_height="90px"
                 android:gravity="center"
-                android:textAlignment="textStart"
                 android:id="@+id/textView2"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
                 android:layout_marginStart="33px"
@@ -130,7 +129,7 @@
                 android:layout_marginTop="3px"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3"
                 android:textSize="17sp"
-                android:textColor="@color/avoscloud_feedback_thread_header_background" />
+                />
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

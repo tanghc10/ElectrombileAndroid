@@ -42,7 +42,6 @@
                     android:text="推送设置"
                     android:textSize="35px"
                     android:layout_height="100px"
-                    android:textColor="@color/avoscloud_feedback_back_background"
                     android:drawableRight="@drawable/to"/>
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
@@ -52,7 +51,7 @@
                     android:textSize="35px"
                     android:layout_height="100px"
                     android:onClick="@{() -> presenter.gotoAutoLock()}"
-                    android:textColor="@color/avoscloud_feedback_back_background" />
+                     />
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
@@ -61,7 +60,6 @@
                     android:onClick="@{() -> presenter.gotoChangePass()}"
                     android:textSize="35px"
                     android:layout_height="100px"
-                    android:textColor="@color/avoscloud_feedback_back_background"
                     android:drawableRight="@drawable/to"/>
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
@@ -69,7 +67,7 @@
                     android:text="清空缓存"
                     android:layout_height="100px"
                     android:textSize="35px"
-                    android:textColor="@color/avoscloud_feedback_back_background" />
+                    />
             </LinearLayout>
 
             <View

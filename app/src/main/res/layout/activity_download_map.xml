@@ -57,5 +57,5 @@
         android:layout_height="fill_parent"
         android:divider="@null"
         tools:listitem="@layout/item_mapofflinelist_parent"
-        android:background="@color/avoscloud_feedback_white" />
+        />
 </LinearLayout>

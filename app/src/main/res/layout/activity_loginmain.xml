@@ -48,7 +48,6 @@
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintVertical_bias="0.9"
             android:textStyle="normal|bold"
-            android:textColor="@color/avoscloud_feedback_white"
             android:textSize="17sp"
             android:layout_width="125dp"
             android:background="@drawable/shape"
@@ -68,7 +67,6 @@
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintVertical_bias="0.9"
             android:layout_width="125dp"
-            android:textColor="@color/avoscloud_feedback_white"
             android:textSize="17sp"
             android:background="@drawable/shape"
             android:layout_height="48dp" />
