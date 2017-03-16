@@ -55,11 +55,11 @@
 
             <Button
                 android:id="@+id/positiveButton"
-                android:layout_width="90.0dip"
-                android:layout_height="30.0dip"
+                android:layout_width="450px"
+                android:layout_height="65px"
                 android:gravity="center"
                 android:background="@drawable/corners_bg_orange"
-                android:textSize="16sp"
+                android:textSize="35px"
                 android:textColor="@color/white"
                 android:text="确定" />
         </LinearLayout>
