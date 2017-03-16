@@ -2,6 +2,7 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingMana
 
 import android.databinding.DataBindingUtil;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,10 +44,21 @@ public class PhoneAlarmActivity extends BaseAcitivity implements PhoneAlarmContr
         String phoneNum = AVUser.getCurrentUser().getUsername();
         String secretPhoneNum = phoneNum.substring(0,3) + "****" + phoneNum.substring(7);
         mBinding.txtPhoneNum.setText(secretPhoneNum);
+        setAlarmPhoneTest();
     }
 
     @Override
     public void setPresenter(PhoneAlarmContract.Presenter Presenter) {
         this.mPresenter = Presenter;
+    }
+
+    public void setAlarmPhoneTest(){
+        Button button =(Button)findViewById(R.id.btn_start_test);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mPresenter.putAlarmPhoneFormHttp();
+            }
+        });
     }
 }
