@@ -27,10 +27,6 @@ public class HttpPostEvent {
     public HttpManager.postType getRequestType() {
         return type;
     }
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
     public HttpConstant.HttpCmd getCmdType() {return cmdType;}
 }
+

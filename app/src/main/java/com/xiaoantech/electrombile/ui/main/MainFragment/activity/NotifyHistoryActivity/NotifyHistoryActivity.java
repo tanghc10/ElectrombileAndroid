@@ -30,7 +30,7 @@ public class NotifyHistoryActivity extends BaseAcitivity {
 
     @Override
     protected void initView() {
-        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("车辆位置");
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("信息");
         ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
