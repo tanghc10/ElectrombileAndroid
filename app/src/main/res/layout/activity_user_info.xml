@@ -75,7 +75,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -85,7 +85,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="姓名"
-                        android:layout_marginLeft="33px"
+                        android:layout_marginLeft="16dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px"/>
@@ -98,21 +98,21 @@
                         android:gravity="center"
                         android:hint="请输入您的姓名"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textAlignment="textStart"
                         android:textSize="35px" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -122,7 +122,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="昵称"
-                        android:layout_marginLeft="33px"
+                        android:layout_marginLeft="16dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px" />
@@ -135,21 +135,21 @@
                         android:gravity="center"
                         android:hint="请输入您的昵称"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textAlignment="textStart"
                         android:textSize="35px" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -159,7 +159,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="性别"
-                        android:layout_marginLeft="33px"
+                        android:layout_marginLeft="16dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px" />
@@ -172,7 +172,7 @@
                         android:gravity="center"
                         android:hint="请选择"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textAlignment="textStart"
                         android:textSize="35px" />
 
@@ -180,12 +180,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20px"
+                    android:layout_height="10dp"
                     android:background="@color/background_grey"></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -195,7 +195,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="出生日期"
-                        android:layout_marginLeft="33px"
+                        android:layout_marginLeft="16dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px" />
@@ -205,7 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:hint="请选择"
@@ -216,14 +216,14 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -233,7 +233,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="身份证号"
-                        android:layout_marginLeft="33px"
+                        android:layout_marginLeft="16dp"
                         android:textAlignment="textStart"
                         android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px"/>
@@ -242,7 +242,7 @@
                         android:id="@+id/txt_identity_num"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:hint="请输入身份证号"
@@ -255,13 +255,14 @@
 
             <Button
                 android:layout_width="325dp"
-                android:layout_height="48dp"
+                android:layout_height="45dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:background="@drawable/shape"
                 android:onClick="@{() -> presenter.gotoUserInfoRevise()}"
                 android:text="修改信息"
+                android:textSize="35px"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
