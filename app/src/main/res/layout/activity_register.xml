@@ -21,7 +21,7 @@
             app:layout_constraintRight_toRightOf="@+id/activity_loginmain"
             app:layout_constraintLeft_toLeftOf="@+id/activity_loginmain"
             app:layout_constraintHorizontal_bias="1.0"
-            android:background="@color/avoscloud_feedback_white">
+            >
             <include
                 android:id="@+id/navigation"
                 layout="@layout/bar_navigation_for_regist"/>
@@ -54,7 +54,7 @@
                     android:text="手机号"
                     android:layout_marginLeft="16dp"
                     android:textSize="35px"
-                    android:textColor="@color/avoscloud_feedback_thread_header_background" />
+                    />
 
                 <EditText
                     android:id="@+id/phoneNumEdtTxt"
@@ -201,7 +201,7 @@
                     android:textSize="30px"
                     android:layout_weight="0.08"
                     android:gravity="center"
-                    android:textColor="@color/avoscloud_feedback_back_background" />
+                    />
             </LinearLayout>
         </LinearLayout>
         </android.support.constraint.ConstraintLayout>

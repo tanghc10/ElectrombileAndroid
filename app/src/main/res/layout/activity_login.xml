@@ -61,7 +61,6 @@
                     android:layout_weight="0.34"
                     android:gravity="center"
                     android:text="如无账号，请先注册"
-                    android:textColor="@color/common_plus_signin_btn_text_light_pressed"
                     android:textSize="25px" />
 
                 <View
@@ -87,7 +86,6 @@
                     android:id="@+id/text_userPhone"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
-                    android:background="@color/avoscloud_feedback_white"
                     android:hint="请输入手机号"
                     android:textColorHint="@color/grey_txt"/>
 
@@ -146,7 +144,6 @@
                     android:onClick="@{() -> presenter.register()}"
                     android:background="@null"
                     android:textAlignment="center"
-                    android:textColor="@color/avoscloud_feedback_back_background"
                     android:textSize="30px"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_login_in" />
                 <Button
@@ -155,10 +152,8 @@
                     android:layout_height="50dp"
                     android:text="忘记密码？"
                     android:onClick="@{() -> presenter.forgetPass()}"
-                     android:background="@color/avoscloud_feedback_white"
                      android:textSize="30px"
                      android:textAlignment="center"
-                     android:textColor="@color/avoscloud_feedback_back_background"
                      tools:layout_editor_absoluteY="0dp"
                      app:layout_constraintRight_toRightOf="@+id/constraintLayout_login_in"
                      android:layout_marginStart="170dp"
@@ -170,8 +165,8 @@
                     android:layout_height="45dp"
                     android:text="确定登录"
                     android:onClick="@{() -> presenter.login(textUserPhone.getText().toString(),textPassword.getText().toString)}"
-                    android:textColor="@color/common_google_signin_btn_text_dark_default"
                     android:layout_width="290dp"
+                    android:layout_width="590px"
                     android:textStyle="normal|bold"
                     android:textSize="38px"
                     android:layout_marginStart="16dp"

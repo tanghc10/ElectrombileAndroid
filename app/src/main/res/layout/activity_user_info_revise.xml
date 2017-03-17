@@ -84,10 +84,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:gravity="center"
-                        android:textAlignment="textStart"
                         android:text="姓名"
                         android:layout_marginLeft="16dp"
-                        android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px" />
                     <EditText
                         android:layout_width="match_parent"
@@ -122,9 +120,8 @@
                         android:text="昵称"
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
-                        android:textAlignment="textStart"
                         android:textSize="35px"
-                        android:textColor="@color/common_google_signin_btn_text_light_pressed" />
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -159,8 +156,6 @@
                         android:text="性别"
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/common_google_signin_btn_text_light_pressed"
                         android:textSize="35px" />
 
                     <TextView
@@ -195,9 +190,7 @@
                         android:text="出生日期"
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
-                        android:textAlignment="textStart"
-                        android:textSize="35px"
-                        android:textColor="@color/avoscloud_feedback_back_background" />
+                        android:textSize="35px" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -231,8 +224,6 @@
                         android:text="身份证号"
                         android:layout_marginLeft="16dp"
                         android:gravity="center"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_back_background"
                         android:textSize="35px" />
                     <EditText
                         android:layout_width="match_parent"

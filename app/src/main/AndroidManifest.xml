@@ -34,6 +34,8 @@
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
 
     <application
@@ -109,6 +111,8 @@
             android:label="autolockSet"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity"
             android:label="PhoneAlarm"/>
+        <activity android:name=".ui.main.Unkown.Record.RecordActivity"
+            android:label="Record"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />
