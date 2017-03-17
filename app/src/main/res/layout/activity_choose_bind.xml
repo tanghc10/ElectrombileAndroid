@@ -6,12 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <include
+
+        <include
         android:id="@+id/navigation"
         layout="@layout/bar_navigation_title"/>
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="90px"
+            android:layout_height="45dp"
             android:text="     请选择绑定方式"
             android:gravity="center_vertical"
             android:textSize="35px"
@@ -21,17 +23,17 @@
             android:layout_width="match_parent"
             android:id="@+id/constraintLayout_scan"
             tools:ignore="MissingConstraints"
-            android:layout_height="100px">
+            android:layout_height="50dp">
 
             <ImageView
-                android:layout_width="48px"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_scan"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_scan"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_scan"
-                android:layout_marginStart="33px"
+                android:layout_marginStart="16dp"
                 android:id="@+id/img_imei_scan"
-                android:src="@drawable/img_imei_scan"
-                android:layout_height="48px" />
+                android:src="@drawable/img_imei_scan"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
                 tools:ignore="RtlHardcoded" />
 
             <View
-                android:layout_width="670px"
+                android:layout_width="340dp"
                 android:layout_height="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_scan"
                 android:background="@color/gray"
@@ -58,17 +60,17 @@
             android:layout_width="match_parent"
             android:id="@+id/constraintLayout_input"
             tools:ignore="MissingConstraints"
-            android:layout_height="100px">
+            android:layout_height="50dp">
 
             <ImageView
-                android:layout_width="48px"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_input"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_input"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_input"
-                android:layout_marginStart="33px"
+                android:layout_marginStart="16dp"
                 android:id="@+id/img_imei_input"
-                android:src="@drawable/img_imei_input"
-                android:layout_height="48px" />
+                android:src="@drawable/img_imei_input"/>
 
             <TextView
                 android:layout_width="wrap_content"
