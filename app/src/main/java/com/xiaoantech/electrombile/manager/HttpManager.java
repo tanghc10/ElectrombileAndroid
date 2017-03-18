@@ -30,7 +30,8 @@ public class HttpManager {
         GET_TYPE_GPS_POINTS,
     }
     public enum postType{
-        POST_TYPE_DEVICE
+        POST_TYPE_DEVICE,
+        POST_TYPE_PHONE
     }
     public enum putType{
         PUT_TYPE_ALARMPHONE
@@ -141,7 +142,8 @@ public class HttpManager {
                     connection.setRequestProperty("Content-Length",String.valueOf(bytes.length));
                     OutputStream outputStream = connection.getOutputStream();
                     outputStream.write(bytes);
-
+                    outputStream.flush();
+                    outputStream.close();
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
