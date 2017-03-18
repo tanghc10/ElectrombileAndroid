@@ -64,6 +64,7 @@
             app:layout_constraintVertical_bias="0.26" />
 
             <LinearLayout
+                android:background="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="263dp"
                 android:orientation="vertical"
@@ -85,7 +86,7 @@
                         android:gravity="center"
                         android:text="姓名"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px"/>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/txt_user_name"
@@ -93,10 +94,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请输入您的姓名"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -119,7 +120,7 @@
                         android:gravity="center"
                         android:text="昵称"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_nick_name"
@@ -127,10 +128,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请输入您的昵称"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -153,7 +154,7 @@
                         android:gravity="center"
                         android:text="性别"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/txt_sex"
@@ -161,10 +162,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请选择"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -186,7 +187,7 @@
                         android:gravity="center"
                         android:text="出生日期"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/txt_birth"
@@ -196,9 +197,9 @@
                         android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请选择"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -221,7 +222,7 @@
                         android:gravity="center"
                         android:text="身份证号"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px"/>
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/txt_identity_num"
@@ -230,9 +231,9 @@
                         android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请输入身份证号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -246,7 +247,7 @@
                 android:background="@drawable/shape"
                 android:onClick="@{() -> presenter.gotoUserInfoRevise()}"
                 android:text="修改信息"
-                android:textSize="35px"
+                android:textSize="16dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7"

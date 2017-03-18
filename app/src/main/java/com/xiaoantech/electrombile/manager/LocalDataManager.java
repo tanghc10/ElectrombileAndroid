@@ -157,27 +157,27 @@ public class LocalDataManager {
         sharedPreferences.edit().putString(MQTTHost,mqttHost).apply();
     }
     public String getMQTTHost() {
-        return sharedPreferences.getString(MQTTHost,MQTTHost_Test);
+        return sharedPreferences.getString(MQTTHost,MQTTHost_Release);
     }
 
     public void setMQTTPort(String mqttPort) {
         sharedPreferences.edit().putString(MQTTPort,mqttPort).apply();
     }
     public String getMQTTPort() {
-        return sharedPreferences.getString(MQTTPort,MQTTPort_Test);
+        return sharedPreferences.getString(MQTTPort,MQTTPort_Release);
     }
 
     public void setHTTPHost(String httpHost) {
         sharedPreferences.edit().putString(HTTPHost,httpHost).apply();
     }
     public String getHTTPHost(){
-        return sharedPreferences.getString(HTTPHost,HTTPHost_Test);
+        return sharedPreferences.getString(HTTPHost,HTTPHost_Release);
     }
     public void setHTTPPort(String httpPort){
         sharedPreferences.edit().putString(HTTPPort,httpPort).apply();
     }
     public String getHTTPPort(){
-        return sharedPreferences.getString(HTTPPort,HTTPPort_Test);
+        return sharedPreferences.getString(HTTPPort,HTTPPort_Release);
     }
 
     public LayoutConstant.MapType getMapType(){

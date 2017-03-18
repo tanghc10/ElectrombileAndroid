@@ -53,7 +53,7 @@
                     android:text="欢迎登录"
                     android:textAllCaps="true"
                     android:textColor="@color/button_yellow"
-                    android:textSize="50px" />
+                    android:textSize="25sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                     android:layout_weight="0.34"
                     android:gravity="center"
                     android:text="如无账号，请先注册"
-                    android:textSize="25px" />
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -99,7 +99,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100px"
+                android:layout_height="50dp"
                 android:gravity="right">
 
                 <ImageView
@@ -138,27 +138,28 @@
 
                 <Button
                     android:id="@+id/button_login_gotoRegister"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="50dp"
                     android:text="注册"
                     android:onClick="@{() -> presenter.register()}"
                     android:background="@null"
-                    android:textAlignment="center"
-                    android:textSize="30px"
-                    app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_login_in" />
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_login_in"
+                    app:layout_constraintTop_toTopOf="@+id/constraintLayout_login_in"
+                    />
                 <Button
                     android:id="@+id/button_login_gotoForgetPass"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:text="忘记密码？"
                     android:onClick="@{() -> presenter.forgetPass()}"
-                     android:textSize="30px"
-                     android:textAlignment="center"
-                     tools:layout_editor_absoluteY="0dp"
-                     app:layout_constraintRight_toRightOf="@+id/constraintLayout_login_in"
-                     android:layout_marginStart="170dp"
-                     app:layout_constraintLeft_toRightOf="@+id/button_login_gotoRegister"
-                     app:layout_constraintHorizontal_bias="0.89" />
+                    android:textSize="15sp"
+                    android:background="@null"
+                    tools:layout_editor_absoluteY="0dp"
+                    app:layout_constraintRight_toRightOf="@+id/constraintLayout_login_in"
+                    android:layout_marginStart="170dp"
+                    app:layout_constraintLeft_toRightOf="@+id/button_login_gotoRegister"
+                    app:layout_constraintHorizontal_bias="0.89" />
 
                 <Button
                     android:id="@+id/button_login_login"
@@ -166,9 +167,8 @@
                     android:text="确定登录"
                     android:onClick="@{() -> presenter.login(textUserPhone.getText().toString(),textPassword.getText().toString)}"
                     android:layout_width="290dp"
-                    android:layout_width="590px"
                     android:textStyle="normal|bold"
-                    android:textSize="38px"
+                    android:textSize="19sp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_login_in"
                     android:layout_marginEnd="16dp"

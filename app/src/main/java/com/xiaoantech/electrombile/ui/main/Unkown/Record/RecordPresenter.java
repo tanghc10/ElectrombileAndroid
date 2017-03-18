@@ -101,7 +101,7 @@ public class RecordPresenter implements RecordContract.Presenter{
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+ LocalDataManager.getInstance().getHTTPPort() + "/v1/device";
             HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD,getPostBody(8));
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
-            mRecordView.stopPlay();
+            mRecordView.changePlayStatus();
         }
     }
 
@@ -112,7 +112,8 @@ public class RecordPresenter implements RecordContract.Presenter{
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
             HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD,getPostBody(9));
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
-            mRecordView.changePlayStatus();
+            recordStatus = RecordStatus.RecordStatus_Start;
+            mRecordView.resetView();
         }
     }
 
@@ -177,12 +178,14 @@ public class RecordPresenter implements RecordContract.Presenter{
     public void onHttpPostEvent(HttpPostEvent event){
 
         if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE){
-            if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD){
-                try {
-                    JSONObject jsonObject = new JSONObject(event.getResult());
-                    if (jsonObject.has("code")) {
-                        int code = jsonObject.getInt("code");
-                        if (code == 0){
+            try {
+                Log.w(TAG,event.getResult());
+                JSONObject jsonObject = new JSONObject(event.getResult());
+                if (jsonObject.has("code")) {
+                    int code = jsonObject.getInt("code");
+                    if (code == 0){
+                        if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD) {
+
                             recordStatus = RecordStatus.RecordStatus_Record;
                             mRecordView.startRecord();
                             secondLeft = 60;
@@ -193,17 +196,20 @@ public class RecordPresenter implements RecordContract.Presenter{
                                     mHandler.sendEmptyMessage(HandlerConstant.TimerWhat0);
                                 }
                             }, 1000, 1000);
-                        }else {
-                            dealWithErrorCode(code);
+                        }else if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD) {
+                            timer.cancel();
+                            mRecordView.stopRecord();
                         }
+
+
+                    }else {
+                        dealWithErrorCode(code);
                     }
-                }catch (JSONException e){
-                    e.printStackTrace();
                 }
-            }else if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD){
-                timer.cancel();
-                mRecordView.stopRecord();
+            }catch (JSONException e){
+                e.printStackTrace();
             }
+
         }
 
     }
@@ -212,10 +218,12 @@ public class RecordPresenter implements RecordContract.Presenter{
         JSONObject jsonObject = event.getJsonObject();
         try {
             JSONObject data = jsonObject.getJSONObject("data");
-            if (data.has("fileName")){
+            if (data.has("fileName") && !((String)data.get("fileName")).isEmpty()){
                 String file = data.getString("fileName");
                 String fileName = file.split("\\.")[0];
                 downloadFile(fileName);
+            }else {
+                mRecordView.showToast("文件下载错误");
             }
         }catch (JSONException e){
             e.printStackTrace();

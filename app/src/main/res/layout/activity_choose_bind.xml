@@ -16,7 +16,7 @@
             android:layout_height="45dp"
             android:text="     请选择绑定方式"
             android:gravity="center_vertical"
-            android:textSize="35px"
+            android:textSize="16sp"
             android:background="@color/background_grey" />
 
         <android.support.constraint.ConstraintLayout
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="扫描二维码"
-                android:textSize="35px"
+                android:textSize="16sp"
                 app:layout_constraintCenterY_toCenterY="@id/constraintLayout_scan"
                 app:layout_constraintLeft_toRightOf="@+id/img_imei_scan"
                 android:layout_marginLeft="20dp"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="输入产品序列号"
-                android:textSize="35px"
+                android:textSize="16sp"
                 app:layout_constraintCenterY_toCenterY="@id/constraintLayout_input"
                 app:layout_constraintLeft_toRightOf="@+id/img_imei_input"
                 android:layout_marginLeft="20dp"

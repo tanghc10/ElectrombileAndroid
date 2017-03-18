@@ -32,7 +32,7 @@
             android:layout_height="27dp"
             android:id="@+id/weather_temperature"
             android:text="30°"
-            android:textSize="69px"
+            android:textSize="23dp"
             android:gravity="center_vertical"
             android:layout_marginTop="13dp"
             android:layout_marginLeft="4dp"
@@ -76,22 +76,22 @@
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="40px"
+            android:layout_marginBottom="20dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已上锁"
-            android:textSize="32px"
+            android:textSize="11sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout_battery"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
             android:id="@+id/btn_fence"
             android:onClick="@{() -> presenter.changeFenceStatus()}"
-            android:layout_marginStart="63px"
-            android:layout_marginBottom="15px"/>
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="5dp"/>
         <ImageView
-            android:layout_width="66px"
-            android:layout_height="72px"
+            android:layout_width="22dp"
+            android:layout_height="24dp"
             android:src="@drawable/btn_lock"
             android:background="@color/white"
             android:onClick="@{() -> presenter.changeFenceStatus()}"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/txt_battery"
                     android:text="70"
-                    android:textSize="349.5px"
+                    android:textSize="116.5dp"
                     android:gravity="right|top"
                     android:textColor="@color/white"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_battery"
@@ -153,13 +153,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="剩余电量"
-                    android:textSize="32px"
+                    android:textSize="11sp"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/txt_battery"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_battery"
                     app:layout_constraintRight_toRightOf="@+id/constraintLayout_battery"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_battery"
-                    android:layout_marginBottom="44px"/>
+                    android:layout_marginBottom="15dp"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
@@ -207,14 +207,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/txt_itinerary"
                     android:text="70"
-                    android:textSize="349.5px"
+                    android:textSize="116.5dp"
                     android:gravity="right|top"
                     android:textColor="@color/white"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_itinerary"
                     app:layout_constraintRight_toRightOf="@+id/constraintLayout_itinerary"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_itinerary"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout_itinerary"
-                    android:layout_marginBottom="37px"/>
+                    android:layout_marginBottom="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -230,13 +230,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="今日里程"
-                    android:textSize="32px"
+                    android:textSize="11sp"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/txt_itinerary"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_itinerary"
                     app:layout_constraintRight_toRightOf="@+id/constraintLayout_itinerary"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_itinerary"
-                    android:layout_marginBottom="44px"/>
+                    android:layout_marginBottom="15dp"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 

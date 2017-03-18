@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:text="请填写必要信息"
                     android:layout_marginLeft="16dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:gravity="center_vertical"
                     android:textColor="@color/dimgrey"
                     android:background="@color/background_grey" />
@@ -53,7 +53,7 @@
                     android:gravity="center_vertical"
                     android:text="手机号"
                     android:layout_marginLeft="16dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     />
 
                 <EditText
@@ -63,7 +63,7 @@
                     android:hint="绑定手机号"
                     android:textColorHint="@color/grey_txt"
                     android:layout_marginLeft="25dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:background="@null" />
             </LinearLayout>
 
@@ -84,7 +84,7 @@
                     android:gravity="center_vertical"
                     android:text="验证码"
                     android:layout_marginLeft="16dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -102,7 +102,7 @@
                     android:layout_width="75dp"
                     android:text="接收验证码"
                     android:textColor="@color/aliceblue"
-                    android:textSize="25px"
+                    android:textSize="12sp"
                     android:layout_gravity="center"
                     android:background="@drawable/shape_button_grey"
                     android:onClick="@{() -> presenter.getIdentifiedCode(phoneNumEdtTxt.getText().toString())}"
@@ -129,7 +129,7 @@
                     android:text="设置密码"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="35px" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/passwordEdtTxt"
@@ -141,7 +141,7 @@
                     android:hint="6-20位数字或者字母"
                     android:textColorHint="@color/grey_txt"
                     android:textColorLink="?android:attr/textColorPrimaryInverseNoDisable"
-                    android:textSize="35px" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -160,7 +160,7 @@
                     android:gravity="center_vertical"
                     android:text="确认密码"
                     android:layout_marginLeft="16dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -172,7 +172,7 @@
                     android:background="@null"
                     android:hint="请确保两次输入一致"
                     android:textColorHint="@color/grey_txt"
-                    android:textSize="35px" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
@@ -198,7 +198,7 @@
                     android:layout_width="189dp"
                     android:layout_height="56dp"
                     android:id="@+id/textView4"
-                    android:textSize="30px"
+                    android:textSize="15sp"
                     android:layout_weight="0.08"
                     android:gravity="center"
                     />

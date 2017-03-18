@@ -37,6 +37,7 @@
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
                 android:id="@+id/linearLayout2"
                 app:layout_constraintVertical_bias="1.0"
+                android:background="@color/white"
                 >
 
                 <LinearLayout
@@ -50,7 +51,7 @@
                         android:text="新密码"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px"
+                        android:textSize="16sp"
                         android:layout_width="75dp" />
 
                     <EditText
@@ -62,7 +63,7 @@
                         android:textColorHint="@color/grey_txt"
                         android:background="@null"
                         android:id="@+id/edt_pass_1"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <View
@@ -82,8 +83,8 @@
                         android:text="确认密码"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="16dp"
-                        android:textSize="35px"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background" />
+                        android:textSize="16sp"
+                         />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -93,7 +94,7 @@
                         android:textColorHint="@color/grey_txt"
                         android:gravity="center_vertical"
                         android:id="@+id/edt_pass_2"
-                        android:textSize="35px"
+                        android:textSize="16sp"
                         android:background="@null"/>
                 </LinearLayout>
             </LinearLayout>
@@ -123,7 +124,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="310dp"
                 android:textColor="@color/background_grey"
-                android:textSize="35px"
+                android:textSize="16sp"
                 android:background="@drawable/shape" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

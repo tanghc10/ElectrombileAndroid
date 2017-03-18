@@ -13,6 +13,7 @@
     </data>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -39,7 +40,7 @@
                 android:layout_marginLeft="25dp"
                 android:hint="输入产品序列号"
                 android:textColorHint="@color/grey_txt"
-                android:textSize="35px"
+                android:textSize="16dp"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
         </LinearLayout>
@@ -59,7 +60,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                 android:onClick="@{() -> presenter.bindIMEI(txtInputIMEI.getText().toString())}"
-                android:textSize="35px"
+                android:textSize="16dp"
                 android:textAllCaps="false"
                 android:background="@drawable/shape"
                 android:id="@+id/button5"

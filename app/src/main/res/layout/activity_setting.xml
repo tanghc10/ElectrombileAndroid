@@ -40,7 +40,7 @@
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
                     android:text="推送设置"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:layout_height="50dp"
                     android:drawableRight="@drawable/to"/>
 
@@ -48,7 +48,7 @@
                     style="@style/clickableLayout"
                     android:text="自动设防设置"
                     android:drawableRight="@drawable/to"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:layout_height="50dp"
                     android:onClick="@{() -> presenter.gotoAutoLock()}"
                      />
@@ -58,15 +58,16 @@
                     android:layout_marginTop="10dp"
                     android:text="修改密码"
                     android:onClick="@{() -> presenter.gotoChangePass()}"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     android:layout_height="50dp"
                     android:drawableRight="@drawable/to"/>
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
                     android:text="清空缓存"
+                    android:onClick="@{() -> presenter.gotoPhoneAlarm()}"
                     android:layout_height="50dp"
-                    android:textSize="35px"
+                    android:textSize="16sp"
                     />
             </LinearLayout>
 

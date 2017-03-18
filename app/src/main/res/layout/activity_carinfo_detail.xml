@@ -64,6 +64,7 @@
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 android:orientation="vertical"
                 android:id="@+id/linearLayout5"
+                android:background="@color/white"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginTop="0dp">
 
@@ -80,7 +81,7 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="车辆名称"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_car_name"
@@ -88,11 +89,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车辆名称"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
@@ -115,9 +115,7 @@
                         android:gravity="center"
                         android:text="车牌号"
                         android:layout_marginLeft="16dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_plate_num"
@@ -125,11 +123,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车牌号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -142,6 +139,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+
                     android:orientation="horizontal">
 
                     <TextView
@@ -151,9 +149,7 @@
                         android:gravity="center"
                         android:text="车架号"
                         android:layout_marginLeft="16dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_frame_num"
@@ -162,10 +158,9 @@
                         android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车架号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -187,9 +182,7 @@
                         android:gravity="center"
                         android:text="电池型号"
                         android:layout_marginLeft="16dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_battery_version"
@@ -198,11 +191,10 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请选择电池型号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -211,8 +203,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="75dp"
-                android:background="@color/avoscloud_feedback_white"
-                android:backgroundTint="@color/avoscloud_feedback_white"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -224,6 +214,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -233,9 +224,7 @@
                         android:gravity="center"
                         android:text="品牌"
                         android:layout_marginLeft="16dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_brand_name"
@@ -243,11 +232,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入品牌"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -260,6 +248,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -269,9 +258,7 @@
                         android:gravity="center"
                         android:text="厂家电话"
                         android:layout_marginLeft="16dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/avoscloud_feedback_thread_header_background"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_vender_phone"
@@ -279,11 +266,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入厂家电话"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
-                        android:textAlignment="textStart"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -299,7 +285,7 @@
                 android:background="@drawable/shape"
                 android:onClick="@{ () -> presenter.gotoRevise()}"
                 android:text="修改信息"
-                android:textSize="35px"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6"

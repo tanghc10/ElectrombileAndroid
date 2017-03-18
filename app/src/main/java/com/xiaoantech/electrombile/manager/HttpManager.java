@@ -2,6 +2,7 @@ package com.xiaoantech.electrombile.manager;
 
 import android.os.Bundle;
 
+import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 import com.xiaoantech.electrombile.event.http.HttpPostEvent;
 import com.xiaoantech.electrombile.event.http.HttpPutEvent;

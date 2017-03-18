@@ -33,6 +33,7 @@
                 app:layout_constraintRight_toRightOf="@+id/activity_loginmain">
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
 
@@ -42,10 +43,11 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="请输入必要信息"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -58,7 +60,7 @@
                         android:text="手机号"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
 
                     <EditText
@@ -69,7 +71,7 @@
                         android:background="@null"
                         android:hint="绑定手机号"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -79,6 +81,7 @@
                     android:background="@color/background_grey" />
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
@@ -92,7 +95,7 @@
                         android:text="验证码"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/identifiedCodeEdtTxt"
@@ -103,7 +106,7 @@
                         android:background="@null"
                         android:hint="请输入验证码"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/identifiedCode_btn"
@@ -113,7 +116,7 @@
                         android:onClick="@{() -> presenter.getIdentifiedCode(phoneNumEdtTxt.getText().toString())}"
                         android:text="接收验证码"
                         android:textColor="@color/aliceblue"
-                        android:textSize="25px" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -123,6 +126,7 @@
                     android:background="@color/background_grey"></LinearLayout>
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -135,7 +139,7 @@
                         android:text="设置密码"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/passwordEdtTxt"
@@ -146,7 +150,7 @@
                         android:hint="6-20位数字或者字母"
                         android:password="true"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
 
@@ -156,6 +160,7 @@
                     android:background="@color/background_grey" />
 
                 <LinearLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     >
@@ -168,7 +173,7 @@
                         android:text="确认密码"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/passwordConfirmEdtTxt"
@@ -179,7 +184,7 @@
                         android:hint="请确保两次输入一致"
                         android:password="true"
                         android:textColorHint="@color/grey_txt"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -196,7 +201,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/aliceblue"
-                    android:textSize="35px" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
