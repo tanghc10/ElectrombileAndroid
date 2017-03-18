@@ -74,7 +74,7 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
 
     @Override
     public void gotoPhoneAlarm() {
-        Intent intent = new Intent(SettingManagerActivity.this, RecordActivity.class);
+        Intent intent = new Intent(SettingManagerActivity.this, PhoneAlarmActivity.class);
         startActivity(intent);
     }
 
