@@ -1,8 +1,12 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
+import android.net.Uri;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,6 +69,7 @@ public class PhoneAlarmAgreementActivity extends BaseAcitivity implements PhoneA
 
     public void toPhoneAlarmActivity(boolean isTo){
         if (true == isTo){
+            AddContacts();
             Intent intent = new Intent();
             intent.setClass(PhoneAlarmAgreementActivity.this, PhoneAlarmActivity.class);
             startActivity(intent);
@@ -83,5 +88,106 @@ public class PhoneAlarmAgreementActivity extends BaseAcitivity implements PhoneA
     protected void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
+    }
+
+    public void AddContacts(){
+        Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
+        ContentResolver resolver = getApplicationContext().getContentResolver();
+        ContentValues values = new ContentValues();
+        long contactId = ContentUris.parseId(resolver.insert(uri, values));
+
+        uri = Uri.parse("content://com.android.contacts/data");
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/name");
+        values.put("data2", "小安宝报警");
+        resolver.insert(uri, values);
+
+        //caller:0
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "01053912804");
+        resolver.insert(uri, values);
+
+        //caller:1
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "057126883072");
+        resolver.insert(uri, values);
+
+        //caller:2
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "051482043270");
+        resolver.insert(uri, values);
+
+        //caller:3
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "01053912805");
+        resolver.insert(uri, values);
+
+        //caller:4
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "051482043271");
+        resolver.insert(uri, values);
+
+        //caller:5
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "057126883073");
+        resolver.insert(uri, values);
+
+        //caller:6
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "051482043272");
+        resolver.insert(uri, values);
+
+        //caller:7
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "01053912806");
+        resolver.insert(uri, values);
+
+        //caller:8
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "051482043273");
+        resolver.insert(uri, values);
+
+        //caller:9
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "057126883074");
+        resolver.insert(uri, values);
+
+        //caller:10
+        values.clear();
+        values.put("raw_contact_id", contactId);
+        values.put("mimetype", "vnd.android.cursor.item/phone_v2");
+        values.put("data2", "2");
+        values.put("data1", "051482043274");
+        resolver.insert(uri, values);
     }
 }
