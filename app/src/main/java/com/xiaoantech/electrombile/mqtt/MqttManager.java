@@ -3,7 +3,9 @@ package com.xiaoantech.electrombile.mqtt;
 import android.util.Log;
 
 import com.xiaoantech.electrombile.constant.ServiceConstant;
+import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.DeviceInfoManager;
+import com.xiaoantech.electrombile.manager.JPushManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -93,7 +95,7 @@ public class MqttManager {
         String topicNotify = "dev2app/" + IMEI + "/notify";
 
         String[] topics = {topicCMD,topicGPS,topic433,topicAlarm,topicNotify};
-
+        JPushManager.getInstance().setPushAlias(BasicDataManager.getInstance().getBindIMEI());
         int[] qoss = {ServiceConstant.MQTT_QUALITY_OF_SERVICE,
                 ServiceConstant.MQTT_QUALITY_OF_SERVICE,
                 ServiceConstant.MQTT_QUALITY_OF_SERVICE,

@@ -29,6 +29,10 @@ public interface MainFragmentContract {
     }
 
     interface Presenter extends BasePresenter{
+        void refresh();
+
+        void setStatusFromString(String string);
+
         void showWeatherInfo();
 
         List<Map<String,Object>> getCarListInfo();

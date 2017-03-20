@@ -43,7 +43,7 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
 
     @Override
     protected void initView() {
-        ((TextView)findViewById(R.id.navigation_title)).setText("行车历史");
+        ((TextView)findViewById(R.id.navigation_title)).setText("远程窃听");
         ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

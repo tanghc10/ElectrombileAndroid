@@ -59,6 +59,8 @@ public class LocalDataManager {
 
     private final String AutoLock = "AutoLock";
     private final String AutoLockPeriod = "AutoLockPeriod";
+    private final String LatestStatus = "latestStatus";
+    private final String TodayItinerary = "todayItinerary";
 
     private SharedPreferences sharedPreferences;
 
@@ -285,5 +287,21 @@ public class LocalDataManager {
 
     public int getAutoLockPeriod(){
         return sharedPreferences.getInt(AutoLockPeriod,5);
+    }
+
+    public void setLatestStatus(String latestStatus){
+        sharedPreferences.edit().putString(LatestStatus,latestStatus).apply();
+    }
+
+    public String getLatestStatus(){
+        return sharedPreferences.getString(LatestStatus,"");
+    }
+
+    public void setTodayItinerary(int todayItinerary){
+        sharedPreferences.edit().putInt(TodayItinerary,todayItinerary);
+    }
+
+    public int getTodayItinerary(){
+        return sharedPreferences.getInt(TodayItinerary,0);
     }
 }

@@ -11,6 +11,7 @@ import com.xiaoantech.electrombile.constant.MqttCommonConstant;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.utils.GPSConvertUtil;
 import com.xiaoantech.electrombile.utils.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -79,7 +80,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
                 double lng = result.getDouble("lng");
                 long timestamp = result.getLong("timestamp");
                 LatLng point = new LatLng(lat,lng);
-                mMapView.changeGPSPoint(point);
+                mMapView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
                 mMapView.changeDateInfo(TimeUtil.getMinuteStringFromTimeStamp(timestamp));
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
             }
