@@ -47,13 +47,15 @@ public class LocalDataManager {
     public final String MQTTHost_Release = "mqtt.xiaoan110.com";
     public final String MQTTPort_Release = "1883";
     public final String HTTPHost_Release = "http://api.xiaoan110.com";
-    public final String HTTPPort_Release = "80";
+    public final String HTTPPort_Release = "8083";
 
     public final String MQTTHost_Test = "test.xiaoan110.com";
     public final String MQTTPort_Test = "1883";
     public final String HTTPHost_Test = "http://test.xiaoan110.com";
     public final String HTTPPort_Test = "8083";
 
+    private int callerIndex;
+    private boolean phoneAlarmOpen;
 
     private final String AutoLock = "AutoLock";
     private final String AutoLockPeriod = "AutoLockPeriod";
@@ -85,6 +87,22 @@ public class LocalDataManager {
 
     public String getIMEI() {
         return sharedPreferences.getString(IMEI,"");
+    }
+
+    public int getCallerIndex(){
+        return this.callerIndex;
+    }
+
+    public void setCallerIndex(int caller){
+        this.callerIndex = caller;
+    }
+
+    public boolean getPhoneAlarmOpen(){
+        return this.phoneAlarmOpen;
+    }
+
+    public void setPhoneAlarmOpen(boolean isOn){
+        this.phoneAlarmOpen = isOn;
     }
 
     public void setIMEIList(List<String> imeiList) {

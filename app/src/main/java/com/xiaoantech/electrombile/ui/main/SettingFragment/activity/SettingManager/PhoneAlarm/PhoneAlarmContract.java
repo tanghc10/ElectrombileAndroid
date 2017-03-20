@@ -14,5 +14,6 @@ public interface PhoneAlarmContract {
 
     interface Presenter extends BasePresenter{
         void putAlarmPhoneFormHttp();
+        void AddCallerIndex();
     }
 }

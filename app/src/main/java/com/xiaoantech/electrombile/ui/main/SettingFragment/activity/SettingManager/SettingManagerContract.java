@@ -14,6 +14,7 @@ public interface SettingManagerContract {
         void gotoAutoLock();
         void gotoPhoneAlarm();
         void logout();
+        void PhoneAlarmOpen(boolean isOn);
     }
 
     interface Presenter extends BasePresenter{
@@ -21,5 +22,6 @@ public interface SettingManagerContract {
         void gotoAutoLock();
         void gotoPhoneAlarm();
         void logout();
+        void isPhoneAlarmOpen();
     }
 }
