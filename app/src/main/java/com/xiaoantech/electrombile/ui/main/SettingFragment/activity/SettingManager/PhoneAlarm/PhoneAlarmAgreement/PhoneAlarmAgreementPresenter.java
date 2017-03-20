@@ -51,7 +51,6 @@ public class PhoneAlarmAgreementPresenter implements PhoneAlarmAgreementContract
     public void onHttpPostEvent(HttpPostEvent event){
         if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM || event.getRequestType() == HttpManager.postType.POST_TYPE_PHONE){
             try {
-                mPhoneAlarmAgreement.showToast("设置成功");
                 JSONObject object = new JSONObject(event.getResult());
                 int code = object.getInt("code");
                 if (code == 0) {

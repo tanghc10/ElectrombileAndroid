@@ -16,6 +16,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.databinding.ActivityPhoneAlarmAgreementBinding;
+import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement.PhoneAlarmAgreementContract;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmContract;
@@ -69,8 +70,10 @@ public class PhoneAlarmAgreementActivity extends BaseAcitivity implements PhoneA
 
     public void toPhoneAlarmActivity(boolean isTo){
         if (true == isTo){
-            AddContacts();
+            showToast("设置成功");
+            LocalDataManager.getInstance().setPhoneAlarmOpen(true);
             Intent intent = new Intent();
+            PhoneAlarmAgreementActivity.this.finish();
             intent.setClass(PhoneAlarmAgreementActivity.this, PhoneAlarmActivity.class);
             startActivity(intent);
         }else {

@@ -39,8 +39,6 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
     private Button btn_alarmTest;
     private Timer timer;
     private TextView textView_time;
-    private int callerIndex = 0
-            ;
 
     /*Handler handler = new Handler() {
         @Override
@@ -72,10 +70,14 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
         }
     };*/
 
-    public void changeButtonState(boolean isOn) {
-
+    public void AddCallerIndex(){
+        int caller = LocalDataManager.getInstance().getCallerIndex() + 1;
+        if (caller >= 10){
+            caller = 0;
+        }
+        LocalDataManager.getInstance().setCallerIndex(caller);
+        putAlarmPhoneFormHttp();
     }
-
 
 
     protected PhoneAlarmPresenter(PhoneAlarmContract.View phoneAlarm){
@@ -96,7 +98,7 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
         String url = baseUrl + "/v1/telephone/"+BasicDataManager.getInstance().getBindIMEI();
         try{
             JSONObject caller = new JSONObject();
-            caller.put("caller",callerIndex);
+            caller.put("caller",LocalDataManager.getInstance().getCallerIndex());
             mPhoneAlarm.showWaitingDialog("正在设置");
             HttpManager.putHttpResult(url, HttpManager.putType.PUT_TYPE_ALARMPHONE, caller.toString());
         }catch (JSONException e){
@@ -106,6 +108,6 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPutEvent(HttpPutEvent event){
-        mPhoneAlarm.showToast("测试成功");
+        mPhoneAlarm.showToast("开始测试");
     }
 }

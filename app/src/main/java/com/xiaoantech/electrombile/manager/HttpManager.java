@@ -28,6 +28,7 @@ public class HttpManager {
         GET_TYPE_TODAYITINERARY,
         GET_TYPE_ROUTES,
         GET_TYPE_GPS_POINTS,
+        GET_TYPE_PHONENUM
     }
     public enum postType{
         POST_TYPE_DEVICE,

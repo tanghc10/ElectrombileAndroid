@@ -113,6 +113,8 @@
             android:label="autolockSet"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity"
             android:label="PhoneAlarm"/>
+        <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmNoreceiveActivity"
+            android:label="NoPhoneAlarm"/>
         <activity android:name=".ui.main.Unkown.Record.RecordActivity"
             android:label="Record"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement.PhoneAlarmAgreementActivity"

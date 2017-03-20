@@ -11,6 +11,7 @@ public interface PhoneAlarmAgreementContract {
 
     interface View extends BaseView<Presenter> {
         void toPhoneAlarmActivity(boolean isTo);
+        void AddContacts();
     }
 
     interface Presenter extends BasePresenter {

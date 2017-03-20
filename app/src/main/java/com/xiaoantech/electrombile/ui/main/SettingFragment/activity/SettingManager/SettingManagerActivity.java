@@ -75,8 +75,7 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
 
     @Override
     public void gotoPhoneAlarm() {
-        Intent intent = new Intent(SettingManagerActivity.this, PhoneAlarmAgreementActivity.class);
-        startActivity(intent);
+        mPresenter.isPhoneAlarmOpen();
     }
 
     @Override
@@ -98,5 +97,27 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
                 AVUser.logOut();
             }
         }).create().show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    public void PhoneAlarmOpen(boolean isOn){
+        Intent intent = new Intent();
+        if (isOn == true){
+            intent.setClass(SettingManagerActivity.this, PhoneAlarmActivity.class);
+        }else {
+            intent.setClass(SettingManagerActivity.this, PhoneAlarmAgreementActivity.class);
+        }
+        startActivity(intent);
     }
 }
