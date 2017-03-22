@@ -43,7 +43,7 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
 
     @Override
     protected void initView() {
-        ((TextView)findViewById(R.id.navigation_title)).setText("行车历史");
+        ((TextView)findViewById(R.id.navigation_title)).setText("远程窃听");
         ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +88,7 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
             startVisualiser();
             mBinding.txtCutdown.setVisibility(View.INVISIBLE);
             changeButtonStatus(mBinding.btnStop,true);
+            mBinding.btnPlay.setText("暂停");
             changeButtonStatus(mBinding.btnPlay,true);
             mMediaPlayer.reset();
             try {
@@ -106,11 +107,11 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
     @Override
     public void changePlayStatus() {
         if (mMediaPlayer.isPlaying()){
-            mMediaPlayer.stop();
-            mBinding.btnPlay.setText("已停止");
-        }else {
             mMediaPlayer.pause();
-            mBinding.btnPlay.setText("正播放");
+            mBinding.btnPlay.setText("播放");
+        }else {
+            mMediaPlayer.start();
+            mBinding.btnPlay.setText("暂停");
         }
     }
 
@@ -119,27 +120,40 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
         mMediaPlayer.stop();
     }
 
+    @Override
+    public void resetView() {
+        mMediaPlayer.stop();
+        changeButtonStatus(mBinding.btnPlay,true);
+        changeButtonStatus(mBinding.btnStop,false);
+        mBinding.btnPlay.setText("录音");
+        mBinding.txtTitle.setText("录音");
+        mBinding.txtCutdown.setText("60" + "");
+        mBinding.txtCutdown.setVisibility(View.VISIBLE);
+    }
+
     private void startVisualiser() {
-        try {
-            mVisualizer = new Visualizer(mMediaPlayer.getAudioSessionId()); // 初始化
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        mVisualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
-            @Override
-            public void onWaveFormDataCapture(Visualizer visualizer, byte[] waveform, int samplingRate) {
-                if (mBinding.wiretapWvWaveform != null) {
-                    mBinding.wiretapWvWaveform.setWaveform(waveform);
+        if (mVisualizer == null) {
+            try {
+                mVisualizer = new Visualizer(mMediaPlayer.getAudioSessionId()); // 初始化
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mVisualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
+                @Override
+                public void onWaveFormDataCapture(Visualizer visualizer, byte[] waveform, int samplingRate) {
+                    if (mBinding.wiretapWvWaveform != null) {
+                        mBinding.wiretapWvWaveform.setWaveform(waveform);
+                    }
                 }
-            }
 
-            @Override
-            public void onFftDataCapture(Visualizer visualizer, byte[] fft, int samplingRate) {
+                @Override
+                public void onFftDataCapture(Visualizer visualizer, byte[] fft, int samplingRate) {
 
-            }
-        }, Visualizer.getMaxCaptureRate(), true, false);
-        mVisualizer.setCaptureSize(CAPTURE_SIZE);
-        mVisualizer.setEnabled(true);
+                }
+            }, Visualizer.getMaxCaptureRate(), true, false);
+            mVisualizer.setCaptureSize(CAPTURE_SIZE);
+            mVisualizer.setEnabled(true);
+        }
     }
 
     @Override

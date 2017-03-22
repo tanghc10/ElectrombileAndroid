@@ -25,17 +25,17 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="100px"
+            android:layout_height="50dp"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="33px"
-                android:layout_marginStart="33px"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
                 android:gravity="center"
                 android:text="自动设防"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
@@ -43,9 +43,10 @@
 
             <Button
                 android:id="@+id/btn_autolock"
-                android:layout_width="145px"
-                android:layout_height="80px"
+                android:layout_width="72dp"
+                android:layout_height="40dp"
                 android:layout_marginRight="20dp"
+                android:textSize="14sp"
                 android:background="@drawable/shape"
                 android:onClick="@{ () -> presenter.changeAutoLock()}"
                 android:text="已开启"
@@ -56,32 +57,32 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20px"
+            android:layout_height="10dp"
             android:background="@color/background_grey"/>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_5_minutes"
             android:layout_width="match_parent"
-            android:layout_height="100px"
+            android:layout_height="50dp"
             android:onClick="@{ () -> presenter.changeAutoLockPeriod(5) }"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="33px"
-                android:layout_marginStart="33px"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="5分钟"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_5_minutes"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_5_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_5_minutes" />
 
             <ImageView
                 android:id="@+id/img_5_minutes"
-                android:layout_width="50px"
-                android:layout_height="50px"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn_unselected"
@@ -92,7 +93,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <View
-            android:layout_width="670px"
+            android:layout_width="340dp"
             android:layout_height="1dp"
             android:background="@color/background_grey"
             android:layout_gravity="center"/>
@@ -100,26 +101,26 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_10_minutes"
             android:layout_width="match_parent"
-            android:layout_height="100px"
+            android:layout_height="50dp"
             android:onClick="@{ () -> presenter.changeAutoLockPeriod(10) }"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="33px"
-                android:layout_marginStart="33px"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="10分钟"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_10_minutes"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_10_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_10_minutes" />
 
             <ImageView
                 android:id="@+id/img_10_minutes"
-                android:layout_width="50px"
-                android:layout_height="50px"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn_unselected"
@@ -129,7 +130,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <View
-            android:layout_width="670px"
+            android:layout_width="340dp"
             android:layout_height="1dp"
             android:background="@color/background_grey"
             android:layout_gravity="center"/>
@@ -137,26 +138,26 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_15_minutes"
             android:layout_width="match_parent"
-            android:layout_height="100px"
+            android:layout_height="50dp"
             android:onClick="@{ () -> presenter.changeAutoLockPeriod(15) }"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="33px"
-                android:layout_marginStart="33px"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="15分钟"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_15_minutes"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_15_minutes"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout_15_minutes" />
 
             <ImageView
                 android:id="@+id/img_15_minutes"
-                android:layout_width="50px"
-                android:layout_height="50px"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn_unselected"

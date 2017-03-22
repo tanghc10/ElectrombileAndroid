@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,7 +56,7 @@ import java.util.Map;
  * Created by yangxu on 2016/11/3.
  */
 
-public class MainFragment extends BaseFragment implements MainFragmentContract.View {
+public class MainFragment extends BaseFragment implements MainFragmentContract.View ,SwipeRefreshLayout.OnRefreshListener {
     private FragmentMainBinding mBinding;
     private MainFragmentContract.Presenter mPresenter;
     private BaiduMap            mBaiduMap;
@@ -78,6 +79,12 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void initView() {
         mPresenter = new MainFragmentPresenter(this);
         mBinding.setPresenter(mPresenter);
+
+        //下拉刷新
+        mBinding.swipeLayout.setOnRefreshListener(this);
+        mBinding.swipeLayout.setColorSchemeColors(getResources().getColor(R.color.appOrange),getResources().getColor(R.color.blue));
+
+        //百度地图
         mBinding.mapview.showZoomControls(false);
         mBinding.mapview.showScaleControl(false);
         mBaiduMap = mBinding.mapview.getMap();
@@ -102,10 +109,16 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         setFonts();
 
         if(isVisible){
-            MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
-            mPresenter.getItinerary();
-            mPresenter.getWeatherInfo();
+            if (!LocalDataManager.getInstance().getLatestStatus().isEmpty()){
+                mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
+                mBinding.txtItinerary.setText(LocalDataManager.getInstance().getTodayItinerary()  + "");
+            }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.refresh();
     }
 
     public void setFonts(){
@@ -222,6 +235,9 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void showWeather(int temperature, String weather) {
+        if (mBinding.swipeLayout.isRefreshing()){
+            mBinding.swipeLayout.setRefreshing(false);
+        }
         if (weather.contains("云")||weather.contains("阴")){
             mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_cloudy));
         }else if (weather.contains("晴")){
@@ -237,6 +253,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void showWeatherDialog(JSONObject weatherInfo,String placeInfo) {
+
         WeatherInfoDialog.Builder dialog = new WeatherInfoDialog.Builder(getContext());
         dialog.setWeatherInfo(weatherInfo).setPlaceInfo(placeInfo).create().show();
     }

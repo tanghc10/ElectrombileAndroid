@@ -16,6 +16,8 @@ public interface RecordContract {
         void startPlay(String filePath);
         void changePlayStatus();
         void stopPlay();
+
+        void resetView();
 //        void changeButtonStatus(int buttonID,boolean isEnable);
     }
 

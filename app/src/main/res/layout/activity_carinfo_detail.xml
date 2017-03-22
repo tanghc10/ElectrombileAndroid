@@ -39,7 +39,7 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="0dp"
-                android:layout_height="300px"
+                android:layout_height="150dp"
                 android:background="@drawable/bb"
                 app:layout_constraintBottom_toTopOf="@+id/view"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
@@ -64,23 +64,24 @@
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 android:orientation="vertical"
                 android:id="@+id/linearLayout5"
+                android:background="@color/white"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginTop="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="16dp"
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="车辆名称"
-                        android:textSize="35px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_car_name"
@@ -88,22 +89,23 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车辆名称"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textSize="16sp" />
+
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -112,8 +114,8 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="车牌号"
-                        android:layout_marginLeft="35px"
-                        android:textSize="35px" />
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_plate_num"
@@ -121,22 +123,23 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车牌号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
+
                     android:orientation="horizontal">
 
                     <TextView
@@ -145,31 +148,31 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="车架号"
-                        android:layout_marginLeft="35px"
-                        android:textSize="35px" />
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_frame_num"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入车架号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -178,8 +181,8 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="电池型号"
-                        android:layout_marginLeft="35px"
-                        android:textSize="35px" />
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_battery_version"
@@ -188,9 +191,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="请选择电池型号"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -199,18 +202,19 @@
                 android:id="@+id/linearLayout6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="150px"
+                android:layout_marginBottom="75dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-                android:layout_marginTop="10px">
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -219,8 +223,8 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="品牌"
-                        android:layout_marginLeft="35px"
-                        android:textSize="35px" />
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_brand_name"
@@ -228,22 +232,23 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入品牌"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="670px"
+                    android:layout_width="340dp"
                     android:layout_height="1dp"
                     android:background="@color/background_grey"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -252,8 +257,8 @@
                         android:layout_weight="3"
                         android:gravity="center"
                         android:text="厂家电话"
-                        android:layout_marginLeft="35px"
-                        android:textSize="35px" />
+                        android:layout_marginLeft="16dp"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txt_vender_phone"
@@ -261,9 +266,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:hint="请输入厂家电话"
+                        android:hint="暂无信息"
                         android:textColorHint="@color/grey_txt"
-                        android:layout_marginLeft="50px"
+                        android:layout_marginLeft="25dp"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -272,15 +277,15 @@
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="650px"
-                android:layout_height="90px"
+                android:layout_width="325dp"
+                android:layout_height="45dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape"
                 android:onClick="@{ () -> presenter.gotoRevise()}"
                 android:text="修改信息"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6"

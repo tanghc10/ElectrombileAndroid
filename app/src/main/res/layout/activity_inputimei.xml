@@ -13,6 +13,7 @@
     </data>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,12 +23,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100px">
+            android:layout_height="50dp"
+            android:id="@+id/inputIMEI">
 
             <ImageView
-                android:layout_width="50px"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="33px"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="16dp"
                 android:layout_gravity="center"
                 android:src="@drawable/img_imei_input"/>
 
@@ -35,10 +37,10 @@
                 android:id="@+id/txt_inputIMEI"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50px"
+                android:layout_marginLeft="25dp"
                 android:hint="输入产品序列号"
                 android:textColorHint="@color/grey_txt"
-                android:textSize="35px"
+                android:textSize="16dp"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
         </LinearLayout>
@@ -51,18 +53,17 @@
             android:background="@color/background_grey">
 
             <Button
-                android:layout_width="650px"
-                android:layout_height="90px"
+                android:layout_width="325dp"
+                android:layout_height="45dp"
                 android:text="确定"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                 android:onClick="@{() -> presenter.bindIMEI(txtInputIMEI.getText().toString())}"
-                android:textSize="40px"
+                android:textSize="16dp"
                 android:textAllCaps="false"
                 android:background="@drawable/shape"
                 android:id="@+id/button5"
-                android:layout_marginTop="200dp"
                 android:layout_marginBottom="50dp" />
 
 

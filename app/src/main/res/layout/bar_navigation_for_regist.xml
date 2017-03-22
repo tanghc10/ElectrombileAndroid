@@ -2,11 +2,11 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100px"
+    android:layout_height="50dp"
     android:background="#f8c035">
 
     <Button
-        android:layout_width="200px"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_alignBaseline="@+id/navigation_title"
         android:layout_alignBottom="@+id/navigation_title"
@@ -14,7 +14,7 @@
         android:background="#f8c035"
         android:id="@+id/btn_next"
         android:text="下一步"
-        android:textSize="35px"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/navigation_title"

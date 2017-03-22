@@ -47,16 +47,20 @@ public class LocalDataManager {
     public final String MQTTHost_Release = "mqtt.xiaoan110.com";
     public final String MQTTPort_Release = "1883";
     public final String HTTPHost_Release = "http://api.xiaoan110.com";
-    public final String HTTPPort_Release = "80";
+    public final String HTTPPort_Release = "8083";
 
     public final String MQTTHost_Test = "test.xiaoan110.com";
     public final String MQTTPort_Test = "1883";
     public final String HTTPHost_Test = "http://test.xiaoan110.com";
     public final String HTTPPort_Test = "8083";
 
+    private int callerIndex;
+    private boolean phoneAlarmOpen;
 
     private final String AutoLock = "AutoLock";
     private final String AutoLockPeriod = "AutoLockPeriod";
+    private final String LatestStatus = "latestStatus";
+    private final String TodayItinerary = "todayItinerary";
 
     private SharedPreferences sharedPreferences;
 
@@ -85,6 +89,22 @@ public class LocalDataManager {
 
     public String getIMEI() {
         return sharedPreferences.getString(IMEI,"");
+    }
+
+    public int getCallerIndex(){
+        return this.callerIndex;
+    }
+
+    public void setCallerIndex(int caller){
+        this.callerIndex = caller;
+    }
+
+    public boolean getPhoneAlarmOpen(){
+        return this.phoneAlarmOpen;
+    }
+
+    public void setPhoneAlarmOpen(boolean isOn){
+        this.phoneAlarmOpen = isOn;
     }
 
     public void setIMEIList(List<String> imeiList) {
@@ -157,27 +177,27 @@ public class LocalDataManager {
         sharedPreferences.edit().putString(MQTTHost,mqttHost).apply();
     }
     public String getMQTTHost() {
-        return sharedPreferences.getString(MQTTHost,MQTTHost_Test);
+        return sharedPreferences.getString(MQTTHost,MQTTHost_Release);
     }
 
     public void setMQTTPort(String mqttPort) {
         sharedPreferences.edit().putString(MQTTPort,mqttPort).apply();
     }
     public String getMQTTPort() {
-        return sharedPreferences.getString(MQTTPort,MQTTPort_Test);
+        return sharedPreferences.getString(MQTTPort,MQTTPort_Release);
     }
 
     public void setHTTPHost(String httpHost) {
         sharedPreferences.edit().putString(HTTPHost,httpHost).apply();
     }
     public String getHTTPHost(){
-        return sharedPreferences.getString(HTTPHost,HTTPHost_Test);
+        return sharedPreferences.getString(HTTPHost,HTTPHost_Release);
     }
     public void setHTTPPort(String httpPort){
         sharedPreferences.edit().putString(HTTPPort,httpPort).apply();
     }
     public String getHTTPPort(){
-        return sharedPreferences.getString(HTTPPort,HTTPPort_Test);
+        return sharedPreferences.getString(HTTPPort,HTTPPort_Release);
     }
 
     public LayoutConstant.MapType getMapType(){
@@ -267,5 +287,21 @@ public class LocalDataManager {
 
     public int getAutoLockPeriod(){
         return sharedPreferences.getInt(AutoLockPeriod,5);
+    }
+
+    public void setLatestStatus(String latestStatus){
+        sharedPreferences.edit().putString(LatestStatus,latestStatus).apply();
+    }
+
+    public String getLatestStatus(){
+        return sharedPreferences.getString(LatestStatus,"");
+    }
+
+    public void setTodayItinerary(int todayItinerary){
+        sharedPreferences.edit().putInt(TodayItinerary,todayItinerary);
+    }
+
+    public int getTodayItinerary(){
+        return sharedPreferences.getInt(TodayItinerary,0);
     }
 }
