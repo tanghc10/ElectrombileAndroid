@@ -50,6 +50,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private boolean fenceStatus;
     private JSONObject              mWeatherInfo;
     private String                  mPlaceInfo;
+    private String                  mCity;
     private Handler myHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -84,9 +85,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     public void getWeatherInfo() {
-        String city = StringUtil.encode("武汉市");
-        String urlStr = "http://wthrcdn.etouch.cn/weather_mini?city=%E6%AD%A6%E6%B1%89";
-        HttpManager.getHttpResult(urlStr, HttpManager.getType.GET_TYPE_WEATHER);
+        if (mCity != null){
+            String city = StringUtil.encode(mCity);
+            String urlStr = "http://wthrcdn.etouch.cn/weather_mini?city=" + city;
+            HttpManager.getHttpResult(urlStr, HttpManager.getType.GET_TYPE_WEATHER);
+        }
     }
 
     @Override
@@ -198,6 +201,10 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
         mMainFragmentView.changePlaceInfo(addressComponent.district+addressComponent.street+addressComponent.streetNumber);
         mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
+
+        //获取天气信息
+        mCity = addressComponent.city.substring(0,addressComponent.city.length()-1);
+        getWeatherInfo();
     }
 
     @Override
@@ -372,7 +379,12 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             //自动落锁状态
             JSONObject autoLock = result.getJSONObject("autolock");
             boolean autolockState = autoLock.getBoolean("isOn");
-
+            if(autolockState){
+                int autoLockPeriod = autoLock.getInt("period");
+                mMainFragmentView.changeAutoLockStatus(autolockState,autoLockPeriod);
+            }else {
+                mMainFragmentView.changeAutoLockStatus(autolockState,0);
+            }
             //电池电量
             JSONObject battery = result.getJSONObject("battery");
             mMainFragmentView.changeBattery(battery.getInt("percent"),false);

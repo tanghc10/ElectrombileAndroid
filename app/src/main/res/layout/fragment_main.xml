@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已上锁"
+                android:text="已设防"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout_battery"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
@@ -105,14 +105,37 @@
                 app:layout_constraintLeft_toLeftOf="@+id/btn_fence"
                 app:layout_constraintRight_toRightOf="@+id/btn_fence"/>
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_change_car"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_autolock" />
+                android:id="@+id/txt_autoLock_period"
+                android:textColor="@color/appOrange"
+                app:layout_constraintLeft_toLeftOf="@+id/img_autoLock"
+                app:layout_constraintRight_toRightOf="@+id/img_autoLock"
+                app:layout_constraintTop_toTopOf="@+id/img_autoLock"
+                app:layout_constraintBottom_toBottomOf="@+id/img_autoLock"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/img_autoLock"
+                android:src="@drawable/img_autolock_off"
+                app:layout_constraintRight_toRightOf="@+id/txt_autoLock"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_autoLock"
+                app:layout_constraintBottom_toTopOf="@+id/txt_autoLock"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_autoLock"
+                android:text="自动设防已关闭"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout_battery"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -135,7 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_battery"
-                        android:text="70"
+                        android:text="--"
                         android:textSize="116.5dp"
                         android:gravity="right|top"
                         android:textColor="@color/white"
@@ -212,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_itinerary"
-                        android:text="70"
+                        android:text="--"
                         android:textSize="116.5dp"
                         android:gravity="right|top"
                         android:textColor="@color/white"

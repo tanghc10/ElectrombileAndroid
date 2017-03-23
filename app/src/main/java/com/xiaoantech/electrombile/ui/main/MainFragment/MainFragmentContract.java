@@ -18,6 +18,7 @@ public interface MainFragmentContract {
     interface View extends BaseView<Presenter>{
         void showWeather(int temperature,String weather);
         void changeFenceStatus(Boolean isOn,boolean isGet);
+        void changeAutoLockStatus(Boolean isOn,int period);
         void changeBattery(int battery,boolean showTip);
         void changeItinerary(int itinerary);
         void changeGPSPoint(LatLng point);

@@ -124,6 +124,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void setFonts(){
         String fontPath = "fonts/dincond-regular.ttf";
         mBinding.txtBattery.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
+        mBinding.txtAutoLock.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtItinerary.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtBatteryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtItineraryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
@@ -262,20 +263,33 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void changeFenceStatus(Boolean isOn, boolean isGet) {
         if (isGet){
             if (isOn){
-                mBinding.btnFence.setText("已上锁");
+                mBinding.btnFence.setText("已设防");
             }else {
-                mBinding.btnFence.setText("未上锁");
+                mBinding.btnFence.setText("未设防");
             }
         }else {
             if (isOn){
                showToast("小安宝开启成功！");
-                mBinding.btnFence.setText("已上锁");
+                mBinding.btnFence.setText("已设防");
             }else {
                 showToast("小安宝关闭成功！");
-                mBinding.btnFence.setText("未上锁");
+                mBinding.btnFence.setText("未设防");
             }
         }
 
+    }
+
+    @Override
+    public void changeAutoLockStatus(Boolean isOn, int period) {
+        if (isOn){
+            mBinding.imgAutoLock.setImageDrawable(getResources().getDrawable(R.drawable.img_autolock_on));
+            mBinding.txtAutoLock.setText("自动设防已开启");
+            mBinding.txtAutoLockPeriod.setText(period+"");
+        }else {
+            mBinding.imgAutoLock.setImageDrawable(getResources().getDrawable(R.drawable.img_autolock_off));
+            mBinding.txtAutoLock.setText("自动设防已关闭");
+            mBinding.txtAutoLockPeriod.setText("");
+        }
     }
 
     @Override
