@@ -13,6 +13,7 @@ public interface SettingManagerContract {
         void gotoChangePass();
         void gotoAutoLock();
         void gotoPhoneAlarm();
+        void gotoRecord();
         void logout();
         void PhoneAlarmOpen(boolean isOn);
     }
@@ -21,6 +22,7 @@ public interface SettingManagerContract {
         void gotoChangePass();
         void gotoAutoLock();
         void gotoPhoneAlarm();
+        void gotoRecord();
         void logout();
         void isPhoneAlarmOpen();
     }

@@ -95,7 +95,7 @@ public class MqttManager {
         String topicNotify = "dev2app/" + IMEI + "/notify";
 
         String[] topics = {topicCMD,topicGPS,topic433,topicAlarm,topicNotify};
-        JPushManager.getInstance().setPushAlias(BasicDataManager.getInstance().getBindIMEI());
+        JPushManager.getInstance().setPushAlias(IMEI);
         int[] qoss = {ServiceConstant.MQTT_QUALITY_OF_SERVICE,
                 ServiceConstant.MQTT_QUALITY_OF_SERVICE,
                 ServiceConstant.MQTT_QUALITY_OF_SERVICE,

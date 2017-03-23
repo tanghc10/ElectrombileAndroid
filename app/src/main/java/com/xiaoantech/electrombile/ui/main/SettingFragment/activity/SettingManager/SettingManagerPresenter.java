@@ -50,6 +50,11 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
     }
 
     @Override
+    public void gotoRecord() {
+        mSettingManagerView.gotoRecord();
+    }
+
+    @Override
     public void logout() {
         mSettingManagerView.logout();
     }
