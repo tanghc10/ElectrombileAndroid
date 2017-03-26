@@ -28,66 +28,45 @@ public class HttpManager {
         GET_TYPE_TODAYITINERARY,
         GET_TYPE_ROUTES,
         GET_TYPE_GPS_POINTS,
-        GET_TYPE_PHONENUM
+        GET_TYPE_PHONENUM,
+        GET_TYPE_STATUS,
     }
     public enum postType{
         POST_TYPE_DEVICE,
-        POST_TYPE_PHONE
+        POST_TYPE_PHONE,
+        POST_TYPE_GET_STATUS,
+        POST_TYPE_GET_GPS,
+        POST_TYPE_SET_AUTOLOCK,
+        POST_TYPE_GET_AUTOLOCK,
+        POST_TYPE_SET_FENCE,
+        POST_TYPE_GET_FENCE,
+        POST_TYPE_GET_BATTERY,
+        POST_TYPE_SET_BATTERY_TYPE,
+        POST_TYPE_START_RECORD,
+        POST_TYPE_STOP_RECORD,
+        POST_TYPE_DEFAULT,
+        POST_TYPE_SET_SERVER,
+        POST_TYPE_SET_FILENAME,
+        POST_TYPE_SET_BLUETOOTH,
+        POST_TYPE_SET_ALARM,
+        POST_TYPE_SET_LOCKON,
+        POST_TYPE_GET_DEVICEMSG,
+        POST_TYPE_GET_GPS_SIGNAL,
+        POST_TYPE_GET_GSM_SIGNAL,
+        POST_TYPE_SET_ATTEST,
+        POST_TYPE_GET_LOG,
+        POST_TYPE_SET_RESET,
+        POST_TYPE_SET_LINK_SWITCH,
+        POST_TYPE_GET_LINK_SWITCH,
+        POST_TYPE_GET_LOCKON,
+        POST_TYPE_SET_LINK_ELECTRICLOCK,
+        POST_TYPE_GET_LINK_ELECTRICLOCK,
+        POST_TYPE_DEL_BLUETOOTH_IMEI,
     }
     public enum putType{
         PUT_TYPE_ALARMPHONE
     }
     public enum deleteType{
-    }
-    public static void getHttpResult(final String url, final getType gettype){
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                HttpURLConnection connection;
-                try {
-                    URL getURL = new URL(url);
-                    connection = (HttpURLConnection) getURL.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setConnectTimeout(5000);
-                    String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                    EventBus.getDefault().post(new HttpGetEvent(gettype,StringUtil.decodeUnicode(result),true));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    public static void putHttpResult(final String url, final putType puttype, final String body) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection connection;
-                byte[] bytes = body.getBytes();
-                try {
-                    URL getURL = new URL(url);
-                    connection = (HttpURLConnection) getURL.openConnection();
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-                    connection.setRequestMethod("PUT");
-                    connection.setConnectTimeout(5000);
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    OutputStream out = connection.getOutputStream();
-                    out.write(bytes);
-                    out.flush();
-                    out.close();
-                    int response = connection.getResponseCode();
-                    if (response == HttpURLConnection.HTTP_OK) {
-                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                        EventBus.getDefault().post(new HttpPutEvent(puttype, StringUtil.decodeUnicode(result.toString()), true));
-                    }else {
-                        connection.disconnect();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     public static void deleteHttpResult(final String url, final deleteType deletetype, final String body) {
@@ -124,6 +103,56 @@ public class HttpManager {
         }).start();
     }
 
+    public static void getHttpResult(final String url, final getType gettype, final HttpConstant.HttpCmd cmd){
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                HttpURLConnection connection;
+                try {
+                    URL getURL = new URL(url);
+                    connection = (HttpURLConnection) getURL.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(5000);
+                    String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                    EventBus.getDefault().post(new HttpGetEvent(gettype,StringUtil.decodeUnicode(result),true));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void putHttpResult(final String url, final putType puttype, final HttpConstant.HttpCmd cmd, final String body) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection;
+                byte[] bytes = body.getBytes();
+                try {
+                    URL getURL = new URL(url);
+                    connection = (HttpURLConnection) getURL.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestMethod("PUT");
+                    connection.setConnectTimeout(5000);
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    OutputStream out = connection.getOutputStream();
+                    out.write(bytes);
+                    out.flush();
+                    out.close();
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK) {
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        EventBus.getDefault().post(new HttpPutEvent(puttype, StringUtil.decodeUnicode(result.toString()), true));
+                    }else {
+                        connection.disconnect();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     public static void postHttpResult(final String url, final postType postType , final HttpConstant.HttpCmd cmd, final String body){
         new Thread(new Runnable() {

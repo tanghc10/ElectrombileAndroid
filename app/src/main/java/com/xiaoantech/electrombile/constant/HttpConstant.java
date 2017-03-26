@@ -7,6 +7,7 @@ package com.xiaoantech.electrombile.constant;
 public class HttpConstant {
     public static final String ITINERARY = "itinerary";
     public static final String ROUTEMILE = "miles";
+    public static final String CMD = "c";
 
     public enum HttpCmd{
         HTTP_CMD_GET_STATUS,
@@ -20,6 +21,22 @@ public class HttpConstant {
         HTTP_CMD_START_RECORD,
         HTTP_CMD_STOP_RECORD,
         HTTP_CMD_DEFAULT,
-        HTTP_CMD_SETPHONEALARM
+        HTTP_CMD_SET_SERVER,
+        HTTP_CMD_SET_FILENAME,
+        HTTP_CMD_SET_BLUETOOTH,
+        HTTP_CMD_SET_ALARM,
+        HTTP_CMD_SET_LOCKON,
+        HTTP_CMD_GET_DEVICEMSG,
+        HTTP_CMD_GET_GPS_SIGNAL,
+        HTTP_CMD_GET_GSM_SIGNAL,
+        HTTP_CMD_SET_ATTEST,
+        HTTP_CMD_GET_LOG,
+        HTTP_CMD_SET_RESET,
+        HTTP_CMD_SET_LINK_SWITCH,
+        HTTP_CMD_GET_LINK_SWITCH,
+        HTTP_CMD_GET_LOCKON,
+        HTTP_CMD_SET_LINK_ELECTRICLOCK,
+        HTTP_CMD_GET_LINK_ELECTRICLOCK,
+        HTTP_CMD_DEL_BLUETOOTH_IMEI,
     }
 }
