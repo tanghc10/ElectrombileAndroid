@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.manager;
+package com.xiaoantech.electrombile.http;
 
 import android.os.Bundle;
 

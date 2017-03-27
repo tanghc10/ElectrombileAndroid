@@ -1,7 +1,7 @@
 package com.xiaoantech.electrombile.event.http;
 
 import com.xiaoantech.electrombile.constant.HttpConstant;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 
 /**
  * Created by yangxu on 2017/3/2.

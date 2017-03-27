@@ -20,7 +20,7 @@ import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.utils.GPSConvertUtil;

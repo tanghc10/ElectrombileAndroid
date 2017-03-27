@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -17,7 +16,7 @@ import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpPostEvent;
 import com.xiaoantech.electrombile.event.notify.RecordEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.utils.APKDirUtil;
 

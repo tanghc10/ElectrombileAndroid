@@ -1,8 +1,6 @@
 package com.xiaoantech.electrombile.event.http;
 
-import com.xiaoantech.electrombile.manager.HttpManager;
-
-import org.json.JSONObject;
+import com.xiaoantech.electrombile.http.HttpManager;
 
 /**
  * Created by yangxu on 2016/11/7.

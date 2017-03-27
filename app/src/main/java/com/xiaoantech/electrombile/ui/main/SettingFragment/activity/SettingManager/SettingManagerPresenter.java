@@ -1,18 +1,13 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager;
 
-import android.net.Uri;
-import android.widget.TextView;
-
 import com.xiaoantech.electrombile.manager.BasicDataManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by yangxu on 2016/12/14.

@@ -1,10 +1,7 @@
 package com.xiaoantech.electrombile.http;
 
-import android.webkit.JsPromptResult;
-
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 
 import org.json.JSONException;
@@ -26,17 +23,7 @@ public class HttpPublishManager {
     }
 
     public void getStatus(){
-        try{
-            JSONObject cmd = new JSONObject();
-            cmd.put("c", 0);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
-            jsonObject.put("cmd", cmd);
-            String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_STATUS, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, jsonObject.toString());
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_STATUS, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, getStringWithCmd(0));
     }
 
     public void getGPS(){
@@ -454,5 +441,38 @@ public class HttpPublishManager {
         }catch (JSONException e){
             e.printStackTrace();
         }
+    }
+
+    private String getDeviceUrl(){
+        return LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
+    }
+
+    private String getStringWithCmd(int cmd){
+        try {
+            JSONObject jsonObject = new JSONObject();
+            JSONObject jsonCmd = new JSONObject();
+            jsonCmd.put("c", cmd);
+            jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
+            jsonObject.put("cmd", jsonCmd);
+            return jsonObject.toString();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getStringWithCmdAndParam(int cmd,JSONObject param){
+        try {
+            JSONObject jsonObject = new JSONObject();
+            JSONObject jsonCmd = new JSONObject();
+            jsonCmd.put("c", cmd);
+            jsonCmd.put("param",param);
+            jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
+            jsonObject.put("cmd", jsonCmd);
+            return jsonObject.toString();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 package com.xiaoantech.electrombile.event.http;
 
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 
 /**
  * Created by tanghuichuan on 2017/3/2.

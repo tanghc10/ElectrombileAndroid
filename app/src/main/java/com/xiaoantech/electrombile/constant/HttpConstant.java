@@ -9,6 +9,7 @@ public class HttpConstant {
     public static final String ROUTEMILE = "miles";
     public static final String CMD = "c";
 
+
     public enum HttpCmd{
         HTTP_CMD_GET_STATUS,
         HTTP_CMD_GET_GPS,

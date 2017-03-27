@@ -1,27 +1,15 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm;
 
 import android.app.ProgressDialog;
-import android.content.ComponentName;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xiaoantech.electrombile.R;
-import com.xiaoantech.electrombile.constant.HttpConstant;
-import com.xiaoantech.electrombile.event.http.HttpGetEvent;
-import com.xiaoantech.electrombile.event.http.HttpPostEvent;
 import com.xiaoantech.electrombile.event.http.HttpPutEvent;
 import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
-import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 
-import org.eclipse.paho.android.service.MqttService;
-import org.eclipse.paho.client.mqttv3.internal.MessageCatalog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
