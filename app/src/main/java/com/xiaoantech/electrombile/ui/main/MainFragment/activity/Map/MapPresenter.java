@@ -104,7 +104,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
 
     @Override
     public void gotoFindCar() {
-        mMapView.gotoFindCar();
+//        mMapView.gotoFindCar();
     }
 
     private void dealWithErrorCode(int errorCode){
