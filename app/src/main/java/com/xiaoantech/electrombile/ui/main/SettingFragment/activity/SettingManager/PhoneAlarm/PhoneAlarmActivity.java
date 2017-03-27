@@ -12,7 +12,7 @@ import com.avos.avoscloud.AVUser;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityPhoneAlarmBinding;
-import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.SettingManagerActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmResend.PhoneAlarmNoreceiveActivity;
 
 /**
  * Created by yangxu on 2017/2/25.

@@ -69,4 +69,17 @@ public class RegisterActivity extends BaseAcitivity implements RegisterContract.
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void changeIdentifiedButtonStatus(boolean isEnable, int secondLeft) {
+        if (isEnable){
+            mBinding.identifiedCodeBtn.setBackground(getResources().getDrawable(R.drawable.corners_bg_orange));
+            mBinding.identifiedCodeBtn.setText("接收验证码");
+            mBinding.identifiedCodeBtn.setEnabled(true);
+        }else {
+            mBinding.identifiedCodeBtn.setBackground(getResources().getDrawable(R.drawable.corners_bg_gray));
+            mBinding.identifiedCodeBtn.setText(secondLeft+"s重新发送");
+            mBinding.identifiedCodeBtn.setEnabled(false);
+        }
+    }
 }

@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.xiaoantech.electrombile.ui.Other.AlarmActivity;
+import com.xiaoantech.electrombile.ui.Other.OutageActivity;
+import com.xiaoantech.electrombile.utils.DeviceUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,17 +54,17 @@ public class JPushReceiver extends BroadcastReceiver {
             }
             Log.d(TAG,bundle.toString());
             if (bundle.getString(JPushInterface.EXTRA_ALERT).equals("您的爱车正在被非法移动")){
-//                DeviceUtils.wakeUpAndUnlock(context);
-//                Intent intentMy = new Intent(context, AlarmActivity.class);
-//                intentMy.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intentMy.putExtra(ProtocolConstants.TYPE, 0);
-//                context.startActivity(intentMy);
+                DeviceUtil.wakeUpAndUnlock(context);
+                Intent intentMy = new Intent(context, AlarmActivity.class);
+                intentMy.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentMy.putExtra("type", 0);
+                context.startActivity(intentMy);
             }else if (bundle.getString(JPushInterface.EXTRA_ALERT).equals("断电告警：电动车电池已被拔出")){
-//                DeviceUtils.wakeUpAndUnlock(context);
-//                Intent intentMy = new Intent(context, OutageAvtivity.class);
-//                intentMy.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intentMy.putExtra(ProtocolConstants.TYPE, 0);
-//                context.startActivity(intentMy);
+                DeviceUtil.wakeUpAndUnlock(context);
+                Intent intentMy = new Intent(context, OutageActivity.class);
+                intentMy.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentMy.putExtra("type", 0);
+                context.startActivity(intentMy);
             }
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");

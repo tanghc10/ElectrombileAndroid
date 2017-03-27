@@ -5,7 +5,9 @@ package com.xiaoantech.electrombile.constant;
  */
 
 public class HandlerConstant {
+    public static final int StartTimer = 0x00;
     public static final int TimerWhat0 = 0x01;
+
 
 
 

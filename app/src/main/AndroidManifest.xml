@@ -25,6 +25,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
 
     <!-- 这个权限用于进行网络定位-->
@@ -114,12 +115,14 @@
             android:label="autolockSet"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity"
             android:label="PhoneAlarm"/>
-        <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmNoreceiveActivity"
+        <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmResend.PhoneAlarmNoreceiveActivity"
             android:label="NoPhoneAlarm"/>
         <activity android:name=".ui.main.Unkown.Record.RecordActivity"
             android:label="Record"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement.PhoneAlarmAgreementActivity"
             android:label="Agreement"/>
+        <activity android:name=".ui.Other.AlarmActivity"
+            android:label="Alarm"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />

@@ -104,7 +104,7 @@
                     android:textColor="@color/aliceblue"
                     android:textSize="12sp"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_button_grey"
+                    android:background="@drawable/corners_bg_orange"
                     android:onClick="@{() -> presenter.getIdentifiedCode(phoneNumEdtTxt.getText().toString())}"
                     android:layout_height="30dp" />
             </LinearLayout>
