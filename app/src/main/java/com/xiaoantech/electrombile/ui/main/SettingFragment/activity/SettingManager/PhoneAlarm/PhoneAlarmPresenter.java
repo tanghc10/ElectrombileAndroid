@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.HttpPostEvent;
 import com.xiaoantech.electrombile.event.http.HttpPutEvent;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
@@ -110,4 +113,9 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
     public void onHttpPutEvent(HttpPutEvent event){
         mPhoneAlarm.showToast("开始测试");
     }
+
+    public void HttpTest(){
+        HttpPublishManager.getmInstance().getLockOn();
+    }
+
 }
