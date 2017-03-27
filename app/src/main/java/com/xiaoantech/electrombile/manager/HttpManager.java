@@ -34,33 +34,25 @@ public class HttpManager {
     public enum postType{
         POST_TYPE_DEVICE,
         POST_TYPE_PHONE,
-        POST_TYPE_GET_STATUS,
-        POST_TYPE_GET_GPS,
-        POST_TYPE_SET_AUTOLOCK,
-        POST_TYPE_GET_AUTOLOCK,
-        POST_TYPE_SET_FENCE,
-        POST_TYPE_GET_FENCE,
-        POST_TYPE_GET_BATTERY,
-        POST_TYPE_SET_BATTERY_TYPE,
-        POST_TYPE_START_RECORD,
-        POST_TYPE_STOP_RECORD,
+        POST_TYPE_STATUS,
+        POST_TYPE_GPS,
+        POST_TYPE_AUTOLOCK,
+        POST_TYPE_FENCE,
+        POST_TYPE_BATTERY,
+        POST_TYPE_BATTERY_TYPE,
         POST_TYPE_DEFAULT,
-        POST_TYPE_SET_SERVER,
-        POST_TYPE_SET_FILENAME,
+        POST_TYPE_SERVER,
+        POST_TYPE_FILENAME,
         POST_TYPE_SET_BLUETOOTH,
-        POST_TYPE_SET_ALARM,
-        POST_TYPE_SET_LOCKON,
-        POST_TYPE_GET_DEVICEMSG,
-        POST_TYPE_GET_GPS_SIGNAL,
-        POST_TYPE_GET_GSM_SIGNAL,
-        POST_TYPE_SET_ATTEST,
-        POST_TYPE_GET_LOG,
-        POST_TYPE_SET_RESET,
-        POST_TYPE_SET_LINK_SWITCH,
-        POST_TYPE_GET_LINK_SWITCH,
-        POST_TYPE_GET_LOCKON,
-        POST_TYPE_SET_LINK_ELECTRICLOCK,
-        POST_TYPE_GET_LINK_ELECTRICLOCK,
+        POST_TYPE_ALARM,
+        POST_TYPE_LOCKON,
+        POST_TYPE_DEVICEMSG,
+        POST_TYPE_SIGNAL,
+        POST_TYPE_ATTEST,
+        POST_TYPE_LOG,
+        POST_TYPE_RESET,
+        POST_TYPE_SWITCH,
+        POST_TYPE_ELECTRICLOCK,
         POST_TYPE_DEL_BLUETOOTH_IMEI,
     }
     public enum putType{
@@ -103,7 +95,7 @@ public class HttpManager {
         }).start();
     }
 
-    public static void getHttpResult(final String url, final getType gettype, final HttpConstant.HttpCmd cmd){
+    public static void getHttpResult(final String url, final getType gettype){
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -122,7 +114,7 @@ public class HttpManager {
         }).start();
     }
 
-    public static void putHttpResult(final String url, final putType puttype, final HttpConstant.HttpCmd cmd, final String body) {
+    public static void putHttpResult(final String url, final putType puttype, final String body) {
         new Thread(new Runnable() {
             @Override
             public void run() {

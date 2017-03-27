@@ -24,7 +24,7 @@ public class HttpConstant {
         HTTP_CMD_SET_SERVER,
         HTTP_CMD_SET_FILENAME,
         HTTP_CMD_SET_BLUETOOTH,
-        HTTP_CMD_SET_ALARM,
+        HTTP_CMD_SETPHONEALARM,
         HTTP_CMD_SET_LOCKON,
         HTTP_CMD_GET_DEVICEMSG,
         HTTP_CMD_GET_GPS_SIGNAL,

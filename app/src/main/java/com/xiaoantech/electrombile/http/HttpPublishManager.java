@@ -16,16 +16,24 @@ import org.json.JSONObject;
 
 public class HttpPublishManager {
     private static String TAG = "HttpPublishManager";
+    private static HttpPublishManager mInstance = null;
+
+    public static HttpPublishManager getmInstance(){
+        if (null == mInstance){
+            mInstance = new HttpPublishManager();
+        }
+        return mInstance;
+    }
 
     public void getStatus(){
         try{
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS);
+            cmd.put("c", 0);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_STATUS, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_STATUS, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -34,12 +42,12 @@ public class HttpPublishManager {
     public void getGPS(){
         try{
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_GPS);
+            cmd.put("c", 1);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_GPS, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GPS, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -51,13 +59,13 @@ public class HttpPublishManager {
             param.put("sw", sw);
             param.put("period", period);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK);
+            cmd.put("c", 2);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_AUTOLOCK, HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_AUTOLOCK, HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -66,12 +74,12 @@ public class HttpPublishManager {
     public void getAutoLock(){
         try{
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK);
+            cmd.put("c", 3);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_AUTOLOCK, HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_AUTOLOCK, HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -82,27 +90,27 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("defend", defend);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE);
+            cmd.put("c", 4);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_FENCE, HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_FENCE, HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
-    public void getFence(int defend){
+    public void getFence(){
         try{
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_FENCE);
+            cmd.put("c", 5);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_FENCE, HttpConstant.HttpCmd.HTTP_CMD_GET_FENCE, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_FENCE, HttpConstant.HttpCmd.HTTP_CMD_GET_FENCE, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -111,12 +119,12 @@ public class HttpPublishManager {
     public void getBattery(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_BATTERY);
+            cmd.put("c", 6);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_BATTERY, HttpConstant.HttpCmd.HTTP_CMD_GET_BATTERY, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_BATTERY, HttpConstant.HttpCmd.HTTP_CMD_GET_BATTERY, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -127,13 +135,13 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("batterytype", batterytype);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE);
+            cmd.put("c", 7);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_BATTERY_TYPE, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_BATTERY_TYPE, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -142,12 +150,12 @@ public class HttpPublishManager {
     public void startRecord(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_START_RECORD);
+            cmd.put("c", 8);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_START_RECORD, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -156,12 +164,12 @@ public class HttpPublishManager {
     public void stopRecord(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD);
+            cmd.put("c", 9);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_STOP_RECORD, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -172,7 +180,7 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("bluetoothId", bluetoothId);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_DEFAULT);
+            cmd.put("c", 10);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
@@ -190,13 +198,13 @@ public class HttpPublishManager {
             param.put("type", type);
             param.put("server",server);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_SERVER);
+            cmd.put("c", 11);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_SERVER, HttpConstant.HttpCmd.HTTP_CMD_SET_SERVER, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SERVER, HttpConstant.HttpCmd.HTTP_CMD_SET_SERVER, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -208,13 +216,13 @@ public class HttpPublishManager {
             param.put("use", use);
             param.put("fileName",fileName);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_FILENAME);
+            cmd.put("c", 12);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_FILENAME, HttpConstant.HttpCmd.HTTP_CMD_SET_FILENAME, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_FILENAME, HttpConstant.HttpCmd.HTTP_CMD_SET_FILENAME, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -225,7 +233,7 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("sw", sw);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_BLUETOOTH);
+            cmd.put("c", 13);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
@@ -240,12 +248,12 @@ public class HttpPublishManager {
     public void setAlarm(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_ALARM);
+            cmd.put("c", 14);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_ALARM, HttpConstant.HttpCmd.HTTP_CMD_SET_ALARM, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_ALARM, HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -256,13 +264,13 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("sw", sw);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON);
+            cmd.put("c", 15);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_LOCKON, HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_LOCKON, HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -271,12 +279,12 @@ public class HttpPublishManager {
     public void getDeviceMSG(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_DEVICEMSG);
+            cmd.put("c", 16);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_DEVICEMSG, HttpConstant.HttpCmd.HTTP_CMD_GET_DEVICEMSG, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICEMSG, HttpConstant.HttpCmd.HTTP_CMD_GET_DEVICEMSG, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -285,12 +293,12 @@ public class HttpPublishManager {
     public void getGPSSignal(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_GPS_SIGNAL);
+            cmd.put("c", 17);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_GPS_SIGNAL, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS_SIGNAL, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SIGNAL, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS_SIGNAL, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -299,12 +307,12 @@ public class HttpPublishManager {
     public void getGSMSignal(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_GSM_SIGNAL);
+            cmd.put("c", 18);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_GSM_SIGNAL, HttpConstant.HttpCmd.HTTP_CMD_GET_GSM_SIGNAL, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SIGNAL, HttpConstant.HttpCmd.HTTP_CMD_GET_GSM_SIGNAL, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -315,13 +323,13 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("AT", AT);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_ATTEST);
+            cmd.put("c", 19);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_ATTEST, HttpConstant.HttpCmd.HTTP_CMD_SET_ATTEST, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_ATTEST, HttpConstant.HttpCmd.HTTP_CMD_SET_ATTEST, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -330,12 +338,12 @@ public class HttpPublishManager {
     public void getLog(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_LOG);
+            cmd.put("c", 20);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_LOG, HttpConstant.HttpCmd.HTTP_CMD_GET_LOG, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_LOG, HttpConstant.HttpCmd.HTTP_CMD_GET_LOG, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -344,12 +352,12 @@ public class HttpPublishManager {
     public void setReset(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_RESET);
+            cmd.put("c", 21);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_RESET, HttpConstant.HttpCmd.HTTP_CMD_SET_RESET, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_RESET, HttpConstant.HttpCmd.HTTP_CMD_SET_RESET, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -360,13 +368,13 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("sw", sw);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH);
+            cmd.put("c", 22);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_LINK_SWITCH, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SWITCH, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -375,12 +383,12 @@ public class HttpPublishManager {
     public void getLinkSwitch(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_SWITCH);
+            cmd.put("c", 23);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_LINK_SWITCH, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_SWITCH, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SWITCH, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_SWITCH, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -389,12 +397,12 @@ public class HttpPublishManager {
     public void getLockOn(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_LOCKON);
+            cmd.put("c", 24);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_LOCKON, HttpConstant.HttpCmd.HTTP_CMD_GET_LOCKON, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_LOCKON, HttpConstant.HttpCmd.HTTP_CMD_GET_LOCKON, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -405,13 +413,13 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("sw", sw);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK);
+            cmd.put("c", 25);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_SET_LINK_ELECTRICLOCK, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_ELECTRICLOCK, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -420,12 +428,12 @@ public class HttpPublishManager {
     public void getLinkElectricLock(){
         try {
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_ELECTRICLOCK);
+            cmd.put("c", 26);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
             jsonObject.put("cmd", cmd);
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_GET_LINK_ELECTRICLOCK, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_ELECTRICLOCK, jsonObject.toString());
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_ELECTRICLOCK, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_ELECTRICLOCK, jsonObject.toString());
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -436,7 +444,7 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("bluetoothId", bluetoothId);
             JSONObject cmd = new JSONObject();
-            cmd.put("c", HttpConstant.HttpCmd.HTTP_CMD_DEL_BLUETOOTH_IMEI);
+            cmd.put("c", 27);
             cmd.put("param", param);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("imei", BasicDataManager.getInstance().getBindIMEI());
