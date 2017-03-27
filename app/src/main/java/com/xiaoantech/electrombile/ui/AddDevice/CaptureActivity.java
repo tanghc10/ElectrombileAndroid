@@ -11,17 +11,26 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.constant.LeanCloudConstant;
+import com.xiaoantech.electrombile.constant.TimerConstant;
+import com.xiaoantech.electrombile.event.LeanCloud.BindEvent;
 import com.xiaoantech.electrombile.leancloud.LeanCloudManager;
 import com.xiaoantech.electrombile.tools.ZXing.camera.CameraManager;
 import com.xiaoantech.electrombile.tools.ZXing.decoding.CaptureActivityHandler;
 import com.xiaoantech.electrombile.tools.ZXing.decoding.InactivityTimer;
 import com.xiaoantech.electrombile.tools.ZXing.view.ViewfinderView;
 import com.xiaoantech.electrombile.utils.JSONUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Vector;
 
@@ -48,13 +57,12 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
         }
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_scan_imei);
+        initView();
         CameraManager.init(getApplication());
 
 
@@ -66,20 +74,24 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
         Message msg = Message.obtain();
         mHandler.sendMessageDelayed(msg,3000);
 
-        Button btnCancel = (Button)findViewById(R.id.btn_cancel_scan);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void initView(){
+        View view = (View)findViewById(R.id.navigation);
+        ((TextView)view.findViewById(R.id.navigation_title)).setText("二维码扫描");
+        ((RelativeLayout)view.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CaptureActivity.this.finish();
             }
         });
     }
-
+    
     @Override
     protected void onResume() {
         super.onResume();
         try {
-//            EventBus.getDefault().register(this);
+            EventBus.getDefault().register(this);
             SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
 
@@ -100,7 +112,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
     @Override
     protected void onPause() {
         super.onPause();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -171,8 +183,36 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
                 Toast.makeText(this,"IMEI的长度错误或者为空",Toast.LENGTH_SHORT).show();
             }else {
                 LeanCloudManager.getInstance().bindIMEI(IMEI);
+                showToast("正在绑定设备");
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBindEvent(BindEvent event){
+        bindResult(event.getBindResult());
+        mHandler.sendEmptyMessage(0x01);
+    }
+
+    public void bindResult(LeanCloudConstant.LeanCloudBindResult result) {
+        switch (result){
+            case LEAN_CLOUD_BIND_RESULT_BIND_SUCCESS:
+                showToast("绑定成功");
+                break;
+            case LEAN_CLOUD_BIND_RESULT_DID_NONE:
+                showToast("未找到该设备");
+                break;
+            case LEAN_CLOUD_BIND_RESULT_BIND_MUCH:
+                showToast("该设备已被绑定");
+                break;
+            case LEAN_CLOUD_BIND_RESULT_BIND_FAIL:
+                showToast("绑定失败");
+                break;
+        }
+    }
+
+    private void showToast(String errorMeg) {
+        Toast.makeText(this,errorMeg,Toast.LENGTH_SHORT).show();
     }
 }

@@ -11,9 +11,19 @@ public interface SettingManagerContract {
 
     interface View extends BaseView<Presenter> {
         void gotoChangePass();
+        void gotoAutoLock();
+        void gotoPhoneAlarm();
+        void gotoRecord();
+        void logout();
+        void PhoneAlarmOpen(boolean isOn);
     }
 
     interface Presenter extends BasePresenter{
         void gotoChangePass();
+        void gotoAutoLock();
+        void gotoPhoneAlarm();
+        void gotoRecord();
+        void logout();
+        void isPhoneAlarmOpen();
     }
 }

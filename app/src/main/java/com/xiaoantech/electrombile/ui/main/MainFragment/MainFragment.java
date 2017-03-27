@@ -1,14 +1,16 @@
 package com.xiaoantech.electrombile.ui.main.MainFragment;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +43,7 @@ import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.manager.LocationManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity;
+import com.xiaoantech.electrombile.ui.main.MainFragment.activity.NotifyHistoryActivity.NotifyHistoryActivity;
 import com.xiaoantech.electrombile.widget.Dialog.CustomDialog;
 import com.xiaoantech.electrombile.widget.Dialog.WeatherInfoDialog;
 
@@ -53,7 +56,7 @@ import java.util.Map;
  * Created by yangxu on 2016/11/3.
  */
 
-public class MainFragment extends BaseFragment implements MainFragmentContract.View {
+public class MainFragment extends BaseFragment implements MainFragmentContract.View ,SwipeRefreshLayout.OnRefreshListener {
     private FragmentMainBinding mBinding;
     private MainFragmentContract.Presenter mPresenter;
     private BaiduMap            mBaiduMap;
@@ -61,6 +64,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     private static int          selectedCarIndex;
     private static View         selectedView;
     private List<Map<String,Object>> carNameList;
+    private boolean             isVisible;
 
     @Nullable
     @Override
@@ -75,6 +79,12 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void initView() {
         mPresenter = new MainFragmentPresenter(this);
         mBinding.setPresenter(mPresenter);
+
+        //下拉刷新
+        mBinding.swipeLayout.setOnRefreshListener(this);
+        mBinding.swipeLayout.setColorSchemeColors(getResources().getColor(R.color.appOrange),getResources().getColor(R.color.blue));
+
+        //百度地图
         mBinding.mapview.showZoomControls(false);
         mBinding.mapview.showScaleControl(false);
         mBaiduMap = mBinding.mapview.getMap();
@@ -97,11 +107,24 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         });
         initMarker();
         setFonts();
+
+        if(isVisible){
+            if (!LocalDataManager.getInstance().getLatestStatus().isEmpty()){
+                mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
+                mBinding.txtItinerary.setText(LocalDataManager.getInstance().getTodayItinerary()  + "");
+            }
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.refresh();
     }
 
     public void setFonts(){
         String fontPath = "fonts/dincond-regular.ttf";
         mBinding.txtBattery.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
+        mBinding.txtAutoLock.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtItinerary.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtBatteryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtItineraryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
@@ -201,6 +224,8 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         super.onResume();
         mPresenter.subscribe();
         mBinding.mapview.onResume();
+
+
     }
     @Override
     public void onPause(){
@@ -211,6 +236,9 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void showWeather(int temperature, String weather) {
+        if (mBinding.swipeLayout.isRefreshing()){
+            mBinding.swipeLayout.setRefreshing(false);
+        }
         if (weather.contains("云")||weather.contains("阴")){
             mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_cloudy));
         }else if (weather.contains("晴")){
@@ -226,6 +254,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void showWeatherDialog(JSONObject weatherInfo,String placeInfo) {
+
         WeatherInfoDialog.Builder dialog = new WeatherInfoDialog.Builder(getContext());
         dialog.setWeatherInfo(weatherInfo).setPlaceInfo(placeInfo).create().show();
     }
@@ -234,20 +263,33 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void changeFenceStatus(Boolean isOn, boolean isGet) {
         if (isGet){
             if (isOn){
-                mBinding.btnFence.setText("已上锁");
+                mBinding.btnFence.setText("已设防");
             }else {
-                mBinding.btnFence.setText("未上锁");
+                mBinding.btnFence.setText("未设防");
             }
         }else {
             if (isOn){
                showToast("小安宝开启成功！");
-                mBinding.btnFence.setText("已上锁");
+                mBinding.btnFence.setText("已设防");
             }else {
                 showToast("小安宝关闭成功！");
-                mBinding.btnFence.setText("未上锁");
+                mBinding.btnFence.setText("未设防");
             }
         }
 
+    }
+
+    @Override
+    public void changeAutoLockStatus(Boolean isOn, int period) {
+        if (isOn){
+            mBinding.imgAutoLock.setImageDrawable(getResources().getDrawable(R.drawable.img_autolock_on));
+            mBinding.txtAutoLock.setText("自动设防已开启");
+            mBinding.txtAutoLockPeriod.setText(period+"");
+        }else {
+            mBinding.imgAutoLock.setImageDrawable(getResources().getDrawable(R.drawable.img_autolock_off));
+            mBinding.txtAutoLock.setText("自动设防已关闭");
+            mBinding.txtAutoLockPeriod.setText("");
+        }
     }
 
     @Override
@@ -278,6 +320,12 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     }
 
     @Override
+    public void gotoMessage() {
+        Intent intent = new Intent(mContext, NotifyHistoryActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void changePlaceInfo(String placeInfo) {
         mBinding.textView.setText(placeInfo);
     }
@@ -293,4 +341,13 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         initChangeCarDialog();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            isVisible = true;
+        }else {
+            isVisible = false;
+        }
+    }
 }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
@@ -23,6 +25,15 @@ public class ChooseBindActivity extends Activity {
     }
 
     private void initView(){
+        View view = (View)findViewById(R.id.navigation);
+        ((TextView)view.findViewById(R.id.navigation_title)).setText("绑定设备号");
+        ((RelativeLayout)view.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseBindActivity.this.finish();
+            }
+        });
+
         ConstraintLayout constraintLayout_scan = (ConstraintLayout)findViewById(R.id.constraintLayout_scan);
         ConstraintLayout constraintLayout_input = (ConstraintLayout)findViewById(R.id.constraintLayout_input);
 

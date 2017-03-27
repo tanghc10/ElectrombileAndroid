@@ -17,11 +17,13 @@ import com.xiaoantech.electrombile.event.cmd.BatteryEvent;
 import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
-import com.xiaoantech.electrombile.event.http.HttpEvent;
+import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
-import com.xiaoantech.electrombile.manager.HttpManager;
+import com.xiaoantech.electrombile.http.HttpManager;
+import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.utils.GPSConvertUtil;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
 
@@ -48,6 +50,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private boolean fenceStatus;
     private JSONObject              mWeatherInfo;
     private String                  mPlaceInfo;
+    private String                  mCity;
     private Handler myHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -69,10 +72,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         fenceStatus = false;
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
-
-        MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
-        getItinerary();
-        getWeatherInfo();
     }
 
     @Override
@@ -86,10 +85,18 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     public void getWeatherInfo() {
-        String city = StringUtil.encode("武汉市");
-        String urlStr = "http://wthrcdn.etouch.cn/weather_mini?city=%E6%AD%A6%E6%B1%89";
-        HttpManager.getHttpResult(urlStr, HttpManager.getType.GET_TYPE_WEATHER);
+        if (mCity != null){
+            String city = StringUtil.encode(mCity);
+            String urlStr = "http://wthrcdn.etouch.cn/weather_mini?city=" + city;
+            HttpManager.getHttpResult(urlStr, HttpManager.getType.GET_TYPE_WEATHER);
+        }
+    }
 
+    @Override
+    public void refresh() {
+        MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
+        HistoryRouteManager.getInstance().getTodayItineray();
+        getWeatherInfo();
     }
 
     @Override
@@ -125,7 +132,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onHttpEvent(HttpEvent event){
+    public void onHttpEvent(HttpGetEvent event){
         if (event.getRequestType() == HttpManager.getType.GET_TYPE_WEATHER){
             didReceiveWeather(event.getResult());
         }else if (event.getRequestType() == HttpManager.getType.GET_TYPE_TODAYITINERARY){
@@ -194,6 +201,10 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
         mMainFragmentView.changePlaceInfo(addressComponent.district+addressComponent.street+addressComponent.streetNumber);
         mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
+
+        //获取天气信息
+        mCity = addressComponent.city.substring(0,addressComponent.city.length()-1);
+        getWeatherInfo();
     }
 
     @Override
@@ -209,6 +220,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Override
     public void changeCar() {
         mMainFragmentView.changeCar();
+    }
+
+    @Override
+    public void gotoMessage() {
+        mMainFragmentView.gotoMessage();
     }
 
     @Override
@@ -271,7 +287,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         try{
             int code = jsonObject.getInt("code");
             if (code !=0 && code != 103){
-                dealWithErrorCode(code);
+                dealWithHTTPErrorCode(code);
             }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
                 JSONObject result = jsonObject.getJSONObject("result");
                 mMainFragmentView.changeBattery(result.getInt("percent"),true);
@@ -289,6 +305,15 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }
     }
 
+    private void dealWithHTTPErrorCode(int errorCode){
+        if (errorCode == 100){
+            mMainFragmentView.showToast("服务器内部错误!");
+        }else  if (errorCode == 102){
+            mMainFragmentView.showToast("无内容，请检查设备！");
+            //TODO:ErrorShow
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLocationEvent(LocationEvent event){
         JSONObject jsonObject = event.getJsonObject();
@@ -301,7 +326,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                 double lat = result.getDouble("lat");
                 double lng = result.getDouble("lng");
                 LatLng point = new LatLng(lat,lng);
-                mMainFragmentView.changeGPSPoint(point);
+
+
+                mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
             }
         }catch (Exception e) {
@@ -317,31 +344,50 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             if (code != 0){
                 dealWithErrorCode(code);
             }else {
-                JSONObject result = jsonObject.getJSONObject("result");
-                //GPS定位
-                JSONObject gps = result.getJSONObject("gps");
-                double lat = gps.getDouble("lat");
-                double lng = gps.getDouble("lng");
-                LatLng point = new LatLng(lat,lng);
-                mMainFragmentView.changeGPSPoint(point);
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
-                //小安宝状态
-                boolean lock = result.getBoolean("lock");
-                if (lock){
-                    mMainFragmentView.changeFenceStatus(true,true);
-                    fenceStatus = true;
-                }else {
-                    mMainFragmentView.changeFenceStatus(false,true);
-                    fenceStatus = false;
-                }
-                //自动落锁状态
-                JSONObject autoLock = result.getJSONObject("autolock");
-                boolean autolockState = autoLock.getBoolean("isOn");
-
-                //电池电量
-                JSONObject battery = result.getJSONObject("battery");
-                mMainFragmentView.changeBattery(battery.getInt("percent"),false);
+                LocalDataManager.getInstance().setLatestStatus(jsonObject.getJSONObject("result").toString());
+                convertStatusFromString(jsonObject.getJSONObject("result").toString());
             }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setStatusFromString(String string) {
+        convertStatusFromString(string);
+    }
+
+    private void convertStatusFromString(String string){
+        try {
+            JSONObject result = new JSONObject(string);
+            //GPS定位
+            JSONObject gps = result.getJSONObject("gps");
+            double lat = gps.getDouble("lat");
+            double lng = gps.getDouble("lng");
+            LatLng point = new LatLng(lat,lng);
+            mMainFragmentView.changeGPSPoint(point);
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            //小安宝状态
+            boolean lock = result.getBoolean("lock");
+            if (lock){
+                mMainFragmentView.changeFenceStatus(true,true);
+                fenceStatus = true;
+            }else {
+                mMainFragmentView.changeFenceStatus(false,true);
+                fenceStatus = false;
+            }
+            //自动落锁状态
+            JSONObject autoLock = result.getJSONObject("autolock");
+            boolean autolockState = autoLock.getBoolean("isOn");
+            if(autolockState){
+                int autoLockPeriod = autoLock.getInt("period");
+                mMainFragmentView.changeAutoLockStatus(autolockState,autoLockPeriod);
+            }else {
+                mMainFragmentView.changeAutoLockStatus(autolockState,0);
+            }
+            //电池电量
+            JSONObject battery = result.getJSONObject("battery");
+            mMainFragmentView.changeBattery(battery.getInt("percent"),false);
         }catch (JSONException e){
             e.printStackTrace();
         }

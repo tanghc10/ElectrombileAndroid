@@ -19,17 +19,9 @@ import cn.jpush.android.api.TagAliasCallback;
 
 public class JPushManager {
     private static final String TAG = "JPushManager";
+    private static final int MSG_SET_ALIAS = 1001;
     private Context mContext;
 
-    Handler mHandler = new Handler(){
-        public void handleMessage(Message msg){
-            switch (msg.what){
-                case 6002:
-                    setPushAlias(msg.getData().getString("IMEI"));
-                    break;
-            }
-        }
-    };
 
     private final static  JPushManager mInstance = new JPushManager();
 
@@ -60,7 +52,7 @@ public class JPushManager {
                         bundle.putString("IMEI",IMEI);
                         message.setData(bundle);
                         message.what = 6002;
-                        mHandler.sendMessage(message);
+//                        mHandler.sendMessage(message);
                         //订阅超时
                         break;
                     default:
@@ -70,7 +62,6 @@ public class JPushManager {
             }
         });
     }
-
 
 
 }

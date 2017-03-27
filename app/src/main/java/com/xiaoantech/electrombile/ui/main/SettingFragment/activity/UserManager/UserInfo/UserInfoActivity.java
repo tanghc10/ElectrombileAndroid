@@ -2,11 +2,15 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityUserInfoBinding;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfoRevise.UserInfoReviseActivity;
 
 /**
@@ -30,6 +34,13 @@ public class UserInfoActivity extends BaseAcitivity implements UserInfoContract.
     protected void initView() {
         mPresenter = new UserInfoPresenter(this);
         mBinding.setPresenter(mPresenter);
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("车主信息");
+        ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserInfoActivity.this.finish();
+            }
+        });
     }
 
     @Override
