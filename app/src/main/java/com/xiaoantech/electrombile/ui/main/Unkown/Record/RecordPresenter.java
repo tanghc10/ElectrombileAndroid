@@ -98,7 +98,7 @@ public class RecordPresenter implements RecordContract.Presenter{
         if (recordStatus == RecordStatus.RecordStatus_Start){
             mRecordView.showWaitingDialog("开启录音中");
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+ LocalDataManager.getInstance().getHTTPPort() + "/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD,getPostBody(8));
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE_START, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD,getPostBody(8));
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
             mRecordView.changePlayStatus();
         }
@@ -109,7 +109,7 @@ public class RecordPresenter implements RecordContract.Presenter{
         if (recordStatus == RecordStatus.RecordStatus_Record){
             mRecordView.showWaitingDialog("停止录音中");
             String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD,getPostBody(9));
+            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE_STOP, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD,getPostBody(9));
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
             recordStatus = RecordStatus.RecordStatus_Start;
             mRecordView.resetView();
@@ -176,7 +176,7 @@ public class RecordPresenter implements RecordContract.Presenter{
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostEvent(HttpPostEvent event){
 
-        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE){
+        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_START || event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_STOP){
             try {
                 Log.w(TAG,event.getResult());
                 JSONObject jsonObject = new JSONObject(event.getResult());

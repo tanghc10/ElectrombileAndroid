@@ -32,7 +32,8 @@ public class HttpManager {
         GET_TYPE_STATUS,
     }
     public enum postType{
-        POST_TYPE_DEVICE,
+        POST_TYPE_DEVICE_START,
+        POST_TYPE_DEVICE_STOP,
         POST_TYPE_PHONE,
         POST_TYPE_STATUS,
         POST_TYPE_GPS,
