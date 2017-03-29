@@ -34,7 +34,16 @@ import com.xiaoantech.electrombile.event.http.httpPost.HttpPostSwitchSet;
  */
 
 public class HttpCallback {
-    private static void dealWithHttpPost(HttpManager.postType postType,String result){
+    private static HttpCallback mInstance = null;
+
+    public static HttpCallback getmInstance(){
+        if (mInstance == null){
+            mInstance = new HttpCallback();
+        }
+        return mInstance;
+    }
+
+    public static void dealWithHttpPost(HttpManager.postType postType,String result){
         switch (postType){
             case POST_TYPE_STATUS:
                 HttpPostStatus.getmInstance().StatusResult(result);

@@ -74,11 +74,11 @@ public class HttpPublishManager {
     }
 
     public void startRecord(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, getStringWithCmd(8));
+        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE_START, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, getStringWithCmd(8));
     }
 
     public void stopRecord(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, getStringWithCmd(9));
+        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE_STOP, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, getStringWithCmd(9));
     }
 
     public void addBluetoothId(int bluetoothId){

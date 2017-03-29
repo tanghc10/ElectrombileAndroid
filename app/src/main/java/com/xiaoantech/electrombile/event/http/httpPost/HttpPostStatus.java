@@ -19,6 +19,7 @@ public class HttpPostStatus {
     private double lng;
     private int speed;
     private int cource;
+    private String string;
     private static HttpPostStatus mInstance = null;
 
     public static HttpPostStatus getmInstance() {
@@ -35,6 +36,7 @@ public class HttpPostStatus {
                 this.code = jsonObject.getInt("code");
                 if (code == 0) {
                     JSONObject result = jsonObject.getJSONObject("result");
+                    this.string = result.toString();
                     JSONObject autolock = result.getJSONObject("autolock");
                     this.sw = autolock.getInt("sw");
                     this.period = autolock.getInt("period");
@@ -97,5 +99,9 @@ public class HttpPostStatus {
 
     public int getCource(){
         return cource;
+    }
+
+    public String getString(){
+        return string;
     }
 }

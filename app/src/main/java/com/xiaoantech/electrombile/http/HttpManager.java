@@ -176,7 +176,7 @@ public class HttpManager {
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                        EventBus.getDefault().post(new HttpPostEvent(postType,StringUtil.decodeUnicode(result),true,cmd));
+                        HttpCallback.getmInstance().dealWithHttpPost(postType, result);
                     }
                 }catch (Exception e){
                     e.printStackTrace();
