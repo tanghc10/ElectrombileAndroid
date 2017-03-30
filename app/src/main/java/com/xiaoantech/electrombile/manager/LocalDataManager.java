@@ -66,6 +66,8 @@ public class LocalDataManager {
 
     private  static LocalDataManager mInstance = null;
 
+    private final String IsFirstLaunch = "isFirstLaunch";
+
     public static LocalDataManager getInstance() {
         if (mInstance == null){
             mInstance = new LocalDataManager();
@@ -303,5 +305,13 @@ public class LocalDataManager {
 
     public int getTodayItinerary(){
         return sharedPreferences.getInt(TodayItinerary,0);
+    }
+
+    public void setIsFirstLaunch(Boolean isFirstLaunch){
+        sharedPreferences.edit().putBoolean(IsFirstLaunch,isFirstLaunch).apply();
+    }
+
+    public boolean getIsFirstLaunch(){
+        return sharedPreferences.getBoolean(IsFirstLaunch,true);
     }
 }
