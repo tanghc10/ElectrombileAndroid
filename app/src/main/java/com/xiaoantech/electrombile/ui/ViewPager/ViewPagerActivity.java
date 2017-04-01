@@ -1,13 +1,18 @@
 package com.xiaoantech.electrombile.ui.ViewPager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.ui.login.Login.LoginActivity;
+import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainActivity;
+import com.xiaoantech.electrombile.ui.login.Register.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,8 @@ public class ViewPagerActivity extends Activity implements ViewPager.OnPageChang
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private List<View> views;
+    private Button  btn_login;
+    private Button  btn_register;
 
     private static final int[] pictures = {R.drawable.pager_1,R.drawable.pager_2,R.drawable.pager_3};
 
@@ -48,6 +55,29 @@ public class ViewPagerActivity extends Activity implements ViewPager.OnPageChang
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(this);
 
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewPagerActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                ViewPagerActivity.this.finish();
+            }
+        });
+        btn_login.setEnabled(false);
+
+        btn_register = (Button)findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewPagerActivity.this, RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                ViewPagerActivity.this.finish();
+            }
+        });
+        btn_register.setEnabled(false);
         initDots();
     }
 
@@ -88,9 +118,11 @@ public class ViewPagerActivity extends Activity implements ViewPager.OnPageChang
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (position == 2){
-            if (positionOffset > 100){
-
-            }
+            btn_register.setEnabled(true);
+            btn_login.setEnabled(true);
+        }else {
+            btn_login.setEnabled(false);
+            btn_register.setEnabled(false);
         }
     }
 

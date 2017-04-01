@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.avos.avoscloud.AVUser;
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.constant.HandlerConstant;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
@@ -39,11 +40,12 @@ public class LaunchPageActivity extends Activity {
                 counter ++;
                 if (counter > 2){
                     timer.cancel();
-//                    if (LocalDataManager.getInstance().getIsFirstLaunch()){
+                    if (LocalDataManager.getInstance().getIsFirstLaunch()){
                         gotoPagerActivity();
-//                    }else {
-//                        checkUserStatus();
-//                    }
+                        LocalDataManager.getInstance().setIsFirstLaunch(false);
+                    }else {
+                        checkUserStatus();
+                    }
                 }
             }
             if (msg.what == HandlerConstant.StartTimer){

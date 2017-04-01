@@ -1,5 +1,6 @@
 package com.xiaoantech.electrombile.base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
+import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.constant.TimerConstant;
 
 /**
@@ -20,7 +22,7 @@ import com.xiaoantech.electrombile.constant.TimerConstant;
  * the base class of all activity
  */
 
-public abstract class BaseAcitivity extends AppCompatActivity {
+public abstract class BaseAcitivity extends Activity {
     protected ProgressDialog mProgressDialog;
     protected BackKeyStatus isKeyDown = BackKeyStatus.BACK_KEY_STATUS_START;
     protected abstract void initBefore();
