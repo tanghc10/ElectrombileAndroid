@@ -101,9 +101,4 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
     public void onHttpPutEvent(HttpPutEvent event){
         mPhoneAlarm.showToast("开始测试");
     }
-
-    public void HttpTest(){
-        HttpPublishManager.getmInstance().getLockOn();
-    }
-
 }

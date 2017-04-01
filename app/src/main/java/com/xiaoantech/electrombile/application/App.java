@@ -51,38 +51,7 @@ public class App extends Application {
         }
 
 
-        checkUserStatus();
     }
 
-
-    private void checkUserStatus(){
-        AVUser user = AVUser.getCurrentUser();
-        if (null != user){
-            //已经有登陆状态
-            if(null != LocalDataManager.getInstance().getIMEI() && !LocalDataManager.getInstance().getIMEI().isEmpty()) {
-                MqttManager.getInstance().subscribe(LocalDataManager.getInstance().getIMEI());
-                gotoFragmentActivity();
-
-                //TODO: 暂时直接从服务器获取，之后本地化
-                BasicDataManager.getInstance().initFromLocal();
-            }else {
-                gotoLoginActivity();
-            }
-        }else {
-            gotoLoginActivity();
-        }
-    }
-
-    private void gotoLoginActivity(){
-        Intent intent = new Intent(this, LoginMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void gotoFragmentActivity(){
-        Intent intent = new Intent(this, FragmentMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
 }

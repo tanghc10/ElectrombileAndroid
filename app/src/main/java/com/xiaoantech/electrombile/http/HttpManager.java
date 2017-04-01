@@ -32,12 +32,15 @@ public class HttpManager {
         GET_TYPE_STATUS,
     }
     public enum postType{
-        POST_TYPE_DEVICE,
+        POST_TYPE_DEVICE_START,
+        POST_TYPE_DEVICE_STOP,
         POST_TYPE_PHONE,
         POST_TYPE_STATUS,
         POST_TYPE_GPS,
-        POST_TYPE_AUTOLOCK,
-        POST_TYPE_FENCE,
+        POST_TYPE_AUTOLOCK_SET,
+        POST_TYPE_AUTOLOCK_GET,
+        POST_TYPE_FENCE_SET,
+        POST_TYPE_FENCE_GET,
         POST_TYPE_BATTERY,
         POST_TYPE_BATTERY_TYPE,
         POST_TYPE_DEFAULT,
@@ -45,14 +48,18 @@ public class HttpManager {
         POST_TYPE_FILENAME,
         POST_TYPE_SET_BLUETOOTH,
         POST_TYPE_ALARM,
-        POST_TYPE_LOCKON,
+        POST_TYPE_LOCKON_SET,
+        POST_TYPE_LOCKON_GET,
         POST_TYPE_DEVICEMSG,
-        POST_TYPE_SIGNAL,
+        POST_TYPE_SIGNAL_GPS,
+        POST_TYPE_SIGNAL_GSM,
         POST_TYPE_ATTEST,
         POST_TYPE_LOG,
         POST_TYPE_RESET,
-        POST_TYPE_SWITCH,
-        POST_TYPE_ELECTRICLOCK,
+        POST_TYPE_SWITCH_SET,
+        POST_TYPE_SWITCH_GET,
+        POST_TYPE_ELECTRICLOCK_SET,
+        POST_TYPE_ELECTRICLOCK_GET,
         POST_TYPE_DEL_BLUETOOTH_IMEI,
     }
     public enum putType{
@@ -169,7 +176,7 @@ public class HttpManager {
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                        EventBus.getDefault().post(new HttpPostEvent(postType,StringUtil.decodeUnicode(result),true,cmd));
+                        HttpCallback.getmInstance().dealWithHttpPost(postType, result);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

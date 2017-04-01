@@ -4,29 +4,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by yangxu on 2017/3/27.
+ * Created by 73843 on 2017/3/28.
  */
 
-public class HttpPostBattery {
+public class HttpPostAutoLockGet {
     private int code;
-    private int percent;
-    private static HttpPostBattery mInstance = null;
+    private int sw;
+    private int period;
+    private static HttpPostAutoLockGet mInstance = null;
 
-    public static HttpPostBattery getmInstance(){
+    public static HttpPostAutoLockGet getmInstance(){
         if (mInstance == null){
-            mInstance = new HttpPostBattery();
+            mInstance = new HttpPostAutoLockGet();
         }
         return mInstance;
     }
 
-    public void BatteryResult(String resultStr){
+    public void AutoLockGetResult(String resultStr){
         try {
             JSONObject jsonObject = new JSONObject(resultStr);
             if (jsonObject.has("code")){
                 this.code = jsonObject.getInt("code");
-                if (code == 0) {
+                if (code == 0){
                     JSONObject result = jsonObject.getJSONObject("result");
-                    this.percent = result.getInt("percent");
+                    this.sw = result.getInt("sw");
+                    this.period = result.getInt("period");
                 }
             }
         }catch (JSONException e){
@@ -34,11 +36,15 @@ public class HttpPostBattery {
         }
     }
 
-    public int getCode() {
+    public int getCode(){
         return code;
     }
 
-    public int getPercent() {
-        return percent;
+    public int getSw(){
+        return sw;
+    }
+
+    public int getPeriod(){
+        return period;
     }
 }
