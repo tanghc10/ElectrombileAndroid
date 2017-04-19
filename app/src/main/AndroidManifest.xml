@@ -106,10 +106,6 @@
             android:label="changePass"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.SettingManagerActivity"
             android:label="SettingManager"/>
-        <activity android:name=".ui.main.MainFragment.activity.FindCarMap.FindCarMapActivity"
-            android:label="FindCarMap"/>
-        <activity android:name=".ui.main.MainFragment.activity.FindCar.FindCarActivity"
-            android:label="FindCar"/>
         <activity android:name=".ui.AddDevice.ChooseBindActivity"
             android:label="ChooseBind"/>
         <activity android:name=".ui.AddDevice.InputIMEI.InputIMEIActivity"

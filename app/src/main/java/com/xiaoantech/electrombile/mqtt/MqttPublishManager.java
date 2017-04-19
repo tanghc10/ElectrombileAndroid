@@ -22,26 +22,6 @@ public class MqttPublishManager {
         return mInstance;
     }
 
-    public void fenceOn(String IMEI){
-        mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_FENCE_ON));
-    }
-
-    public void fenceOff(String IMEI){
-        mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_FENCE_OFF));
-    }
-
-    public void fenceGet(String IMEI){
-        mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_FENCE_GET));
-    }
-
-    public void seekOn(String IMEI){
-        mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_SEEK_ON));
-    }
-
-    public void seekOff(String IMEI){
-        mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_SEEK_OFF));
-    }
-
     public void getLocation(String IMEI){
         mInstance.publishCMD(IMEI,getPayloadWithCMD(MqttCommonConstant.CMD_LOCATION));
     }

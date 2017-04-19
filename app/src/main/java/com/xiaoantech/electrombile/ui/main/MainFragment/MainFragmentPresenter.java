@@ -18,6 +18,7 @@ import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceSetEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignalEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
@@ -115,9 +116,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     public void changeFenceStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (fenceStatus){
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOff();
         }else {
-            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOn();
         }
     }
 
@@ -269,39 +270,49 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFenceEvent(FenceEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try{
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-                return;
-            }
-
-            mMainFragmentView.changeBackground(true);
-            switch (event.getCmdType()){
-                case CMD_TYPE_FENCE_ON:
-                    mMainFragmentView.changeFenceStatus(true,false);
-                    fenceStatus = true;
-                    break;
-                case CMD_TYPE_FENCE_OFF:
-                    fenceStatus = false;
-                    mMainFragmentView.changeFenceStatus(false,false);
-                    break;
-                case CMD_TYPE_FENCE_GET:
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    if (result.getInt("state") == 0){
-                        fenceStatus = true;
-                        mMainFragmentView.changeFenceStatus(true,true);
-                    }else {
-                        fenceStatus = false;
-                        mMainFragmentView.changeFenceStatus(false,true);
-                    }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+    public void onHttpPostFenceSetEvent(HttpPostFenceSetEvent event){
+        if (event.getCode() == 0){
+            fenceStatus = !fenceStatus;
+            mMainFragmentView.changeFenceStatus(fenceStatus,false);
+        }else {
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onFenceEvent(FenceEvent event){
+//        JSONObject jsonObject = event.getJsonObject();
+//        try{
+//            int code = jsonObject.getInt("code");
+//            if (code != 0){
+//                dealWithErrorCode(code);
+//                return;
+//            }
+//
+//            mMainFragmentView.changeBackground(true);
+//            switch (event.getCmdType()){
+//                case CMD_TYPE_FENCE_ON:
+//                    mMainFragmentView.changeFenceStatus(true,false);
+//                    fenceStatus = true;
+//                    break;
+//                case CMD_TYPE_FENCE_OFF:
+//                    fenceStatus = false;
+//                    mMainFragmentView.changeFenceStatus(false,false);
+//                    break;
+//                case CMD_TYPE_FENCE_GET:
+//                    JSONObject result = jsonObject.getJSONObject("result");
+//                    if (result.getInt("state") == 0){
+//                        fenceStatus = true;
+//                        mMainFragmentView.changeFenceStatus(true,true);
+//                    }else {
+//                        fenceStatus = false;
+//                        mMainFragmentView.changeFenceStatus(false,true);
+//                    }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public  void onBatteryEvent(BatteryEvent event){
@@ -329,17 +340,38 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     private void dealWithHTTPErrorCode(int errorCode){
-        if (errorCode == 100){
-            mMainFragmentView.showToast("服务器内部错误!");
-        }else  if (errorCode == 102){
-            mMainFragmentView.showToast("无内容，请检查设备！");
-            //TODO:ErrorShow
-        }else if (errorCode == 109){
-            mMainFragmentView.showToast("设备不在线，请检查设备！");
-            mMainFragmentView.changeBackground(false);
-        }else if (errorCode == 111) {
-            mMainFragmentView.showToast("该设备不支持此操作");
+        String errStr = "";
+        switch (errorCode){
+            case 100:
+                errStr = "服务器内部错误!";
+                break;
+            case 101:
+                errStr = "请求无设备信息";
+                break;
+            case 102:
+                errStr = "请求无内容信息";
+                break;
+            case 103:
+                errStr = "请求内容出错";
+                break;
+            case 104:
+                errStr = "请求目标错误";
+                break;
+            case 106:
+            case 107:
+                errStr = "设备服务器无响应";
+                break;
+            case 108:
+                errStr = "设备无响应";
+                break;
+            case 109:
+                errStr = "设备不在线";
+                break;
+            case 111:
+                errStr = "设备不支持该操作";
+                break;
         }
+        mMainFragmentView.showToast(errStr);
     }
 
     @Subscribe(threadMode =  ThreadMode.MAIN)

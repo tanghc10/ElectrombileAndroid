@@ -45,7 +45,15 @@ public class HttpPublishManager {
         HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_AUTOLOCK_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK, getStringWithCmd(3));
     }
 
-    public void setFence(int defend){
+    public void setFenceOn(){
+        setFence(1);
+    }
+
+    public void setFenceOff(){
+        setFence(0);
+    }
+
+    private void setFence(int defend){
         try {
             JSONObject param = new JSONObject();
             param.put("defend", defend);
