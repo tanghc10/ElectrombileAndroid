@@ -18,6 +18,10 @@ import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignalEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.http.HttpManager;
@@ -26,6 +30,7 @@ import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.utils.GPSConvertUtil;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
+import com.xiaoantech.electrombile.utils.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +53,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private MainFragmentContract.View  mMainFragmentView;
     private GeoCoder                mSearch;
     private boolean fenceStatus;
+    private boolean lockStatus;
     private JSONObject              mWeatherInfo;
     private String                  mPlaceInfo;
     private String                  mCity;
@@ -69,7 +75,8 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         this.mMainFragmentView = mainFragmentView;
         mainFragmentView.setPresenter(this);
 
-        fenceStatus = false;
+        fenceStatus = LocalDataManager.getInstance().getFenceStatus();
+        lockStatus = LocalDataManager.getInstance().getLockStatus();
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
     }
@@ -97,6 +104,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
         HistoryRouteManager.getInstance().getTodayItineray();
         getWeatherInfo();
+        getGSM();
+    }
+
+    private void getGSM(){
+        HttpPublishManager.getInstance().getGSMSignal();
     }
 
     @Override
@@ -110,9 +122,13 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Override
-    public void getBattery(){
-        mMainFragmentView.showWaitingDialog("正在查询");
-        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getBindIMEI());
+    public void changeLockStatus() {
+        mMainFragmentView.showWaitingDialog("正在设置");
+        if (lockStatus)
+            HttpPublishManager.getInstance().setLockOn(0);
+        else
+            HttpPublishManager.getInstance().setLockOn(1);
+
     }
 
     @Override
@@ -123,7 +139,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void getGPSInfo(){
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
+        HttpPublishManager.getInstance().getGPS();
     }
 
     @Override
@@ -228,6 +244,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Override
+    public void gotoHistory() {
+        mMainFragmentView.gotoHistory();
+    }
+
+    @Override
     public List<Map<String, Object>> getCarListInfo() {
         List<String> carNameList = BasicDataManager.getInstance().getIMEIList();
 
@@ -257,6 +278,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                 return;
             }
 
+            mMainFragmentView.changeBackground(true);
             switch (event.getCmdType()){
                 case CMD_TYPE_FENCE_ON:
                     mMainFragmentView.changeFenceStatus(true,false);
@@ -301,6 +323,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             mMainFragmentView.showToast("服务器内部错误!");
         }else  if (errorCode == 102){
             mMainFragmentView.showToast("设备离线，请检查设备！");
+            mMainFragmentView.changeBackground(false);
             //TODO:ErrorShow
         }
     }
@@ -311,28 +334,22 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }else  if (errorCode == 102){
             mMainFragmentView.showToast("无内容，请检查设备！");
             //TODO:ErrorShow
+        }else if (errorCode == 109){
+            mMainFragmentView.showToast("设备不在线，请检查设备！");
+            mMainFragmentView.changeBackground(false);
+        }else if (errorCode == 111) {
+            mMainFragmentView.showToast("该设备不支持此操作");
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLocationEvent(LocationEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try {
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-            }else{
-                JSONObject result = jsonObject.getJSONObject("result");
-                double lat = result.getDouble("lat");
-                double lng = result.getDouble("lng");
-                LatLng point = new LatLng(lat,lng);
-
-
-                mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void onHttpPostGPSEvent(HttpPostGPSEvent event){
+        if (event.getCode() == 0) {
+            LatLng point = new LatLng(event.getLat(), event.getLng());
+            mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+        }else {
+            dealWithErrorCode(event.getCode());
         }
     }
 
@@ -344,6 +361,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             if (code != 0){
                 dealWithErrorCode(code);
             }else {
+                mMainFragmentView.changeBackground(true);
                 LocalDataManager.getInstance().setLatestStatus(jsonObject.getJSONObject("result").toString());
                 convertStatusFromString(jsonObject.getJSONObject("result").toString());
             }
@@ -393,7 +411,37 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostLockSetEvent(HttpPostLockSetEvent event){
+        if (event.getCode() == 0){
+            lockStatus = !lockStatus;
+            mMainFragmentView.changeBackground(true);
+            LocalDataManager.getInstance().setLockStatus(lockStatus);
+            mMainFragmentView.changeLockStatus(lockStatus);
+            mMainFragmentView.showToast("设置成功");
+        }else {
+            dealWithErrorCode(event.getCode());
+        }
+    }
 
 
-
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void onHttpPostGSMSignalEvent(HttpPostGSMSignalEvent event){
+        if (event.getCode() == 0){
+            int signal =  event.getGSMSignal();
+            int level = 0;
+            if (signal >= 4 && signal < 6){
+                level = 1;
+            }else if (signal < 9){
+                level = 2;
+            }else if (signal < 11){
+                level = 3;
+            }else if (signal < 14){
+                level = 4;
+            }else {
+                level = 5;
+            }
+            mMainFragmentView.changeSignal(level);
+        }
+    }
 }

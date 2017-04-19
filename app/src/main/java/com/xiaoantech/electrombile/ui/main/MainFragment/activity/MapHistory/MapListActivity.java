@@ -52,6 +52,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter = null;
                 MapListActivity.this.finish();
             }
         });
@@ -62,6 +63,18 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
 //        setListAdapter();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.unsubscribe();
+    }
 
     @Override
     public void onDestroy(){
@@ -240,7 +253,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Item item = (Item) getListView().getAdapter().getItem(position);
-        if (item != null) {
+        if (item != null&& item.type == Item.ITEM) {
             JSONObject jsonobject = item.cell.getTimeStamp();
             try {
                 long startTimeStamp = jsonobject.getLong("start");

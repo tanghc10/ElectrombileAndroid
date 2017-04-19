@@ -65,6 +65,9 @@ android {
         enabled = true
     }
 }
+repositories {
+    jcenter()
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager;
 
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricSetEvent;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
@@ -8,6 +10,7 @@ import com.xiaoantech.electrombile.event.http.HttpGetEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 /**
  * Created by yangxu on 2016/12/14.
@@ -15,6 +18,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class SettingManagerPresenter implements SettingManagerContract.Presenter{
     private  SettingManagerContract.View mSettingManagerView;
+    private boolean isLinkOn ;
 
     protected SettingManagerPresenter(SettingManagerContract.View settingManagerView){
         this.mSettingManagerView = settingManagerView;
@@ -60,6 +64,16 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
         HttpManager.getHttpResult(url, HttpManager.getType.GET_TYPE_PHONENUM);
     }
 
+    @Override
+    public void relevenceSwitchChange(boolean isOn) {
+        mSettingManagerView.showWaitingDialog("正在设置");
+        isLinkOn = isOn;
+        int sw = 0;
+        if (isOn)
+            sw = 1;
+        HttpPublishManager.getInstance().setLinkElectricLock(sw);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpGetEvent(HttpGetEvent event){
 
@@ -69,4 +83,22 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
             mSettingManagerView.PhoneAlarmOpen(true);
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostElectricSetEvent(HttpPostElectricSetEvent event){
+
+        if (event.getCode() == 0){
+            mSettingManagerView.setSwitch(isLinkOn);
+            mSettingManagerView.showToast("设置成功");
+            LocalDataManager.getInstance().setIsRelevanceOn(isLinkOn);
+            return;
+        }else if (event.getCode() == 111){
+            mSettingManagerView.showToast("该设备不支持此操作");
+        }else {
+            mSettingManagerView.showToast("设置失败");
+        }
+        mSettingManagerView.setSwitch(!isLinkOn);
+        LocalDataManager.getInstance().setIsRelevanceOn(!isLinkOn);
+    }
+
 }

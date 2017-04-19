@@ -251,7 +251,8 @@
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-                app:layout_constraintHorizontal_bias="0.514" />
+                app:layout_constraintHorizontal_bias="0.514"
+                style="?android:attr/borderlessButtonStyle"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -15,7 +15,7 @@ public class HttpPublishManager {
     private static String TAG = "HttpPublishManager";
     private static HttpPublishManager mInstance = null;
 
-    public static HttpPublishManager getmInstance(){
+    public static HttpPublishManager getInstance(){
         if (null == mInstance){
             mInstance = new HttpPublishManager();
         }
@@ -85,7 +85,7 @@ public class HttpPublishManager {
         try {
             JSONObject param = new JSONObject();
             param.put("bluetoothId", bluetoothId);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_DEFAULT, getStringWithCmdAndParam(10, param));
+            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_BLUETOOTH_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_DEFAULT, getStringWithCmdAndParam(10, param));
         }catch (JSONException e){
             e.printStackTrace();
         }

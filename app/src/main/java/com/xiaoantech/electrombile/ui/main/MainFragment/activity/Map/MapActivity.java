@@ -254,6 +254,7 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
     protected void onResume() {
         super.onResume();
         mPresenter.subscribe();
+        mPresenter.getLatestHistoryLocation();
     }
 
     @Override

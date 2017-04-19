@@ -43,7 +43,7 @@ public class HttpManager {
         POST_TYPE_FENCE_GET,
         POST_TYPE_BATTERY,
         POST_TYPE_BATTERY_TYPE,
-        POST_TYPE_DEFAULT,
+        POST_TYPE_BLUETOOTH_DEFAULT,
         POST_TYPE_SERVER,
         POST_TYPE_FILENAME,
         POST_TYPE_SET_BLUETOOTH,
@@ -66,6 +66,7 @@ public class HttpManager {
         PUT_TYPE_ALARMPHONE
     }
     public enum deleteType{
+        DELETE_TYPE_ALARMPHONE
     }
 
     public static void deleteHttpResult(final String url, final deleteType deletetype, final String body) {
@@ -73,7 +74,6 @@ public class HttpManager {
             @Override
             public void run() {
                 HttpURLConnection connection;
-                byte[] bytes = body.getBytes();
                 try {
                     URL getURL = new URL(url);
                     connection = (HttpURLConnection) getURL.openConnection();
@@ -84,10 +84,13 @@ public class HttpManager {
                     connection.setUseCaches(false);        //设置不进行缓存
                     connection.setInstanceFollowRedirects(true);
                     connection.setRequestProperty("Content-Type", "application/json");
-                    OutputStream os = connection.getOutputStream();
-                    os.write(bytes);
-                    os.flush();
-                    os.close();
+                    if (body != null) {
+                        byte[] bytes = body.getBytes();
+                        OutputStream os = connection.getOutputStream();
+                        os.write(bytes);
+                        os.flush();
+                        os.close();
+                    }
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
@@ -176,7 +179,7 @@ public class HttpManager {
                     int response = connection.getResponseCode();
                     if (response == HttpURLConnection.HTTP_OK){
                         String result = StreamToStringUtil.StreamToString(connection.getInputStream());
-                        HttpCallback.getmInstance().dealWithHttpPost(postType, result);
+                        HttpCallback.dealWithHttpPost(postType, result);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

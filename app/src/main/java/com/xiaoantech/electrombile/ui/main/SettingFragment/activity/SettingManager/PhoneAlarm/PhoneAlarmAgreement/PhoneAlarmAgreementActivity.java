@@ -3,6 +3,7 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingMana
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
@@ -51,7 +52,6 @@ public class PhoneAlarmAgreementActivity extends BaseAcitivity implements PhoneA
                 PhoneAlarmAgreementActivity.this.finish();
             }
         });
-        setBtnAgree();
     }
 
     @Override
@@ -59,26 +59,15 @@ public class PhoneAlarmAgreementActivity extends BaseAcitivity implements PhoneA
         this.mPresenter = Presenter;
     }
 
-    public void setBtnAgree(){
-        mBinding.btnAgree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.setPhoneAlarmPhone();
-            }
-        });
+    @Override
+    public Context getContext() {
+        return this;
     }
 
-    public void toPhoneAlarmActivity(boolean isTo){
-        if (true == isTo){
-            showToast("设置成功");
-            LocalDataManager.getInstance().setPhoneAlarmOpen(true);
-            Intent intent = new Intent();
-            PhoneAlarmAgreementActivity.this.finish();
-            intent.setClass(PhoneAlarmAgreementActivity.this, PhoneAlarmActivity.class);
-            startActivity(intent);
-        }else {
-            showToast("电话报警设置失败");
-        }
+    public void toPhoneAlarmActivity(){
+        Intent intent = new Intent(PhoneAlarmAgreementActivity.this, PhoneAlarmActivity.class);
+        this.finish();
+        startActivity(intent);
     }
 
     @Override

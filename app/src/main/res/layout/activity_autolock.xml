@@ -50,6 +50,7 @@
                 android:background="@drawable/shape"
                 android:onClick="@{ () -> presenter.changeAutoLock()}"
                 android:text="已开启"
+                style="?android:attr/borderlessButtonStyle"
                 app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@id/constraintLayout" />

@@ -38,7 +38,6 @@ public class MapListPresenter implements MapListContract.Presenter{
     private final String TIMESTAMP = "timestamp";
 
     protected MapListPresenter(MapListContract.View mapListView){
-        subscribe();
         this.mMapListView = mapListView;
         mMapListView.setPresenter(this);
 

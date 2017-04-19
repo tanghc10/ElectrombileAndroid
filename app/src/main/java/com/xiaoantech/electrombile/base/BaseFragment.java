@@ -35,9 +35,11 @@ public abstract class BaseFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getActivity();
         mProgressDialog = new ProgressDialog(mContext);
 
     }
+
     public void showToast(String errorMeg) {
         Toast.makeText(mContext,errorMeg,Toast.LENGTH_SHORT).show();
         mProgressDialog.cancel();

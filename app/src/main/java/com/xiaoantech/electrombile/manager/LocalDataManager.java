@@ -62,11 +62,19 @@ public class LocalDataManager {
     private final String LatestStatus = "latestStatus";
     private final String TodayItinerary = "todayItinerary";
 
+    private final String IsAddContract = "IsAddContract";
+    private final String ContractIndex = "ContractIndex";
+
     private SharedPreferences sharedPreferences;
 
     private  static LocalDataManager mInstance = null;
 
     private final String IsFirstLaunch = "isFirstLaunch";
+    private final String IsRelevanceOn = "isRelevance";
+
+    private final String FenceStatus = "FenceStatus";
+    private final String LockStatus = "FenceStatus";
+
 
     public static LocalDataManager getInstance() {
         if (mInstance == null){
@@ -300,7 +308,7 @@ public class LocalDataManager {
     }
 
     public void setTodayItinerary(int todayItinerary){
-        sharedPreferences.edit().putInt(TodayItinerary,todayItinerary);
+        sharedPreferences.edit().putInt(TodayItinerary,todayItinerary).apply();
     }
 
     public int getTodayItinerary(){
@@ -313,5 +321,45 @@ public class LocalDataManager {
 
     public boolean getIsFirstLaunch(){
         return sharedPreferences.getBoolean(IsFirstLaunch,true);
+    }
+
+    public void setIsAddContract(boolean isAddContract){
+        sharedPreferences.edit().putBoolean(IsAddContract,isAddContract).apply();
+    }
+
+    public boolean getIsAddContract(){
+        return sharedPreferences.getBoolean(IsAddContract,false);
+    }
+
+    public void setContractIndex(int contractIndex){
+        sharedPreferences.edit().putInt(ContractIndex,contractIndex).apply();
+    }
+
+    public int getContractIndex(){
+        return sharedPreferences.getInt(ContractIndex,0);
+    }
+
+    public void setIsRelevanceOn(boolean isRelevanceOn){
+        sharedPreferences.edit().putBoolean(IsRelevanceOn,isRelevanceOn).apply();
+    }
+
+    public boolean getIsRelevanceOn(){
+        return sharedPreferences.getBoolean(IsRelevanceOn,false);
+    }
+
+    public void setFenceStatus(boolean fenceStatus){
+        sharedPreferences.edit().putBoolean(FenceStatus,fenceStatus).apply();
+    }
+
+    public boolean getFenceStatus(){
+        return sharedPreferences.getBoolean(FenceStatus,false);
+    }
+
+    public void setLockStatus(boolean lockStatus){
+        sharedPreferences.edit().putBoolean(LockStatus,lockStatus).apply();
+    }
+
+    public boolean getLockStatus(){
+        return sharedPreferences.getBoolean(LockStatus,false);
     }
 }

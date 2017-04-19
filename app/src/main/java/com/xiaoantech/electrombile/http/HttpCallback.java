@@ -1,134 +1,133 @@
 package com.xiaoantech.electrombile.http;
 
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostATTest;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAlarm;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAutoLockGet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAutoLockSet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBattery;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBatteryType;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothBind;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothDel;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothSet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceMSG;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStart;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStop;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricGet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricSet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceGet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceSet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFilename;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPS;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSSignal;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignal;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockGet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLog;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostReset;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostServer;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostStatus;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostSwitchGet;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostSwitchSet;
+import com.xiaoantech.electrombile.constant.HttpConstant;
+import com.xiaoantech.electrombile.event.http.HttpPostEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostATTestEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAlarmEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAutoLockGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAutoLockSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBatteryEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBatteryTypeEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothBindEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothDelEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceMSGEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStartEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStopEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFilenameEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSSignalEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignalEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLogEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostResetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostServerEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostStatusEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostSwitchGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostSwitchSetEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by yangxu on 2017/3/27.
  */
 
 public class HttpCallback {
-    private static HttpCallback mInstance = null;
-
-    public static HttpCallback getmInstance(){
-        if (mInstance == null){
-            mInstance = new HttpCallback();
-        }
-        return mInstance;
-    }
 
     public static void dealWithHttpPost(HttpManager.postType postType,String result){
         switch (postType){
             case POST_TYPE_STATUS:
-                HttpPostStatus.getmInstance().StatusResult(result);
+                EventBus.getDefault().post(new HttpPostStatusEvent(result));
                 break;
             case POST_TYPE_GPS:
-                HttpPostGPS.getmInstance().GPSResult(result);
+                EventBus.getDefault().post(new HttpPostGPSEvent(result));
                 break;
             case POST_TYPE_AUTOLOCK_SET:
-                HttpPostAutoLockSet.getmInstance().AutoLockSetResult(result);
+                EventBus.getDefault().post(new HttpPostAutoLockSetEvent(result));
                 break;
             case POST_TYPE_AUTOLOCK_GET:
-                HttpPostAutoLockGet.getmInstance().AutoLockGetResult(result);
+                EventBus.getDefault().post(new HttpPostAutoLockGetEvent(result));
                 break;
             case POST_TYPE_FENCE_SET:
-                HttpPostFenceSet.getmInstance().FenceGetResult(result);
+                EventBus.getDefault().post(new HttpPostFenceSetEvent(result));
                 break;
             case POST_TYPE_FENCE_GET:
-                HttpPostFenceGet.getmInstance().FenceGetResult(result);
+                EventBus.getDefault().post(new HttpPostFenceGetEvent(result));
                 break;
             case POST_TYPE_BATTERY:
-                HttpPostBattery.getmInstance().BatteryResult(result);
+                EventBus.getDefault().post(new HttpPostBatteryEvent(result));
                 break;
             case POST_TYPE_BATTERY_TYPE:
-                HttpPostBatteryType.getmInstance().BatteryTypeResult(result);
+                EventBus.getDefault().post(new HttpPostBatteryTypeEvent(result));
                 break;
             case POST_TYPE_DEVICE_START:
-                HttpPostDeviceStart.getmInstance().DeviceStartResult(result);
+                EventBus.getDefault().post(new HttpPostDeviceStartEvent(result));
                 break;
             case POST_TYPE_DEVICE_STOP:
-                HttpPostDeviceStop.getmInstance().DeviceStopResult(result);
+                EventBus.getDefault().post(new HttpPostDeviceStopEvent(result));
                 break;
-            case POST_TYPE_DEFAULT:
-                HttpPostBluetoothBind.getmInstance().BluetoothBindResult(result);
+            case POST_TYPE_BLUETOOTH_DEFAULT:
+                EventBus.getDefault().post(new HttpPostBluetoothBindEvent(result));
                 break;
             case POST_TYPE_SERVER:
-                HttpPostServer.getmInstance().ServerSetResult(result);
+                EventBus.getDefault().post(new HttpPostServerEvent(result));
                 break;
             case POST_TYPE_FILENAME:
-                HttpPostFilename.getmInstance().FilenameSetResult(result);
+                EventBus.getDefault().post(new HttpPostFilenameEvent(result));
                 break;
             case POST_TYPE_SET_BLUETOOTH:
-                HttpPostBluetoothSet.getmInstance().BluetoothSetResult(result);
+                EventBus.getDefault().post(new HttpPostBluetoothSetEvent(result));
                 break;
             case POST_TYPE_ALARM:
-                HttpPostAlarm.getmInstance().AlarmResult(result);
+                EventBus.getDefault().post(new HttpPostAlarmEvent(result));
                 break;
             case POST_TYPE_LOCKON_SET:
-                HttpPostLockSet.getmInstance().LockSetResult(result);
+                EventBus.getDefault().post(new HttpPostLockSetEvent(result));
                 break;
             case POST_TYPE_DEVICEMSG:
-                HttpPostDeviceMSG.getmInstance().DeviceMSGResult(result);
+                EventBus.getDefault().post(new HttpPostDeviceMSGEvent(result));
                 break;
             case POST_TYPE_SIGNAL_GPS:
-                HttpPostGPSSignal.getmInstance().GPSSignalResult(result);
+                EventBus.getDefault().post(new HttpPostGPSSignalEvent(result));
                 break;
             case POST_TYPE_SIGNAL_GSM:
-                HttpPostGSMSignal.getmInstance().GSMSignalResult(result);
+                EventBus.getDefault().post(new HttpPostGSMSignalEvent(result));
                 break;
             case POST_TYPE_ATTEST:
-                HttpPostATTest.getmInstance().ATTestResult(result);
+                EventBus.getDefault().post(new HttpPostATTestEvent(result));
                 break;
             case POST_TYPE_LOG:
-                HttpPostLog.getmInstance().LogGetResult(result);
+                EventBus.getDefault().post(new HttpPostLogEvent(result));
                 break;
             case POST_TYPE_RESET:
-                HttpPostReset.getmInstance().ResetResult(result);
+                EventBus.getDefault().post(new HttpPostResetEvent(result));
                 break;
             case POST_TYPE_SWITCH_SET:
-                HttpPostSwitchSet.getmInstance().SwitchSetResult(result);
+                EventBus.getDefault().post(new HttpPostSwitchSetEvent(result));
                 break;
             case POST_TYPE_SWITCH_GET:
-                HttpPostSwitchGet.getmInstance().SwitchGetResult(result);
+                EventBus.getDefault().post(new HttpPostSwitchGetEvent(result));
                 break;
             case POST_TYPE_LOCKON_GET:
-                HttpPostLockGet.getmInstance().LockGetResult(result);
+                EventBus.getDefault().post(new HttpPostLockGetEvent(result));
                 break;
             case POST_TYPE_ELECTRICLOCK_SET:
-                HttpPostElectricSet.getmInstance().ElectricSetResult(result);
+                EventBus.getDefault().post(new HttpPostElectricSetEvent(result));
                 break;
             case POST_TYPE_ELECTRICLOCK_GET:
-                HttpPostElectricGet.getmInstance().ElectricGetResult(result);
+                EventBus.getDefault().post(new HttpPostElectricGetEvent(result));
                 break;
             case POST_TYPE_DEL_BLUETOOTH_IMEI:
-                HttpPostBluetoothDel.getmInstance().BluetoothDelResult(result);
+                EventBus.getDefault().post(new HttpPostBluetoothDelEvent(result));
                 break;
+
+            case POST_TYPE_PHONE:
+                EventBus.getDefault().post(new HttpPostEvent(HttpManager.postType.POST_TYPE_PHONE,result,true, HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM));
             default:
 
         }

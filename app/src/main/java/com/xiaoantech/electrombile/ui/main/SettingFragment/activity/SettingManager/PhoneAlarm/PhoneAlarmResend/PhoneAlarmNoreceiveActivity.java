@@ -45,7 +45,7 @@ public class PhoneAlarmNoreceiveActivity extends BaseAcitivity{
                 Intent intent = new Intent();
                 intent.setClass(PhoneAlarmNoreceiveActivity.this, PhoneAlarmActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("try", "ok");
+                bundle.putBoolean("resend", true);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

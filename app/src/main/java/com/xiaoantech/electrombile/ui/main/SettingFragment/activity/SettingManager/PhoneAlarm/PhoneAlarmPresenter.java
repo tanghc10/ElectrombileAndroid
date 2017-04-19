@@ -1,9 +1,14 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm;
 
 import android.app.ProgressDialog;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.xiaoantech.electrombile.constant.HandlerConstant;
+import com.xiaoantech.electrombile.constant.TimerConstant;
+import com.xiaoantech.electrombile.event.http.HttpDeleteEvent;
 import com.xiaoantech.electrombile.event.http.HttpPutEvent;
 import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
@@ -17,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by yangxu on 2017/2/25.
@@ -25,49 +31,40 @@ import java.util.Timer;
 public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
     private final static String TAG = "PhoneAlarmPresenter";
     private PhoneAlarmContract.View mPhoneAlarm;
-    private ProgressDialog waitDialog;
     private int secondleft;
-    private Button btn_alarmTest;
     private Timer timer;
-    private TextView textView_time;
 
-    /*Handler handler = new Handler() {
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
-            if (msg.what == 0) {
+            if (msg.what == HandlerConstant.TimerWhat0) {
                 secondleft--;
                 if (secondleft <= 0) {
                     timer.cancel();
-                    changeButtonState(true);
-                    textView_time.setText("60");
+                    mPhoneAlarm.changeCutDownStatus(0);
                 } else {
-                    textView_time.setText(secondleft + "");
+                    mPhoneAlarm.changeCutDownStatus(secondleft);
                 }
-            } else if (msg.what == 1) {
-                waitDialog.cancel();
+            } else if (msg.what == HandlerConstant.StartTimer) {
+                mPhoneAlarm.hideWaitingDialog();
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Message message = new Message();
-                        message.what = 0;
-                        handler.sendMessage(message);
+                        handler.sendEmptyMessage(HandlerConstant.TimerWhat0);
                     }
                 }, 1000, 1000);
-                changeButtonState(false);
-            } else if (msg.what == 2) {
-                waitDialog.cancel();
             }
         }
-    };*/
+    };
 
     public void AddCallerIndex(){
-        int caller = LocalDataManager.getInstance().getCallerIndex() + 1;
+        int caller = LocalDataManager.getInstance().getContractIndex() + 1;
         if (caller >= 10){
             caller = 0;
         }
         LocalDataManager.getInstance().setCallerIndex(caller);
-        putAlarmPhoneFormHttp();
+        phoneAlarmTest();
     }
 
 
@@ -84,7 +81,8 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
         EventBus.getDefault().unregister(this);
     }
 
-    public void putAlarmPhoneFormHttp(){
+    @Override
+    public void phoneAlarmTest() {
         String baseUrl = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort();
         String url = baseUrl + "/v1/telephone/"+BasicDataManager.getInstance().getBindIMEI();
         try{
@@ -95,10 +93,55 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
         }catch (JSONException e){
             e.printStackTrace();
         }
+        secondleft = 60;
+        EventBus.getDefault().post(new HttpPutEvent(HttpManager.putType.PUT_TYPE_ALARMPHONE,"{\"code\":0}",true));
+    }
+
+    @Override
+    public void phoneAlarmUnreceived() {
+        mPhoneAlarm.gotoResendActivity();
+    }
+
+    @Override
+    public void phoneAlarmDelete() {
+        String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/telephone/" + BasicDataManager.getInstance().getBindIMEI();
+        HttpManager.deleteHttpResult(url, HttpManager.deleteType.DELETE_TYPE_ALARMPHONE,null);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPutEvent(HttpPutEvent event){
+        if (event.getRequestType() == HttpManager.putType.PUT_TYPE_ALARMPHONE){
+            try {
+                JSONObject jsonObject = new JSONObject(event.getResultStr());
+                int code = jsonObject.getInt("code");
+                if (code == 0){
+                    mPhoneAlarm.showToast("开始测试");
+                    handler.sendEmptyMessage(HandlerConstant.StartTimer);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         mPhoneAlarm.showToast("开始测试");
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpDeleteEvent(HttpDeleteEvent event){
+        if (event.getRequestType() == HttpManager.deleteType.DELETE_TYPE_ALARMPHONE){
+            try {
+                JSONObject jsonObject = new JSONObject(event.getResultStr());
+                int code = jsonObject.getInt("code");
+                if (code == 0){
+                    LocalDataManager.getInstance().setPhoneAlarmOpen(false);
+                    mPhoneAlarm.showToast("电话报警已关闭");
+                    mPhoneAlarm.finishActivity();
+                }else {
+                    mPhoneAlarm.showToast("电话报警关闭失败");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

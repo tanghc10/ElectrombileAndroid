@@ -54,13 +54,10 @@ public class FragmentMainActivity extends FragmentActivity {
     private void initFragmentArray(){
         fragmentArrayList = new ArrayList<>();
         MainFragment mainFragment = new MainFragment();
-        mainFragment.mContext = FragmentMainActivity.this;
 
         InfoFragment infoFragment = new InfoFragment();
-        infoFragment.mContext = FragmentMainActivity.this;
 
         SettingFragment settingFragment = new SettingFragment();
-        settingFragment.mContext = FragmentMainActivity.this;
         fragmentArrayList.add(mainFragment);
         fragmentArrayList.add(infoFragment);
         fragmentArrayList.add(settingFragment);

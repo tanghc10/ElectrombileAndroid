@@ -27,7 +27,6 @@ import cn.jpush.android.api.JPushInterface;
 public class App extends Application {
 
     private static Context  context;
-
     public static Context getContext(){
         return context;
     }
@@ -41,6 +40,8 @@ public class App extends Application {
         SDKInitializer.initialize(this);
         AVOSCloud.initialize(this,"5wk8ccseci7lnss55xfxdgj9xn77hxg3rppsu16o83fydjjn","yovqy5zy16og43zwew8i6qmtkp2y6r9b18zerha0fqi5dqsw");
         AVAnalytics.enableCrashReport(this,true);
+
+
         //JPush
         try {
             JPushInterface.setDebugMode(true);

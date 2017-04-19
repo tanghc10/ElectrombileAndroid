@@ -105,7 +105,8 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintVertical_bias="0.391"
                 android:background="@drawable/shape"
-                android:layout_marginTop="100dp" />
+                android:layout_marginTop="100dp"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <ListView
                 android:layout_width="0dp"

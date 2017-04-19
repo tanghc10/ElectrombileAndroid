@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ import com.xiaoantech.electrombile.widget.Dialog.CustomDialog;
  * Created by yangxu on 2016/12/14.
  */
 
-public class SettingManagerActivity extends BaseAcitivity implements SettingManagerContract.View {
+public class SettingManagerActivity extends BaseAcitivity implements SettingManagerContract.View,CompoundButton.OnCheckedChangeListener {
     private ActivitySettingBinding mBinding;
     private SettingManagerContract.Presenter mPresenter;
 
@@ -54,8 +55,28 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
                 SettingManagerActivity.this.finish();
             }
         });
+        mBinding.switchRelevence.setOnCheckedChangeListener(this);
     }
 
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked){
+            CustomDialog.Builder customDialog = new  CustomDialog.Builder(SettingManagerActivity.this);
+            customDialog.setTitle("温馨提示").setMessage("该操作将存在风险隐患，小偷可用万能钥匙开启电门预警系统将无法自动识别该项情况").setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mPresenter.relevenceSwitchChange(true);
+                    dialog.dismiss();
+                }
+            }).create().show();
+        }else {
+            mPresenter.relevenceSwitchChange(false);
+        }
+    }
     @Override
     public void setPresenter(SettingManagerContract.Presenter presenter) {
         mPresenter = presenter;
@@ -105,10 +126,19 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
         }).create().show();
     }
 
+
+    @Override
+    public void setSwitch(boolean isChecked) {
+        mBinding.switchRelevence.setOnCheckedChangeListener(null);
+        mBinding.switchRelevence.setChecked(isChecked);
+        mBinding.switchRelevence.setOnCheckedChangeListener(this);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.subscribe();
+        setSwitch(LocalDataManager.getInstance().getIsRelevanceOn());
     }
 
     @Override

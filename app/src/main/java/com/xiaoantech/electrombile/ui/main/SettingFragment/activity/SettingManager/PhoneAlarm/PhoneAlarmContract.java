@@ -10,10 +10,15 @@ import com.xiaoantech.electrombile.base.BaseView;
 public interface PhoneAlarmContract {
 
     interface View extends BaseView<Presenter>{
+        void gotoResendActivity();
+        void changeCutDownStatus(int num);
+        void finishActivity();
     }
 
     interface Presenter extends BasePresenter{
-        void putAlarmPhoneFormHttp();
+        void phoneAlarmTest();
+        void phoneAlarmUnreceived();
+        void phoneAlarmDelete();
         void AddCallerIndex();
     }
 }

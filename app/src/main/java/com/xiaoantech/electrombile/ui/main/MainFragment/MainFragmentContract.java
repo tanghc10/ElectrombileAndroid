@@ -21,12 +21,18 @@ public interface MainFragmentContract {
         void changeAutoLockStatus(Boolean isOn,int period);
         void changeBattery(int battery,boolean showTip);
         void changeItinerary(int itinerary);
+        void changeLockStatus(boolean isOn);
         void changeGPSPoint(LatLng point);
         void changePlaceInfo(String placeInfo);
         void changeCar();
         void gotoMap();
         void showWeatherDialog(JSONObject weatherInfo,String placeInfo);
         void gotoMessage();
+        void gotoHistory();
+
+        void changeBackground(boolean isOn);
+
+        void changeSignal(int level);
     }
 
     interface Presenter extends BasePresenter{
@@ -40,7 +46,7 @@ public interface MainFragmentContract {
 
         void changeFenceStatus();
 
-        void getBattery();
+        void changeLockStatus();
 
         void getItinerary();
 
@@ -51,6 +57,8 @@ public interface MainFragmentContract {
         void changeCar();
 
         void gotoMessage();
+
+        void gotoHistory();
 
         void getWeatherInfo();
     }

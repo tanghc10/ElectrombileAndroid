@@ -29,6 +29,8 @@ public interface MapContract {
 
 
     interface Presenter extends BasePresenter{
+        void getLatestHistoryLocation();
+
         void refreshLocation();
 
         void changeMapType();

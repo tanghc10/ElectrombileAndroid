@@ -37,7 +37,9 @@
                     android:background="@drawable/shape"
                     android:layout_marginTop="100dp"
                     android:id="@+id/btn_agree"
-                    android:layout_gravity="center"/>
+                    android:onClick="@{() -> presenter.setPhoneAlarmPhone()}"
+                    android:layout_gravity="center"
+                    style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
