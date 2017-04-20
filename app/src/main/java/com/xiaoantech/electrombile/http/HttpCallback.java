@@ -2,6 +2,7 @@ package com.xiaoantech.electrombile.http;
 
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpPostEvent;
+import com.xiaoantech.electrombile.event.http.HttpPutEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostATTestEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAlarmEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostAutoLockGetEvent;
@@ -12,8 +13,8 @@ import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothBindEven
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothDelEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostBluetoothSetEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceMSGEvent;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStartEvent;
-import com.xiaoantech.electrombile.event.http.httpPost.HttpPostDeviceStopEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostRecordStartEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostRecordStopEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricGetEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricSetEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceGetEvent;
@@ -39,97 +40,100 @@ import org.greenrobot.eventbus.EventBus;
 
 public class HttpCallback {
 
-    public static void dealWithHttpPost(HttpManager.postType postType,String result){
-        switch (postType){
-            case POST_TYPE_STATUS:
+    public static void dealWithHttpCmdPost(HttpManager.postType postType, HttpConstant.HttpCmd cmd, String result) {
+        switch (cmd) {
+            case HTTP_CMD_GET_STATUS:
                 EventBus.getDefault().post(new HttpPostStatusEvent(result));
                 break;
-            case POST_TYPE_GPS:
+            case HTTP_CMD_GET_GPS:
                 EventBus.getDefault().post(new HttpPostGPSEvent(result));
                 break;
-            case POST_TYPE_AUTOLOCK_SET:
-                EventBus.getDefault().post(new HttpPostAutoLockSetEvent(result));
+            case HTTP_CMD_SET_AUTOLOCK:
+                EventBus.getDefault().post(new HttpPostAutoLockSetEvent(result, postType));
                 break;
-            case POST_TYPE_AUTOLOCK_GET:
+            case HTTP_CMD_GET_AUTOLOCK:
                 EventBus.getDefault().post(new HttpPostAutoLockGetEvent(result));
                 break;
-            case POST_TYPE_FENCE_SET:
-                EventBus.getDefault().post(new HttpPostFenceSetEvent(result));
+            case HTTP_CMD_SET_FENCE:
+                EventBus.getDefault().post(new HttpPostFenceSetEvent(result, postType));
                 break;
-            case POST_TYPE_FENCE_GET:
+            case HTTP_CMD_GET_FENCE:
                 EventBus.getDefault().post(new HttpPostFenceGetEvent(result));
                 break;
-            case POST_TYPE_BATTERY:
+            case HTTP_CMD_GET_BATTERY:
                 EventBus.getDefault().post(new HttpPostBatteryEvent(result));
                 break;
-            case POST_TYPE_BATTERY_TYPE:
+            case HTTP_CMD_SET_BATTERY_TYPE:
                 EventBus.getDefault().post(new HttpPostBatteryTypeEvent(result));
                 break;
-            case POST_TYPE_DEVICE_START:
-                EventBus.getDefault().post(new HttpPostDeviceStartEvent(result));
+            case HTTP_CMD_START_RECORD:
+                EventBus.getDefault().post(new HttpPostRecordStartEvent(result));
                 break;
-            case POST_TYPE_DEVICE_STOP:
-                EventBus.getDefault().post(new HttpPostDeviceStopEvent(result));
+            case HTTP_CMD_STOP_RECORD:
+                EventBus.getDefault().post(new HttpPostRecordStopEvent(result));
                 break;
-            case POST_TYPE_BLUETOOTH_DEFAULT:
+            case HTTP_CMD_SET_BLUETOOTH_IMEI:
                 EventBus.getDefault().post(new HttpPostBluetoothBindEvent(result));
                 break;
-            case POST_TYPE_SERVER:
+            case HTTP_CMD_SET_SERVER:
                 EventBus.getDefault().post(new HttpPostServerEvent(result));
                 break;
-            case POST_TYPE_FILENAME:
+            case HTTP_CMD_SET_FILENAME:
                 EventBus.getDefault().post(new HttpPostFilenameEvent(result));
                 break;
-            case POST_TYPE_SET_BLUETOOTH:
+            case HTTP_CMD_SET_BLUETOOTH:
                 EventBus.getDefault().post(new HttpPostBluetoothSetEvent(result));
                 break;
-            case POST_TYPE_ALARM:
+            case HTTP_CMD_SET_PHONEALARM:
                 EventBus.getDefault().post(new HttpPostAlarmEvent(result));
                 break;
-            case POST_TYPE_LOCKON_SET:
+            case HTTP_CMD_SET_LOCKON:
                 EventBus.getDefault().post(new HttpPostLockSetEvent(result));
                 break;
-            case POST_TYPE_DEVICEMSG:
+            case HTTP_CMD_GET_DEVICEMSG:
                 EventBus.getDefault().post(new HttpPostDeviceMSGEvent(result));
                 break;
-            case POST_TYPE_SIGNAL_GPS:
+            case HTTP_CMD_GET_GPS_SIGNAL:
                 EventBus.getDefault().post(new HttpPostGPSSignalEvent(result));
                 break;
-            case POST_TYPE_SIGNAL_GSM:
+            case HTTP_CMD_GET_GSM_SIGNAL:
                 EventBus.getDefault().post(new HttpPostGSMSignalEvent(result));
                 break;
-            case POST_TYPE_ATTEST:
+            case HTTP_CMD_SET_ATTEST:
                 EventBus.getDefault().post(new HttpPostATTestEvent(result));
                 break;
-            case POST_TYPE_LOG:
+            case HTTP_CMD_GET_LOG:
                 EventBus.getDefault().post(new HttpPostLogEvent(result));
                 break;
-            case POST_TYPE_RESET:
+            case HTTP_CMD_SET_RESET:
                 EventBus.getDefault().post(new HttpPostResetEvent(result));
                 break;
-            case POST_TYPE_SWITCH_SET:
+            case HTTP_CMD_SET_LINK_SWITCH:
                 EventBus.getDefault().post(new HttpPostSwitchSetEvent(result));
                 break;
-            case POST_TYPE_SWITCH_GET:
+            case HTTP_CMD_GET_LINK_SWITCH:
                 EventBus.getDefault().post(new HttpPostSwitchGetEvent(result));
                 break;
-            case POST_TYPE_LOCKON_GET:
+            case HTTP_CMD_GET_LOCKON:
                 EventBus.getDefault().post(new HttpPostLockGetEvent(result));
                 break;
-            case POST_TYPE_ELECTRICLOCK_SET:
+            case HTTP_CMD_SET_LINK_ELECTRICLOCK:
                 EventBus.getDefault().post(new HttpPostElectricSetEvent(result));
                 break;
-            case POST_TYPE_ELECTRICLOCK_GET:
+            case HTTP_CMD_GET_LINK_ELECTRICLOCK:
                 EventBus.getDefault().post(new HttpPostElectricGetEvent(result));
                 break;
-            case POST_TYPE_DEL_BLUETOOTH_IMEI:
+            case HTTP_CMD_DEL_BLUETOOTH_IMEI:
                 EventBus.getDefault().post(new HttpPostBluetoothDelEvent(result));
                 break;
 
-            case POST_TYPE_PHONE:
-                EventBus.getDefault().post(new HttpPostEvent(HttpManager.postType.POST_TYPE_PHONE,result,true, HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM));
-            default:
+        }
+    }
 
+    public static void dealWithHttpPost(HttpManager.postType postType, String result) {
+        switch (postType) {
+            case POST_TYPE_PHONE:
+                EventBus.getDefault().post(new HttpPostEvent(HttpManager.postType.POST_TYPE_PHONE,result,true, HttpConstant.HttpCmd.HTTP_CMD_DEFAULT));
         }
     }
 

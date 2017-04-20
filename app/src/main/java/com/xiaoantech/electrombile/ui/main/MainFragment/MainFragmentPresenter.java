@@ -18,15 +18,18 @@ import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceSetEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignalEvent;
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostStatusEvent;
 import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.utils.ErrorCodeConvertUtil;
 import com.xiaoantech.electrombile.utils.GPSConvertUtil;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
@@ -101,7 +104,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void refresh() {
-        MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
+        HttpPublishManager.getInstance().getStatus();
         HistoryRouteManager.getInstance().getTodayItineray();
         getWeatherInfo();
         getGSM();
@@ -115,9 +118,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     public void changeFenceStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (fenceStatus){
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOff();
         }else {
-            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOn();
         }
     }
 
@@ -125,9 +128,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     public void changeLockStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (lockStatus)
-            HttpPublishManager.getInstance().setLockOn(0);
+            HttpPublishManager.getInstance().setLockOn();
         else
-            HttpPublishManager.getInstance().setLockOn(1);
+            HttpPublishManager.getInstance().setLockOn();
 
     }
 
@@ -269,39 +272,53 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFenceEvent(FenceEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try{
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-                return;
+    public void onHttpPostFenceSetEvent(HttpPostFenceSetEvent event){
+        if (event.getCode() == 0){
+            if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_ON) {
+                fenceStatus = true;
+            }else if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_OFF){
+                fenceStatus = false;
             }
-
-            mMainFragmentView.changeBackground(true);
-            switch (event.getCmdType()){
-                case CMD_TYPE_FENCE_ON:
-                    mMainFragmentView.changeFenceStatus(true,false);
-                    fenceStatus = true;
-                    break;
-                case CMD_TYPE_FENCE_OFF:
-                    fenceStatus = false;
-                    mMainFragmentView.changeFenceStatus(false,false);
-                    break;
-                case CMD_TYPE_FENCE_GET:
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    if (result.getInt("state") == 0){
-                        fenceStatus = true;
-                        mMainFragmentView.changeFenceStatus(true,true);
-                    }else {
-                        fenceStatus = false;
-                        mMainFragmentView.changeFenceStatus(false,true);
-                    }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+            mMainFragmentView.changeFenceStatus(fenceStatus,false);
+        }else {
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onFenceEvent(FenceEvent event){
+//        JSONObject jsonObject = event.getJsonObject();
+//        try{
+//            int code = jsonObject.getInt("code");
+//            if (code != 0){
+//                dealWithErrorCode(code);
+//                return;
+//            }
+//
+//            mMainFragmentView.changeBackground(true);
+//            switch (event.getCmdType()){
+//                case CMD_TYPE_FENCE_ON:
+//                    mMainFragmentView.changeFenceStatus(true,false);
+//                    fenceStatus = true;
+//                    break;
+//                case CMD_TYPE_FENCE_OFF:
+//                    fenceStatus = false;
+//                    mMainFragmentView.changeFenceStatus(false,false);
+//                    break;
+//                case CMD_TYPE_FENCE_GET:
+//                    JSONObject result = jsonObject.getJSONObject("result");
+//                    if (result.getInt("state") == 0){
+//                        fenceStatus = true;
+//                        mMainFragmentView.changeFenceStatus(true,true);
+//                    }else {
+//                        fenceStatus = false;
+//                        mMainFragmentView.changeFenceStatus(false,true);
+//                    }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public  void onBatteryEvent(BatteryEvent event){
@@ -329,17 +346,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     private void dealWithHTTPErrorCode(int errorCode){
-        if (errorCode == 100){
-            mMainFragmentView.showToast("服务器内部错误!");
-        }else  if (errorCode == 102){
-            mMainFragmentView.showToast("无内容，请检查设备！");
-            //TODO:ErrorShow
-        }else if (errorCode == 109){
-            mMainFragmentView.showToast("设备不在线，请检查设备！");
-            mMainFragmentView.changeBackground(false);
-        }else if (errorCode == 111) {
-            mMainFragmentView.showToast("该设备不支持此操作");
-        }
+        mMainFragmentView.showToast(ErrorCodeConvertUtil.getHttpErrorStrWithCode(errorCode));
     }
 
     @Subscribe(threadMode =  ThreadMode.MAIN)
@@ -354,6 +361,15 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostStatusEvent(HttpPostStatusEvent event){
+        if (event.getCode() == 0){
+            mMainFragmentView.changeBackground(true);
+            LocalDataManager.getInstance().setLatestStatus(event.getString());
+            convertStatusFromString(event.getString());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStatusEvent(StatusEvent event){
         JSONObject jsonObject = event.getJsonObject();
         try {
@@ -361,9 +377,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             if (code != 0){
                 dealWithErrorCode(code);
             }else {
-                mMainFragmentView.changeBackground(true);
-                LocalDataManager.getInstance().setLatestStatus(jsonObject.getJSONObject("result").toString());
-                convertStatusFromString(jsonObject.getJSONObject("result").toString());
+
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -383,11 +397,12 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             double lat = gps.getDouble("lat");
             double lng = gps.getDouble("lng");
             LatLng point = new LatLng(lat,lng);
-            mMainFragmentView.changeGPSPoint(point);
-            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
+            mMainFragmentView.changeGPSPoint(newPoint);
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(newPoint));
             //小安宝状态
-            boolean lock = result.getBoolean("lock");
-            if (lock){
+            int lock = result.getInt("defend");
+            if (lock == 1){
                 mMainFragmentView.changeFenceStatus(true,true);
                 fenceStatus = true;
             }else {
@@ -396,17 +411,16 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             }
             //自动落锁状态
             JSONObject autoLock = result.getJSONObject("autolock");
-            boolean autolockState = autoLock.getBoolean("isOn");
-            if(autolockState){
+            int autolockState = autoLock.getInt("sw");
+            if(autolockState == 1){
                 int autoLockPeriod = autoLock.getInt("period");
-                mMainFragmentView.changeAutoLockStatus(autolockState,autoLockPeriod);
+                mMainFragmentView.changeAutoLockStatus(true,autoLockPeriod);
             }else {
-                mMainFragmentView.changeAutoLockStatus(autolockState,0);
+                mMainFragmentView.changeAutoLockStatus(false,0);
             }
             //电池电量
             JSONObject battery = result.getJSONObject("battery");
-            mMainFragmentView.changeBattery(battery.getInt("percent"),false);
-        }catch (JSONException e){
+            mMainFragmentView.changeBattery(battery.getInt("percent"),false);}catch (JSONException e){
             e.printStackTrace();
         }
     }

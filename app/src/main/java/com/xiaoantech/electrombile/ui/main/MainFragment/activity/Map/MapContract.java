@@ -23,8 +23,6 @@ public interface MapContract {
         void changeMapType();
 
         void gotoMapList();
-
-        void gotoFindCar();
     }
 
 

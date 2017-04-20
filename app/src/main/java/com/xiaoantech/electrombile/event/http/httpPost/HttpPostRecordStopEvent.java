@@ -7,10 +7,10 @@ import org.json.JSONObject;
  * Created by 73843 on 2017/3/28.
  */
 
-public class HttpPostDeviceStopEvent {
+public class HttpPostRecordStopEvent {
     private int code;
 
-    public HttpPostDeviceStopEvent(String resultStr){
+    public HttpPostRecordStopEvent(String resultStr){
         try {
             JSONObject jsonObject = new JSONObject(resultStr);
             if (jsonObject.has("code")){

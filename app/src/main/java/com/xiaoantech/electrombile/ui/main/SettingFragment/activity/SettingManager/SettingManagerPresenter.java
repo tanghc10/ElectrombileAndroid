@@ -68,10 +68,10 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
     public void relevenceSwitchChange(boolean isOn) {
         mSettingManagerView.showWaitingDialog("正在设置");
         isLinkOn = isOn;
-        int sw = 0;
         if (isOn)
-            sw = 1;
-        HttpPublishManager.getInstance().setLinkElectricLock(sw);
+            HttpPublishManager.getInstance().setLinkElectricLockOff();
+        else
+            HttpPublishManager.getInstance().setLinkElectricLockOn();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

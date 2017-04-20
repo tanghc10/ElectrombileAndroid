@@ -130,6 +130,7 @@ public class MapPresenter implements MapContract.Presenter,OnGetGeoCoderResultLi
             mMapView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
             mMapView.changeDateInfo(TimeUtil.getMinuteStringFromTimeStamp(event.getTimestamp()));
             mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            mMapView.showToast("查询成功");
         }else {
             dealWithErrorCode(event.getCode());
         }

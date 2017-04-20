@@ -38,6 +38,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentMainBinding;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.manager.LocationManager;
@@ -189,7 +190,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
             public void onClick(DialogInterface dialog, int which) {
                 String imei =  BasicDataManager.getInstance().getIMEIList().get(selectedCarIndex);
                 BasicDataManager.getInstance().changeBindIMEI(imei,true);
-                MqttPublishManager.getInstance().getStatus(imei);
+                HttpPublishManager.getInstance().getStatus();
                 mPresenter.getItinerary();
                 dialog.dismiss();
             }

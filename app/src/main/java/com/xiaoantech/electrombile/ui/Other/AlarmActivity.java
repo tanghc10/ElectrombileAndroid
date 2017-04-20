@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.utils.VibratorUtil;
@@ -71,7 +72,7 @@ public class AlarmActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
+        HttpPublishManager.getInstance().setFenceOff();
         mPlayer.stop();
         VibratorUtil.VibrateCancle(AlarmActivity.this);
         AlarmActivity.this.finish();
@@ -91,7 +92,7 @@ public class AlarmActivity extends Activity {
             VibratorUtil.VibrateCancle(AlarmActivity.this);
             mPlayer.stop();
             AlarmActivity.this.finish();
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOff();
         } else {
             tv_sliding.setText("滑动关闭报警");
             tv_alarm.startAnimation(operatingAnim);
