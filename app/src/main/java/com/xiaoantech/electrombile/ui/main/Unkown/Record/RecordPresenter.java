@@ -14,11 +14,15 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.xiaoantech.electrombile.constant.HandlerConstant;
 import com.xiaoantech.electrombile.constant.HttpConstant;
 import com.xiaoantech.electrombile.event.http.HttpPostEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostRecordStartEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostRecordStopEvent;
 import com.xiaoantech.electrombile.event.notify.RecordEvent;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.utils.APKDirUtil;
+import com.xiaoantech.electrombile.utils.ErrorCodeConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -97,8 +101,7 @@ public class RecordPresenter implements RecordContract.Presenter{
     public void onPlay() {
         if (recordStatus == RecordStatus.RecordStatus_Start){
             mRecordView.showWaitingDialog("开启录音中");
-            String url = LocalDataManager.getInstance().getHTTPHost()+":"+ LocalDataManager.getInstance().getHTTPPort() + "/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE_START, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD,getPostBody(8));
+            HttpPublishManager.getInstance().startRecord();
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
             mRecordView.changePlayStatus();
         }
@@ -108,8 +111,7 @@ public class RecordPresenter implements RecordContract.Presenter{
     public void onStop() {
         if (recordStatus == RecordStatus.RecordStatus_Record){
             mRecordView.showWaitingDialog("停止录音中");
-            String url = LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
-            HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_DEVICE_STOP, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD,getPostBody(9));
+            HttpPublishManager.getInstance().stopRecord();
         }else if (recordStatus == RecordStatus.RecordStatus_Play){
             recordStatus = RecordStatus.RecordStatus_Start;
             mRecordView.resetView();
@@ -131,87 +133,66 @@ public class RecordPresenter implements RecordContract.Presenter{
     }
 
     public void dealWithErrorCode(int code){
-        String errStr = "";
-        switch (code) {
-            case 100:
-                errStr = "服务器内部错误";
-                break;
-            case 101:
-                errStr = "请求设备号错误";
-                break;
-            case 102:
-                errStr = "无请求内容";
-                break;
-            case 103:
-                errStr = "请求内容错误";
-                break;
-            case 104:
-                errStr = "请求URL错误";
-                break;
-            case 105:
-                errStr = "请求范围过大";
-                break;
-            case 106:
-                errStr = "服务器无响应";
-                break;
-            case 107:
-                errStr = "服务器不在线";
-                break;
-            case 108:
-                errStr = "设备无响应";
-                break;
-            case 109:
-                errStr = "设备不在线";
-                break;
-            case 110:
-                errStr = "设备不在线";
-                break;
-            default:
-                break;
-        }
-        mRecordView.showToast(errStr);
+        mRecordView.showToast(ErrorCodeConvertUtil.getHttpErrorStrWithCode(code));
+
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onHttpPostEvent(HttpPostEvent event){
-
-        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_START || event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_STOP){
-            try {
-                Log.w(TAG,event.getResult());
-                JSONObject jsonObject = new JSONObject(event.getResult());
-                if (jsonObject.has("code")) {
-                    int code = jsonObject.getInt("code");
-                    if (code == 0){
-                        if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD) {
-
-                            recordStatus = RecordStatus.RecordStatus_Record;
-                            mRecordView.startRecord();
-                            secondLeft = 60;
-                            timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    mHandler.sendEmptyMessage(HandlerConstant.TimerWhat0);
-                                }
-                            }, 1000, 1000);
-                        }else if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD) {
-                            timer.cancel();
-                            mRecordView.stopRecord();
-                        }
-
-
-                    }else {
-                        dealWithErrorCode(code);
-                    }
+    public void onHttpPostRecordStartEvent(HttpPostRecordStartEvent event){
+        if (event.getCode() == 0){
+            recordStatus = RecordStatus.RecordStatus_Record;
+            mRecordView.startRecord();
+            secondLeft = 60;
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    mHandler.sendEmptyMessage(HandlerConstant.TimerWhat0);
                 }
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-
+            }, 1000, 1000);
+        }else {
+            dealWithErrorCode(event.getCode());
         }
-
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostRecordStopEvent(HttpPostRecordStopEvent event){
+        if (event.getCode() == 0){
+            timer.cancel();
+            mRecordView.stopRecord();
+        }else {
+            dealWithErrorCode(event.getCode());
+        }
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onHttpPostEvent(HttpPostEvent event){
+//
+//        if (event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_START || event.getRequestType() == HttpManager.postType.POST_TYPE_DEVICE_STOP){
+//            try {
+//                Log.w(TAG,event.getResult());
+//                JSONObject jsonObject = new JSONObject(event.getResult());
+//                if (jsonObject.has("code")) {
+//                    int code = jsonObject.getInt("code");
+//                    if (code == 0){
+//                        if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_START_RECORD) {
+//
+//
+//                        }else if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD) {
+//
+//                        }
+//
+//
+//                    }else {
+//                        dealWithErrorCode(code);
+//                    }
+//                }
+//            }catch (JSONException e){
+//                e.printStackTrace();
+//            }
+//
+//        }
+//    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecordEvent(RecordEvent event){
         JSONObject jsonObject = event.getJsonObject();

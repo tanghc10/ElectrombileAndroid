@@ -26,7 +26,6 @@ import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.constant.LayoutConstant;
 import com.xiaoantech.electrombile.databinding.ActivityMapBinding;
 import com.xiaoantech.electrombile.databinding.ContentChangeMapBinding;
-import com.xiaoantech.electrombile.databinding.FindcarGuide2Binding;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory.MapListActivity;
@@ -39,7 +38,6 @@ import com.xiaoantech.electrombile.widget.Dialog.CertainDialog;
 public class MapActivity extends BaseAcitivity implements MapContract.View{
     private final static String         TAG = "MapActivity";
     private ActivityMapBinding          mBinding;
-    private FindcarGuide2Binding        mFindCarBinding;
     private MapContract.Presenter       mPresenter;
     private ProgressDialog              mProgressDialog;
     private BaiduMap                    mBaiduMap;
@@ -84,6 +82,7 @@ public class MapActivity extends BaseAcitivity implements MapContract.View{
         initMarker();
         mMapType = LocalDataManager.getInstance().getMapType();
         setMapType(mMapType);
+        mBinding.txtCarName.setText(BasicDataManager.getInstance().getBindIMEI());
     }
 
     private void initMarker(){

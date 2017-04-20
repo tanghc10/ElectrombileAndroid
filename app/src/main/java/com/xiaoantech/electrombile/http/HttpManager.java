@@ -32,35 +32,18 @@ public class HttpManager {
         GET_TYPE_STATUS,
     }
     public enum postType{
-        POST_TYPE_DEVICE_START,
-        POST_TYPE_DEVICE_STOP,
-        POST_TYPE_PHONE,
-        POST_TYPE_STATUS,
-        POST_TYPE_GPS,
-        POST_TYPE_AUTOLOCK_SET,
-        POST_TYPE_AUTOLOCK_GET,
-        POST_TYPE_FENCE_SET,
-        POST_TYPE_FENCE_GET,
-        POST_TYPE_BATTERY,
-        POST_TYPE_BATTERY_TYPE,
-        POST_TYPE_BLUETOOTH_DEFAULT,
-        POST_TYPE_SERVER,
-        POST_TYPE_FILENAME,
-        POST_TYPE_SET_BLUETOOTH,
-        POST_TYPE_ALARM,
-        POST_TYPE_LOCKON_SET,
-        POST_TYPE_LOCKON_GET,
-        POST_TYPE_DEVICEMSG,
-        POST_TYPE_SIGNAL_GPS,
-        POST_TYPE_SIGNAL_GSM,
-        POST_TYPE_ATTEST,
-        POST_TYPE_LOG,
-        POST_TYPE_RESET,
-        POST_TYPE_SWITCH_SET,
-        POST_TYPE_SWITCH_GET,
-        POST_TYPE_ELECTRICLOCK_SET,
-        POST_TYPE_ELECTRICLOCK_GET,
-        POST_TYPE_DEL_BLUETOOTH_IMEI,
+        POST_TYPE_AUTOLOCK_SET_ON,
+        POST_TYPE_AUTOLOCK_SET_OFF,
+        POST_TYPE_FENCE_SET_ON,
+        POST_TYPE_FENCE_SET_OFF,
+        POST_TYPE_LOCKON_SET_ON,
+        POST_TYPE_LOCKON_SET_OFF,
+        POST_TYPE_SWITCH_LINK_SET_ON,
+        POST_TYPE_SWITCH_LINK_SET_OFF,
+        POST_TYPE_ELECTRICLOCK_LINK_SET_ON,
+        POST_TYPE_ELECTRICLOCK_LINK_SET_OFF,
+        POST_TYPE_DEFAULT,
+        POST_TYPE_PHONE
     }
     public enum putType{
         PUT_TYPE_ALARMPHONE
@@ -156,7 +139,39 @@ public class HttpManager {
         }).start();
     }
 
-    public static void postHttpResult(final String url, final postType postType , final HttpConstant.HttpCmd cmd, final String body){
+    public static void postHttpCmdResult(final String url, final postType postType , final HttpConstant.HttpCmd cmd, final String body){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bytes = body.getBytes();
+                HttpURLConnection connection;
+                try{
+                    URL postURL = new URL(url);
+                    connection = (HttpURLConnection) postURL.openConnection();
+                    connection.setConnectTimeout(5000);
+                    connection.setRequestMethod("POST");
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+                    connection.setUseCaches(false);
+                    connection.setRequestProperty("Content-Type","application/json");
+                    connection.setRequestProperty("Content-Length",String.valueOf(bytes.length));
+                    OutputStream outputStream = connection.getOutputStream();
+                    outputStream.write(bytes);
+                    outputStream.flush();
+                    outputStream.close();
+                    int response = connection.getResponseCode();
+                    if (response == HttpURLConnection.HTTP_OK){
+                        String result = StreamToStringUtil.StreamToString(connection.getInputStream());
+                        HttpCallback.dealWithHttpCmdPost(postType,cmd, result);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void postHttpResult(final String url, final postType postType , final String body){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -187,4 +202,5 @@ public class HttpManager {
             }
         }).start();
     }
+
 }

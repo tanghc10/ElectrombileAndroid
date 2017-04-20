@@ -52,7 +52,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         ((RelativeLayout)findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter = null;
+                mPresenter.unsubscribe();
                 MapListActivity.this.finish();
             }
         });
@@ -91,6 +91,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
     public void gotoPlayHistory(ArrayList<GPSPointModel> gpsPointModels){
         PlayHistoryActivity.pointList = gpsPointModels;
         Intent intent = new Intent(MapListActivity.this,PlayHistoryActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
@@ -262,10 +263,7 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
             }catch (Exception e){
                 e.printStackTrace();
             }
-//            mPresenter.getGPSPoints(item.cell.);
-            Toast.makeText(this, "Item " + position + ": " + item.text, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Item " + position, Toast.LENGTH_SHORT).show();
         }
     }
 

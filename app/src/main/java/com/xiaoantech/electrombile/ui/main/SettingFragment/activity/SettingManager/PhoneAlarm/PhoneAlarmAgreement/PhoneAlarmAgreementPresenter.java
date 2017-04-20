@@ -55,7 +55,7 @@ public class PhoneAlarmAgreementPresenter implements PhoneAlarmAgreementContract
         String url = baseUrl + "/v1/telephone/"+ BasicDataManager.getInstance().getBindIMEI();
         String tel = AVUser.getCurrentUser().getUsername();
         String body = "{\"telephone\":\"" + tel + "\"}";
-        HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_PHONE, HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM, body);
+        HttpManager.postHttpResult(url, HttpManager.postType.POST_TYPE_PHONE, body);
         mPhoneAlarmAgreement.showWaitingDialog("正在设置");
     }
 
@@ -74,7 +74,7 @@ public class PhoneAlarmAgreementPresenter implements PhoneAlarmAgreementContract
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostEvent(HttpPostEvent event){
-        if (event.getCmdType() == HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM || event.getRequestType() == HttpManager.postType.POST_TYPE_PHONE){
+        if (event.getRequestType() == HttpManager.postType.POST_TYPE_PHONE){
             try {
                 JSONObject object = new JSONObject(event.getResult());
                 int code = object.getInt("code");

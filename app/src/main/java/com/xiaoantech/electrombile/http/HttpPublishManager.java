@@ -23,77 +23,92 @@ public class HttpPublishManager {
     }
 
     public void getStatus(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_STATUS, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, getStringWithCmd(0));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, getStringWithCmd(0));
     }
 
     public void getGPS(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_GPS, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, getStringWithCmd(1));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, getStringWithCmd(1));
     }
 
-    public void setAutoLock(int sw, int period){
+    public void setAutoLockOn(int period){
         try{
             JSONObject param = new JSONObject();
-            param.put("sw", sw);
+            param.put("sw", 1);
             param.put("period", period);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_AUTOLOCK_SET, HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK, getStringWithCmdAndParam(2, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_AUTOLOCK_SET_ON, HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK, getStringWithCmdAndParam(2, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
+    public void setAutoLockOff(){
+        try{
+            JSONObject param = new JSONObject();
+            param.put("sw", 0);
+            param.put("period", 5);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_AUTOLOCK_SET_OFF, HttpConstant.HttpCmd.HTTP_CMD_SET_AUTOLOCK, getStringWithCmdAndParam(2, param));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+
     public void getAutoLock(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_AUTOLOCK_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK, getStringWithCmd(3));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_AUTOLOCK, getStringWithCmd(3));
     }
 
     public void setFenceOn(){
-        setFence(1);
-    }
-
-    public void setFenceOff(){
-        setFence(0);
-    }
-
-    private void setFence(int defend){
         try {
             JSONObject param = new JSONObject();
-            param.put("defend", defend);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_FENCE_SET, HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE, getStringWithCmdAndParam(4, param));
+            param.put("defend", 1);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_FENCE_SET_ON, HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE, getStringWithCmdAndParam(4, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
+    public void setFenceOff(){
+        try {
+            JSONObject param = new JSONObject();
+            param.put("defend", 0);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_FENCE_SET_OFF, HttpConstant.HttpCmd.HTTP_CMD_SET_FENCE, getStringWithCmdAndParam(4, param));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+
     public void getFence(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_FENCE_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_FENCE, getStringWithCmd(5));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_FENCE, getStringWithCmd(5));
     }
 
     public void getBattery(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_BATTERY, HttpConstant.HttpCmd.HTTP_CMD_GET_BATTERY, getStringWithCmd(6));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_BATTERY, getStringWithCmd(6));
     }
 
     public void setBatteryType(int batterytype){
         try {
             JSONObject param = new JSONObject();
             param.put("batterytype", batterytype);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_BATTERY_TYPE, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, getStringWithCmd(7));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, getStringWithCmd(7));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void startRecord(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE_START, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, getStringWithCmd(8));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_START_RECORD, getStringWithCmd(8));
     }
 
     public void stopRecord(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICE_STOP, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, getStringWithCmd(9));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_STOP_RECORD, getStringWithCmd(9));
     }
 
     public void addBluetoothId(int bluetoothId){
         try {
             JSONObject param = new JSONObject();
             param.put("bluetoothId", bluetoothId);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_BLUETOOTH_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_DEFAULT, getStringWithCmdAndParam(10, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_DEFAULT, getStringWithCmdAndParam(10, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -104,7 +119,7 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("type", type);
             param.put("server",server);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SERVER, HttpConstant.HttpCmd.HTTP_CMD_SET_SERVER, getStringWithCmdAndParam(11, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_SERVER, getStringWithCmdAndParam(11, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -115,7 +130,7 @@ public class HttpPublishManager {
             JSONObject param = new JSONObject();
             param.put("use", use);
             param.put("fileName",fileName);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_FILENAME, HttpConstant.HttpCmd.HTTP_CMD_SET_FILENAME, getStringWithCmdAndParam(12, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_FILENAME, getStringWithCmdAndParam(12, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -125,93 +140,124 @@ public class HttpPublishManager {
         try {
             JSONObject param = new JSONObject();
             param.put("sw", sw);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SET_BLUETOOTH, HttpConstant.HttpCmd.HTTP_CMD_SET_BLUETOOTH, getStringWithCmdAndParam(13, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_BLUETOOTH, getStringWithCmdAndParam(13, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void setAlarm(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ALARM, HttpConstant.HttpCmd.HTTP_CMD_SETPHONEALARM, getStringWithCmd(14));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_PHONEALARM, getStringWithCmd(14));
     }
 
-    public void setLockOn(int sw){
+
+    public void setLockOn(){
         try {
             JSONObject param = new JSONObject();
-            param.put("sw", sw);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_LOCKON_SET, HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON, getStringWithCmdAndParam(15, param));
+            param.put("sw", 1);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_LOCKON_SET_ON, HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON, getStringWithCmdAndParam(15, param));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setLockOFF(){
+        try {
+            JSONObject param = new JSONObject();
+            param.put("sw", 0);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_LOCKON_SET_OFF, HttpConstant.HttpCmd.HTTP_CMD_SET_LOCKON, getStringWithCmdAndParam(15, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void getDeviceMSG(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEVICEMSG, HttpConstant.HttpCmd.HTTP_CMD_GET_DEVICEMSG, getStringWithCmd(16));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_DEVICEMSG, getStringWithCmd(16));
     }
 
     public void getGPSSignal(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SIGNAL_GPS, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS_SIGNAL, getStringWithCmd(17));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS_SIGNAL, getStringWithCmd(17));
     }
 
     public void getGSMSignal(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SIGNAL_GSM, HttpConstant.HttpCmd.HTTP_CMD_GET_GSM_SIGNAL, getStringWithCmd(18));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_GSM_SIGNAL, getStringWithCmd(18));
     }
 
     public void setATTest(String AT){
         try {
             JSONObject param = new JSONObject();
             param.put("AT", AT);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ATTEST, HttpConstant.HttpCmd.HTTP_CMD_SET_ATTEST, getStringWithCmdAndParam(19, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_ATTEST, getStringWithCmdAndParam(19, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void getLog(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_LOG, HttpConstant.HttpCmd.HTTP_CMD_GET_LOG, getStringWithCmd(20));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_LOG, getStringWithCmd(20));
     }
 
     public void setReset(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_RESET, HttpConstant.HttpCmd.HTTP_CMD_SET_RESET, getStringWithCmd(21));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_RESET, getStringWithCmd(21));
     }
 
-    public void setLinkSwitch(int sw){
+    public void setLinkSwitchOn(){
         try {
             JSONObject param = new JSONObject();
-            param.put("sw", sw);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SWITCH_SET, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH, getStringWithCmdAndParam(22, param));
+            param.put("sw", 1);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SWITCH_LINK_SET_ON, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH, getStringWithCmdAndParam(22, param));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setLinkSwitchOff(){
+        try {
+            JSONObject param = new JSONObject();
+            param.put("sw", 0);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SWITCH_LINK_SET_OFF, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_SWITCH, getStringWithCmdAndParam(22, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void getLinkSwitch(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_SWITCH_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_SWITCH, getStringWithCmd(23));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_SWITCH, getStringWithCmd(23));
     }
 
     public void getLockOn(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_LOCKON_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_LOCKON, getStringWithCmd(24));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_LOCKON, getStringWithCmd(24));
     }
 
-    public void setLinkElectricLock(int sw){
+    public void setLinkElectricLockOn(){
         try {
             JSONObject param = new JSONObject();
-            param.put("sw", sw);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ELECTRICLOCK_SET, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK, getStringWithCmdAndParam(25, param));
+            param.put("sw", 1);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ELECTRICLOCK_LINK_SET_ON, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK, getStringWithCmdAndParam(25, param));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setLinkElectricLockOff(){
+        try {
+            JSONObject param = new JSONObject();
+            param.put("sw", 0);
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ELECTRICLOCK_LINK_SET_OFF, HttpConstant.HttpCmd.HTTP_CMD_SET_LINK_ELECTRICLOCK, getStringWithCmdAndParam(25, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
     public void getLinkElectricLock(){
-        HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_ELECTRICLOCK_GET, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_ELECTRICLOCK, getStringWithCmd(26));
+        HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_LINK_ELECTRICLOCK, getStringWithCmd(26));
     }
 
     public void delBluetoothIMEI(String bluetoothId){
         try {
             JSONObject param = new JSONObject();
             param.put("bluetoothId", bluetoothId);
-            HttpManager.postHttpResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEL_BLUETOOTH_IMEI, HttpConstant.HttpCmd.HTTP_CMD_DEL_BLUETOOTH_IMEI, getStringWithCmdAndParam(27, param));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_DEL_BLUETOOTH_IMEI, getStringWithCmdAndParam(27, param));
         }catch (JSONException e){
             e.printStackTrace();
         }

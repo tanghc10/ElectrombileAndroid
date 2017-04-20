@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.event.http.httpPost;
 
+import com.xiaoantech.electrombile.http.HttpManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,8 +11,9 @@ import org.json.JSONObject;
 
 public class HttpPostFenceSetEvent {
     private int code;
-
-    public HttpPostFenceSetEvent(String resultStr){
+    private HttpManager.postType postType;
+    public HttpPostFenceSetEvent(String resultStr,HttpManager.postType postType){
+        this.postType = postType;
         try {
             JSONObject jsonObject = new JSONObject(resultStr);
             if (jsonObject.has("code")){
@@ -23,5 +26,9 @@ public class HttpPostFenceSetEvent {
 
     public int getCode(){
         return code;
+    }
+
+    public HttpManager.postType getPostType() {
+        return postType;
     }
 }
