@@ -22,7 +22,7 @@ import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManag
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.ChangePass.ChangePassActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement.PhoneAlarmAgreementActivity;
-import com.xiaoantech.electrombile.ui.main.Unkown.Record.RecordActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record.RecordActivity;
 import com.xiaoantech.electrombile.widget.Dialog.CertainDialog;
 import com.xiaoantech.electrombile.widget.Dialog.CommonDialog;
 import com.xiaoantech.electrombile.widget.Dialog.CustomDialog;
@@ -120,6 +120,7 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
                 LocalDataManager.getInstance().cleanDevice();
                 Intent intent = new Intent(SettingManagerActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                SettingManagerActivity.this.finish();
                 startActivity(intent);
                 AVUser.logOut();
             }

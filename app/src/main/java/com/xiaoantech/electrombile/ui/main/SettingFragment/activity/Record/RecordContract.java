@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.Unkown.Record;
+package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record;
 
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;

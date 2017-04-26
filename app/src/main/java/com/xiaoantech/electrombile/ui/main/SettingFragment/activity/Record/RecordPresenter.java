@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.Unkown.Record;
+package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record;
 
 import android.os.Bundle;
 import android.os.Handler;

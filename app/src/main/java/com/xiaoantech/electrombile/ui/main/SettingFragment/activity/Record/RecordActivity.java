@@ -1,4 +1,4 @@
-package com.xiaoantech.electrombile.ui.main.Unkown.Record;
+package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record;
 
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
@@ -183,6 +183,9 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
     protected void onStop() {
         super.onStop();
         mPresenter.unsubscribe();
+        if (mMediaPlayer != null){
+            mMediaPlayer.stop();
+        }
     }
 }
 

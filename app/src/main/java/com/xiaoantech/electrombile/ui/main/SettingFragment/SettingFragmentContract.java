@@ -12,16 +12,21 @@ public interface SettingFragmentContract {
     interface View extends BaseView<Presenter>{
         void gotoCarManager();
         void gotoUserManager();
+        void gotoRecord();
         void gotoMapDownload();
         void gotoSettingManager();
         void gotoAboutUs();
+        void showPopMenu();
     }
 
     interface Presenter extends BasePresenter{
         void gotoCarManager();
         void gotoUserManager();
+        void gotoRecord();
         void gotoMapDownload();
         void gotoSettingManager();
         void gotoAboutUs();
+
+        void changeUserIcon();
     }
 }

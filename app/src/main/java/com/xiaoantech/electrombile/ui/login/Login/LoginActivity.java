@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityLoginBinding;
+import com.xiaoantech.electrombile.ui.AddDevice.ChooseBindActivity;
 import com.xiaoantech.electrombile.ui.login.ForgetPass.ForgetPassActivity;
 import com.xiaoantech.electrombile.ui.login.Register.RegisterActivity;
 import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
@@ -88,7 +89,8 @@ public class LoginActivity extends BaseAcitivity implements LoginContract.View{
 
     @Override
     public void gotoBindDevice() {
-
+        Intent intent = new Intent(LoginActivity.this, ChooseBindActivity.class);
+        startActivity(intent);
     }
 
 }

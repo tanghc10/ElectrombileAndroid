@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapContract
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.PlayHistory.PlayHistoryActivity;
 import com.xiaoantech.electrombile.utils.TimeUtil;
 import com.xiaoantech.electrombile.widget.HistoryRouteCell;
+import com.xiaoantech.electrombile.widget.RefreshLayout;
 
 import org.json.JSONObject;
 
@@ -42,6 +44,10 @@ import de.halfbit.pinnedsection.PinnedSectionListView;
 public class MapListActivity extends ListActivity implements MapListContract.View{
     private MapListContract.Presenter       mPresenter;
     protected ProgressDialog mProgressDialog;
+    private int refreshDate = 0;
+    private RefreshLayout refreshLayout;
+    private MyListAdapter myListAdapter;
+    private List<List<Map<String,String>>> routeList;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -58,9 +64,38 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
         });
 
         mPresenter = new MapListPresenter(this);
-        mPresenter.getSevenDayRoute(0);
+        mPresenter.getSevenDayRoute(refreshDate);
         mProgressDialog = new ProgressDialog(this);
-//        setListAdapter();
+
+
+        refreshLayout = (RefreshLayout)findViewById(R.id.swipe_layout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.lightblue),getResources().getColor(R.color.yellow),getResources().getColor(R.color.green),getResources().getColor(R.color.antiquewhite));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshDate = 0;
+                refreshLayout.post(new Runnable(){
+                    @Override
+                    public void run() {
+                        mPresenter.getSevenDayRoute(refreshDate);
+                    }
+                });
+            }
+        });
+
+        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                refreshDate +=7;
+                refreshLayout.post(new Runnable(){
+                    @Override
+                    public void run() {
+                        mPresenter.getSevenDayRoute(refreshDate);
+                    }
+                });
+
+            }
+        });
     }
 
 
@@ -84,7 +119,16 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
 
     @Override
     public void refreshList(List<List<Map<String,String>>> routeList){
-        setListAdapter(new MyListAdapter(this, R.layout.cell_historyroute, android.R.id.text1,routeList));
+
+        if (this.routeList == null){
+            myListAdapter =  new MyListAdapter(this, R.layout.cell_historyroute, android.R.id.text1,routeList);
+            this.routeList = routeList;
+            setListAdapter(myListAdapter);
+        }else {
+            myListAdapter.update(routeList);
+        }
+        refreshLayout.setLoading(false);
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -183,6 +227,12 @@ public class MapListActivity extends ListActivity implements MapListContract.Vie
                 sectionPosition++;
             }
 
+        }
+
+        public void update(List<List<Map<String,String>>> routeList){
+            mRouteList = routeList;
+            generateDataSet(true);
+            this.notifyDataSetChanged();
         }
 
         @NonNull

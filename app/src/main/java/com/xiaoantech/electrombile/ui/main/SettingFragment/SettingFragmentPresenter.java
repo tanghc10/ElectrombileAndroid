@@ -35,6 +35,11 @@ public class SettingFragmentPresenter implements SettingFragmentContract.Present
     }
 
     @Override
+    public void gotoRecord() {
+        mSettingFragmentView.gotoRecord();
+    }
+
+    @Override
     public void gotoMapDownload() {
         mSettingFragmentView.gotoMapDownload();
     }
@@ -47,5 +52,10 @@ public class SettingFragmentPresenter implements SettingFragmentContract.Present
     @Override
     public void gotoAboutUs() {
         mSettingFragmentView.gotoAboutUs();
+    }
+
+    @Override
+    public void changeUserIcon() {
+        mSettingFragmentView.showPopMenu();
     }
 }

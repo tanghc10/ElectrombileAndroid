@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseFragment;
 import com.xiaoantech.electrombile.databinding.FragmentSettingBinding;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.AboutUs.AboutUsActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarManagerActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.MapDownLoad.MapDownloadActivity;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record.RecordActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.SettingManagerActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfo.UserInfoActivity;
 
@@ -57,6 +59,12 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
     }
 
     @Override
+    public void gotoRecord() {
+        Intent intent = new Intent(mContext, RecordActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void gotoMapDownload() {
         Intent intent = new Intent(mContext, MapDownloadActivity.class);
         startActivity(intent);
@@ -70,6 +78,9 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
 
     @Override
     public void gotoAboutUs() {
-
+        Intent intent = new Intent(mContext, AboutUsActivity.class);
+        startActivity(intent);
     }
+
+    private void
 }

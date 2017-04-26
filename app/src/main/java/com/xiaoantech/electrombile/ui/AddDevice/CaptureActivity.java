@@ -3,6 +3,7 @@ package com.xiaoantech.electrombile.ui.AddDevice;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,8 @@ import com.xiaoantech.electrombile.tools.ZXing.camera.CameraManager;
 import com.xiaoantech.electrombile.tools.ZXing.decoding.CaptureActivityHandler;
 import com.xiaoantech.electrombile.tools.ZXing.decoding.InactivityTimer;
 import com.xiaoantech.electrombile.tools.ZXing.view.ViewfinderView;
+import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
+import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -199,6 +202,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
         switch (result){
             case LEAN_CLOUD_BIND_RESULT_BIND_SUCCESS:
                 showToast("绑定成功");
+                gotoMainActivity();
                 break;
             case LEAN_CLOUD_BIND_RESULT_DID_NONE:
                 showToast("未找到该设备");
@@ -214,5 +218,11 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback{
 
     private void showToast(String errorMeg) {
         Toast.makeText(this,errorMeg,Toast.LENGTH_SHORT).show();
+    }
+
+    private void gotoMainActivity(){
+        Intent intent = new Intent(CaptureActivity.this, FragmentMainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
 }

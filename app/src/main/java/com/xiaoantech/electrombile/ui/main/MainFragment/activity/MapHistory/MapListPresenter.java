@@ -57,7 +57,6 @@ public class MapListPresenter implements MapListContract.Presenter{
 
     @Override
     public void getSevenDayRoute(int startIndex) {
-
         if (startIndex <0) startIndex = 0;
         if (startIndex >29) startIndex = 29;
 

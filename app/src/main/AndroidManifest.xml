@@ -118,12 +118,13 @@
             android:label="PhoneAlarm"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmResend.PhoneAlarmNoreceiveActivity"
             android:label="NoPhoneAlarm"/>
-        <activity android:name=".ui.main.Unkown.Record.RecordActivity"
+        <activity android:name=".ui.main.SettingFragment.activity.Record.RecordActivity"
             android:label="Record"/>
         <activity android:name=".ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement.PhoneAlarmAgreementActivity"
             android:label="Agreement"/>
         <activity android:name=".ui.Other.AlarmActivity"
             android:label="Alarm"/>
+        <activity android:name=".ui.main.SettingFragment.activity.AboutUs.AboutUsActivity"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />

@@ -35,10 +35,21 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="360dp"
+                android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:background="@android:color/white"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_fragment_setting"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
                 android:onClick="@{ () -> presenter.gotoBindedCarInfo()}" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/img_download_delete"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
+                app:layout_constraintCenterY_toCenterY="@id/imageView3"
+                android:layout_marginRight="30dp"
+                android:onClick="@{() -> presenter.deleteDevice(0)}"/>
 
             <ImageView
                 android:layout_width="50dp"
