@@ -31,6 +31,8 @@ import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.MapDownLoad.
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record.RecordActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.SettingManagerActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.UserManager.UserInfo.UserInfoActivity;
+import com.xiaoantech.electrombile.utils.BitmapUtil;
+import com.xiaoantech.electrombile.utils.BitmapUtils;
 import com.xiaoantech.electrombile.widget.AddPicPopWindow;
 
 /**
@@ -60,6 +62,10 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
     public void initView() {
         mPresenter = new SettingFragmentPresenter(this);
         mBinding.setPresenter(mPresenter);
+        Bitmap bitmap = BitmapUtils.compressImageFromFile("user.png");
+        if (bitmap != null){
+            mBinding.headImage.setImageBitmap(bitmap);
+        }
     }
 
     @Override
@@ -163,17 +169,13 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
                 break;
             case CROP_PHOTO:
                 mBinding.headImage.setImageBitmap(null);
+                Bitmap bitmap = BitmapUtils.compressImageFromFile("user.png");
+                if (bitmap != null){
+                    mBinding.headImage.setImageBitmap(bitmap);
+                }
                 break;
             default:
                 break;
-        }
-    }
-
-    public void bitmapRelase(Bitmap bitmap){
-        if (bitmap != null && !bitmap.isRecycled()){
-            bitmap.recycle();
-            bitmap = null;
-            System.gc();
         }
     }
 }

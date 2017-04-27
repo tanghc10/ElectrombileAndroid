@@ -120,7 +120,7 @@ public class CropActivity extends Activity {
 
 
             imgScreenshot.setImageBitmap(targetBitmap);
-//            saveMyBitmaptoFile(targetBitmap,"123");
+            saveMyBitmaptoUserFile(targetBitmap);
 
             Toast.makeText(getBaseContext(), "保存成功", Toast.LENGTH_LONG).show();
 
@@ -231,18 +231,33 @@ public class CropActivity extends Activity {
     }
 
     //bitmap写文件
-    public void saveMyBitmaptoFile(Bitmap mBitmap, String IMEI) {
-        //如果用户没有内存卡这句话会不会出错
-//        filePath = Environment.getExternalStorageDirectory() + "/"+IMEI+"crop_result.jpg";
-//        File f = new File(filePath);
+    public void saveMyBitmaptoUserFile(Bitmap mBitmap) {
 
-        File f = new File(this.getExternalFilesDir(null), IMEI + "crop_result.png");
+
+        File f = new File(this.getExternalFilesDir(null),"user.png");
 
         FileOutputStream fOut = null;
         try {
             f.createNewFile();
             fOut = new FileOutputStream(f);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveMyBitmaptoIMEIFile(Bitmap mBitmap,String IMEI) {
+
+
+        File f = new File(this.getExternalFilesDir(null),IMEI + ".png");
+
+        FileOutputStream fOut = null;
+        try {
+            f.createNewFile();
+            fOut = new FileOutputStream(f);
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
             fOut.flush();
             fOut.close();
         } catch (IOException e) {
@@ -260,7 +275,6 @@ public class CropActivity extends Activity {
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     @Override
