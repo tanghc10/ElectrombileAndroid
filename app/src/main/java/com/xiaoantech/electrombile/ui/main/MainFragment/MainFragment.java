@@ -111,11 +111,9 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         setFonts();
 
         if(isVisible){
-            if (!LocalDataManager.getInstance().getLatestStatus().isEmpty()){
-                mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
-                mBinding.txtItinerary.setText(LocalDataManager.getInstance().getTodayItinerary()  + "");
-            }
+            mPresenter.refresh();
         }
+        mBinding.btnChangeCar.setText(BasicDataManager.getInstance().getBindIMEI());
     }
 
     @Override
@@ -207,22 +205,19 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
     public void changeSignal(int level) {
         switch (level){
             case 0:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_0));
+                mBinding.imgGSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_0));
                 break;
             case 1:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_1));
+                mBinding.imgGSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_1));
                 break;
             case 2:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_2));
+                mBinding.imgGSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_2));
                 break;
             case 3:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_3));
+                mBinding.imgGSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_3));
                 break;
             case 4:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_4));
-                break;
-            case 5:
-                mBinding.GSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_5));
+                mBinding.imgGSMStatus.setImageDrawable(getResources().getDrawable(R.drawable.level_4));
                 break;
         }
     }
@@ -284,19 +279,18 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override( )
     public void changeFenceStatus(Boolean isOn, boolean isGet) {
-        if (isGet){
-            if (isOn){
-                mBinding.txtSwitchStatus.setText("已设防");
-            }else {
-                mBinding.txtSwitchStatus.setText("已撤防");
-            }
+        if (isOn){
+            mBinding.txtSwitch.setText("已设防");
+            mBinding.imgSwitch.setImageDrawable(getResources().getDrawable(R.drawable.img_switch_on));
         }else {
+            mBinding.txtSwitch.setText("未设防");
+            mBinding.imgSwitch.setImageDrawable(getResources().getDrawable(R.drawable.img_switch_off));
+        }
+        if (!isGet){
             if (isOn){
                showToast("小安宝开启成功！");
-                mBinding.txtSwitchStatus.setText("已设防");
             }else {
                 showToast("小安宝关闭成功！");
-                mBinding.txtSwitchStatus.setText("未设防");
             }
         }
 
@@ -304,15 +298,13 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void changeLockStatus(boolean isOn) {
-        if (isOn){
-            mBinding.txtLockStatus.setText("上锁中");
-            mBinding.txtLockStatusShow.setText("电门已关闭");
-            mBinding.imgLockStatus.setImageDrawable(getResources().getDrawable(R.drawable.lock_off));
-        }else {
-            mBinding.txtLockStatus.setText("撤锁中");
-            mBinding.txtLockStatusShow.setText("电门已打开");
-            mBinding.imgLockStatus.setImageDrawable(getResources().getDrawable(R.drawable.lock_on));
-        }
+//        if (isOn){
+//            mBinding.txtLockStatusShow.setText("电门已关闭");
+//            mBinding.imgLockStatus.setImageDrawable(getResources().getDrawable(R.drawable.lock_off));
+//        }else {
+//            mBinding.txtLockStatusShow.setText("电门已打开");
+//            mBinding.imgLockStatus.setImageDrawable(getResources().getDrawable(R.drawable.lock_on));
+//        }
     }
 
     @Override
@@ -402,6 +394,17 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
             isVisible = true;
         }else {
             isVisible = false;
+        }
+    }
+
+    @Override
+    public void setGPSSignal(boolean isGPS) {
+        if (isGPS){
+            mBinding.txtIsGPS.setText("GPS信号");
+            mBinding.GPSStatus.setImageDrawable(getResources().getDrawable(R.drawable.img_satellite));
+        }else {
+            mBinding.txtIsGPS.setText("基站信号");
+            mBinding.GPSStatus.setImageDrawable(getResources().getDrawable(R.drawable.img_station));
         }
     }
 }

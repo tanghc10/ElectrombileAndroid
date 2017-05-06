@@ -29,7 +29,7 @@ public interface MainFragmentContract {
         void showWeatherDialog(JSONObject weatherInfo,String placeInfo);
         void gotoMessage();
         void gotoHistory();
-
+        void setGPSSignal(boolean isGPS);
         void changeBackground(boolean isOn);
 
         void changeSignal(int level);

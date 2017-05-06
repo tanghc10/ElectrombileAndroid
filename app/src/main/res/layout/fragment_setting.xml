@@ -40,8 +40,8 @@
             app:layout_constraintBottom_toBottomOf="@id/view"
             />
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/headImage"
             android:onClick="@{() -> presenter.changeUserIcon()}"
             android:src="@drawable/img_icon"

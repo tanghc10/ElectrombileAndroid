@@ -65,6 +65,8 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
         Bitmap bitmap = BitmapUtils.compressImageFromFile("user.png");
         if (bitmap != null){
             mBinding.headImage.setImageBitmap(bitmap);
+        }else {
+            mPresenter.getIcon();
         }
     }
 
@@ -172,10 +174,23 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
                 Bitmap bitmap = BitmapUtils.compressImageFromFile("user.png");
                 if (bitmap != null){
                     mBinding.headImage.setImageBitmap(bitmap);
+                    saveImage();
                 }
                 break;
             default:
                 break;
+        }
+    }
+
+    private void saveImage(){
+        mPresenter.saveImage();
+    }
+
+    @Override
+    public void showIcon() {
+        Bitmap bitmap = BitmapUtils.compressImageFromFile("user.png");
+        if (bitmap != null){
+            mBinding.headImage.setImageBitmap(bitmap);
         }
     }
 }

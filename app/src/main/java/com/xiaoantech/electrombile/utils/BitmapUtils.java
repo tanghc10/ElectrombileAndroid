@@ -1,10 +1,14 @@
 package com.xiaoantech.electrombile.utils;
 
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import com.xiaoantech.electrombile.application.App;
 
@@ -157,7 +161,28 @@ public class BitmapUtils {
 		}
 	}
 
-	public static Bitmap readBitMap(Context context, int drawableId){
+	public static File getImageFile(String FileName){
+		String srcPath = App.getContext().getExternalFilesDir(null).getAbsolutePath()+"/" + FileName;
+//		File f = new File(srcPath);
+//
+//		String srcPath1 = Environment.getExternalStorageDirectory() + "/"+IMEI+"crop_result.png";
+//		File f1 = new File(srcPath1);
+		File f = new File(App.getContext().getExternalFilesDir(null), FileName);
+		return f;
+	}
+	public static Bitmap compressImageFromUri(Uri imageUri,Context context) {
+		Cursor cursor =(new CursorLoader(context,imageUri,null,null,null,null)).loadInBackground();
+		int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		String path =  cursor.getString(column_index);
+
+		BitmapFactory.Options newOpts = new BitmapFactory.Options();
+		newOpts.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(path,newOpts);
+	}
+
+
+		public static Bitmap readBitMap(Context context, int drawableId){
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Config.RGB_565;
 		//获取资源图片

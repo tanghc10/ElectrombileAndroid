@@ -43,7 +43,7 @@ public class AboutUsActivity extends Activity{
         });
 
         tv_appInfo = (TextView)findViewById(R.id.tv_appInfo);
-        tv_appInfo.setText("小安宝 test" + 1.01);
+        tv_appInfo.setText("小安宝 test" + 1.11);
 
         clickCount = 0;
     }

@@ -104,6 +104,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void refresh() {
+        mMainFragmentView.showWaitingDialog("正在刷新");
         HttpPublishManager.getInstance().getStatus();
         HistoryRouteManager.getInstance().getTodayItineray();
         getWeatherInfo();
@@ -112,6 +113,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     private void getGSM(){
         HttpPublishManager.getInstance().getGSMSignal();
+        mMainFragmentView.hideWaitingDialog();
     }
 
     @Override
@@ -218,12 +220,14 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
         ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
-        mMainFragmentView.changePlaceInfo(addressComponent.district+addressComponent.street+addressComponent.streetNumber);
-        mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
+        if (addressComponent.countryCode != -1) {
+            mMainFragmentView.changePlaceInfo(addressComponent.district + addressComponent.street + addressComponent.streetNumber);
+            mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
 
-        //获取天气信息
-        mCity = addressComponent.city.substring(0,addressComponent.city.length()-1);
-        getWeatherInfo();
+            //获取天气信息
+            mCity = addressComponent.city.substring(0, addressComponent.city.length() - 1);
+            getWeatherInfo();
+        }
     }
 
     @Override
@@ -392,14 +396,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private void convertStatusFromString(String string){
         try {
             JSONObject result = new JSONObject(string);
-            //GPS定位
-            JSONObject gps = result.getJSONObject("gps");
-            double lat = gps.getDouble("lat");
-            double lng = gps.getDouble("lng");
-            LatLng point = new LatLng(lat,lng);
-            LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
-            mMainFragmentView.changeGPSPoint(newPoint);
-            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(newPoint));
+
             //小安宝状态
             int lock = result.getInt("defend");
             if (lock == 1){
@@ -420,7 +417,25 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             }
             //电池电量
             JSONObject battery = result.getJSONObject("battery");
-            mMainFragmentView.changeBattery(battery.getInt("percent"),false);}catch (JSONException e){
+            mMainFragmentView.changeBattery(battery.getInt("percent"),false);
+
+            //GPS定位
+            if (result.has("gps")) {
+                JSONObject gps = result.getJSONObject("gps");
+                double lat = gps.getDouble("lat");
+                double lng = gps.getDouble("lng");
+                LatLng point = new LatLng(lat, lng);
+                LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
+                mMainFragmentView.changeGPSPoint(newPoint);
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(newPoint));
+                mMainFragmentView.setGPSSignal(true);
+            }else {
+                mMainFragmentView.setGPSSignal(false);
+                if (result.has("cell")){
+                    //TODO:
+                }
+            }
+        } catch (JSONException e){
             e.printStackTrace();
         }
     }
@@ -450,10 +465,8 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                 level = 2;
             }else if (signal < 11){
                 level = 3;
-            }else if (signal < 14){
-                level = 4;
             }else {
-                level = 5;
+                level = 4;
             }
             mMainFragmentView.changeSignal(level);
         }

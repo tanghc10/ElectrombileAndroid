@@ -1,5 +1,8 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;
 
@@ -17,6 +20,7 @@ public interface SettingFragmentContract {
         void gotoSettingManager();
         void gotoAboutUs();
         void showPopMenu();
+        void showIcon();
     }
 
     interface Presenter extends BasePresenter{
@@ -26,7 +30,8 @@ public interface SettingFragmentContract {
         void gotoMapDownload();
         void gotoSettingManager();
         void gotoAboutUs();
-
+        void saveImage();
         void changeUserIcon();
+        void getIcon();
     }
 }

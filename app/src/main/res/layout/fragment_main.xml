@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_change_car"
-                android:text="切换车辆"
+                android:text="--"
                 android:background="@color/white"
                 android:onClick="@{() -> presenter.changeCar()}"
                 app:layout_constraintCenterY_toCenterY="@id/weather_image"
@@ -95,7 +95,8 @@
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-                />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="1.0" />
             
             <ImageView
                 android:layout_width="13dp"
@@ -148,32 +149,31 @@
                         android:textColor="@color/white"
                         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_battery"
                         app:layout_constraintRight_toRightOf="@+id/constraintLayout_battery"
-                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_battery"
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout_battery"
-                        android:layout_marginBottom="11dp"
-                        />
+                        android:layout_marginTop="@dimen/y48"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="%"
                         android:id="@+id/txt_battery_unit"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y10"
                         android:textSize="15sp"
                         android:textColor="@color/white"
                         app:layout_constraintLeft_toRightOf="@+id/txt_battery"
-                        app:layout_constraintTop_toTopOf="@+id/txt_battery"/>
+                        app:layout_constraintTop_toTopOf="@+id/txt_battery"
+                        tools:ignore="HardcodedText" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="剩余电量"
                         android:textSize="11sp"
                         android:textColor="@color/black"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_battery"
                         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_battery"
                         app:layout_constraintRight_toRightOf="@+id/constraintLayout_battery"
                         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_battery"
-                        android:layout_marginBottom="15dp"/>
+                        android:layout_marginBottom="@dimen/y30"/>
                 </android.support.constraint.ConstraintLayout>
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -191,16 +191,17 @@
                         android:textColor="@color/white"
                         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_itinerary"
                         app:layout_constraintRight_toRightOf="@+id/constraintLayout_itinerary"
-                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_itinerary"
+
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout_itinerary"
-                        android:layout_marginBottom="11dp"/>
+                        android:layout_marginTop="@dimen/y48"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="km"
                         android:id="@+id/txt_itinerary_unit"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y10"
                         android:textSize="11sp"
                         android:textColor="@color/white"
                         app:layout_constraintLeft_toRightOf="@+id/txt_itinerary"
@@ -211,11 +212,10 @@
                         android:text="今日里程"
                         android:textSize="11sp"
                         android:textColor="@color/black"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_itinerary"
                         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_itinerary"
                         app:layout_constraintRight_toRightOf="@+id/constraintLayout_itinerary"
                         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_itinerary"
-                        android:layout_marginBottom="15dp"/>
+                        android:layout_marginBottom="@dimen/y30"/>
                 </android.support.constraint.ConstraintLayout>
                 <View
                     android:layout_width="match_parent"
@@ -224,49 +224,57 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/status_constraint_lock"
+                    android:id="@+id/status_constraint_GSM"
                     android:layout_weight="1">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:id="@+id/img_lock_status"
-                        android:src="@drawable/lock_on"
-                        app:layout_constraintCenterX_toCenterX="@id/status_constraint_lock"
-                        app:layout_constraintCenterY_toCenterY="@id/status_constraint_lock"
-                        android:layout_marginBottom="14dp"/>
+                        android:layout_width="@dimen/x63"
+                        android:layout_height="@dimen/y64"
+                        android:id="@+id/img_GSM_status"
+                        android:src="@drawable/level_0"
+                        app:layout_constraintLeft_toLeftOf="@+id/status_constraint_GSM"
+                        app:layout_constraintRight_toRightOf="@+id/status_constraint_GSM"
+                        app:layout_constraintTop_toTopOf="@+id/status_constraint_GSM"
+                        app:layout_constraintBottom_toBottomOf="@+id/status_constraint_GSM"
+                        android:layout_marginBottom="@dimen/y28"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintCenterX_toCenterX="@id/status_constraint_lock"
-                        app:layout_constraintTop_toBottomOf="@id/img_lock_status"
+                        app:layout_constraintLeft_toLeftOf="@+id/status_constraint_GSM"
+                        app:layout_constraintRight_toRightOf="@+id/status_constraint_GSM"
+                        app:layout_constraintBottom_toBottomOf="@+id/status_constraint_GSM"
                         android:text="电门已打开"
-                        android:id="@+id/txt_lock_status_show"
+                        android:id="@+id/txt_GSM_status_show"
                         android:textColor="@color/black"
                         android:textSize="11sp"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginBottom="@dimen/y30"/>
                 </android.support.constraint.ConstraintLayout>
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/status_GSM_constraint"
+                    android:id="@+id/status_GPS_constraint"
                     android:layout_weight="1">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:id="@+id/GSM_status"
-                        android:src="@drawable/level_0"
-                        app:layout_constraintCenterX_toCenterX="@id/status_GSM_constraint"
-                        app:layout_constraintCenterY_toCenterY="@id/status_GSM_constraint"
-                        android:layout_marginBottom="14dp"/>
+                        android:layout_width="@dimen/x72"
+                        android:layout_height="@dimen/y73"
+                        android:id="@+id/GPS_status"
+                        android:src="@drawable/img_satellite"
+                        app:layout_constraintLeft_toLeftOf="@+id/status_GPS_constraint"
+                        app:layout_constraintRight_toRightOf="@+id/status_GPS_constraint"
+                        app:layout_constraintTop_toTopOf="@+id/status_GPS_constraint"
+                        app:layout_constraintBottom_toBottomOf="@+id/status_GPS_constraint"
+                        android:layout_marginBottom="@dimen/y28"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintCenterX_toCenterX="@id/status_GSM_constraint"
-                        app:layout_constraintTop_toBottomOf="@id/GSM_status"
+                        android:id="@+id/txt_isGPS"
+                        app:layout_constraintLeft_toLeftOf="@+id/status_GPS_constraint"
+                        app:layout_constraintRight_toRightOf="@+id/status_GPS_constraint"
+                        app:layout_constraintBottom_toBottomOf="@+id/status_GPS_constraint"
                         android:text="GPS强度"
                         android:textColor="@color/black"
                         android:textSize="11sp"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginBottom="@dimen/y30"
+                        tools:ignore="HardcodedText" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -299,21 +307,23 @@
                     android:layout_weight="1">
 
                     <ImageView
-                        android:layout_width="29dp"
-                        android:layout_height="31dp"
+                        android:layout_width="@dimen/x86"
+                        android:layout_height="@dimen/y93"
                         android:id="@+id/img_history"
                         android:src="@drawable/img_history"
-                        app:layout_constraintCenterX_toCenterX="@id/history_constraint"
-                        app:layout_constraintCenterY_toCenterY="@id/history_constraint"
-                        android:layout_marginBottom="10dp"/>
+                        app:layout_constraintLeft_toLeftOf="@id/history_constraint"
+                        app:layout_constraintRight_toRightOf="@id/history_constraint"
+                        app:layout_constraintTop_toTopOf="@+id/history_constraint"
+                        android:layout_marginTop="@dimen/y55"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="历史轨迹"
-                        android:layout_marginBottom="19dp"
+                        android:layout_marginBottom="@dimen/y59"
                         android:textSize="12sp"
                         android:textColor="@color/black"
-                        app:layout_constraintCenterX_toCenterX="@id/history_constraint"
+                        app:layout_constraintLeft_toLeftOf="@id/history_constraint"
+                        app:layout_constraintRight_toRightOf="@id/history_constraint"
                         app:layout_constraintBottom_toBottomOf="@id/history_constraint"/>
                 </android.support.constraint.ConstraintLayout>
 
@@ -329,32 +339,26 @@
                     android:onClick="@{() -> presenter.changeFenceStatus()}"
                     tools:ignore="GradleDependency">
                     <ImageView
-                        android:layout_width="27dp"
-                        android:layout_height="31dp"
+                        android:layout_width="@dimen/x97"
+                        android:layout_height="@dimen/y90"
                         android:id="@+id/img_switch"
-                        android:src="@drawable/img_switch"
-                        app:layout_constraintCenterX_toCenterX="@id/switch_constraint"
-                        app:layout_constraintCenterY_toCenterY="@id/switch_constraint"
-                        android:layout_marginBottom="10dp"/>
+                        android:src="@drawable/img_switch_on"
+                        app:layout_constraintLeft_toLeftOf="@id/switch_constraint"
+                        app:layout_constraintRight_toRightOf="@id/switch_constraint"
+                        app:layout_constraintTop_toTopOf="@id/switch_constraint"
+                        android:layout_marginTop="@dimen/y59"
+                        tools:ignore="ContentDescription" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txt_switch_status"
-                        android:text="设防中"
-                        android:textSize="8sp"
-                        android:textColor="#51d7a5"
-                        app:layout_constraintLeft_toRightOf="@+id/img_switch"
-                        app:layout_constraintTop_toTopOf="@+id/img_switch"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="手动设防"
-                        android:layout_marginBottom="19dp"
+                        android:text="已设防"
+                        android:id="@+id/txt_switch"
+                        android:layout_marginBottom="@dimen/y59"
                         android:textSize="12sp"
                         android:textColor="@color/black"
-                        app:layout_constraintCenterX_toCenterX="@id/switch_constraint"
+                        app:layout_constraintLeft_toLeftOf="@id/switch_constraint"
+                        app:layout_constraintRight_toRightOf="@id/switch_constraint"
                         app:layout_constraintBottom_toBottomOf="@id/switch_constraint"/>
-
                 </android.support.constraint.ConstraintLayout>
                 <View
                     android:layout_width="1dp"
@@ -363,36 +367,31 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/lock_constraint"
-                    android:onClick="@{() -> presenter.changeLockStatus()}"
+                    android:id="@+id/refresh_constraint"
+                    android:onClick="@{() -> presenter.refresh()}"
                     android:layout_weight="1">
 
+
                     <ImageView
-                        android:layout_width="34dp"
-                        android:layout_height="24dp"
-                        android:id="@+id/img_lock"
-                        android:src="@drawable/img_lock"
-                        app:layout_constraintCenterX_toCenterX="@id/lock_constraint"
-                        app:layout_constraintCenterY_toCenterY="@id/lock_constraint"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_width="@dimen/x80"
+                        android:layout_height="@dimen/y80"
+                        android:id="@+id/img_refresh"
+                        android:src="@drawable/img_refresh"
+                        app:layout_constraintLeft_toLeftOf="@+id/refresh_constraint"
+                        app:layout_constraintRight_toRightOf="@+id/refresh_constraint"
+                        app:layout_constraintTop_toTopOf="@+id/refresh_constraint"
+                        android:layout_marginTop="@dimen/y61"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txt_lock_status"
-                        android:text="设防中"
-                        android:textSize="8sp"
-                        android:textColor="#f2b052"
-                        app:layout_constraintLeft_toRightOf="@+id/img_lock"
-                        app:layout_constraintTop_toTopOf="@+id/img_lock"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="锁电机"
-                        android:layout_marginBottom="19dp"
+                        android:text="刷新"
+                        android:layout_marginBottom="@dimen/y59"
                         android:textSize="12sp"
                         android:textColor="@color/black"
-                        app:layout_constraintCenterX_toCenterX="@id/lock_constraint"
-                        app:layout_constraintBottom_toBottomOf="@id/lock_constraint"/>
+                        app:layout_constraintLeft_toLeftOf="@+id/refresh_constraint"
+                        app:layout_constraintRight_toRightOf="@+id/refresh_constraint"
+                        app:layout_constraintBottom_toBottomOf="@+id/refresh_constraint"/>
                 </android.support.constraint.ConstraintLayout>
 
 

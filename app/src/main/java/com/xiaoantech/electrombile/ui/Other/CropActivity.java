@@ -35,12 +35,9 @@ import java.io.InputStream;
  */
 
 public class CropActivity extends Activity {
-    private String filePath;
     private LinearLayout imgSave;
     private ImageView imgView,imgScreenshot;
-    private ImageView srcPic;
     private Bitmap bitmap = null;
-    private CustomView customView;
 
     private static final int NONE = 0;
     private static final int DRAG = 1;
@@ -61,10 +58,7 @@ public class CropActivity extends Activity {
         imgView =(ImageView)findViewById(R.id.screenshot_img);
         imgScreenshot = (ImageView)findViewById(R.id.screenshot);
         imgSave = (LinearLayout)findViewById(R.id.img_save);
-        customView = (CustomView)findViewById(R.id.custom_view);
-        Bitmap bitmap = Bitmap.createBitmap(imgView.getDrawingCache());
 
-        customView.canvas = new Canvas(imgView.getDrawingCache());
 
 
         //解析intent数据 还原uri
@@ -111,20 +105,21 @@ public class CropActivity extends Activity {
             Canvas canvas = new Canvas(targetBitmap);
             Path path = new Path();
 
-            path.addCircle(left + w/2,h/2+top, (float)(w / 2),
+            path.addCircle((float)((right-left) / 2),((float)((bottom-top)) / 2), (float)(w / 2),
                     Path.Direction.CCW);
 
             canvas.clipPath(path);
+            int center = (bottom+top)/2;
+            canvas.drawBitmap(bitmap,new Rect(left,center - w/2,right,center + w/2),new Rect(left,center - w/2,right,center + w/2),null);
 
-            Paint paint = new Paint();
-
-
+            targetBitmap = Bitmap.createBitmap(targetBitmap,left,center - w/2,w,w);
             imgScreenshot.setImageBitmap(targetBitmap);
             saveMyBitmaptoUserFile(targetBitmap);
 
             Toast.makeText(getBaseContext(), "保存成功", Toast.LENGTH_LONG).show();
-
-//            finish();
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
         }
     };
 
@@ -268,7 +263,6 @@ public class CropActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        srcPic.setImageURI(null);
         bitmapRelease();
     }
 
@@ -283,15 +277,4 @@ public class CropActivity extends Activity {
     }
 
 
-    class CustomView extends View{
-        Canvas canvas;
-        public CustomView(Context context){
-            super(context);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-        }
-    }
 }
