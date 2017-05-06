@@ -43,6 +43,7 @@
             android:background="@drawable/shape"
             android:text="再试一次"
             android:id="@+id/btn_try"
+            style="?android:attr/borderlessButtonStyle"
             app:layout_constraintLeft_toLeftOf="@+id/constraintLayout" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

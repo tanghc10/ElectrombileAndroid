@@ -7,7 +7,7 @@
     <data>
         <variable
             name="presenter"
-            type="com.xiaoantech.electrombile.ui.main.Unkown.Record.RecordContract.Presenter"/>
+            type="com.xiaoantech.electrombile.ui.main.SettingFragment.activity.Record.RecordContract.Presenter"/>
         
     </data>
     

@@ -18,14 +18,22 @@ import com.xiaoantech.electrombile.event.cmd.FenceEvent;
 import com.xiaoantech.electrombile.event.cmd.LocationEvent;
 import com.xiaoantech.electrombile.event.cmd.StatusEvent;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostFenceSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGPSEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostGSMSignalEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostStatusEvent;
+import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.HistoryRouteManager;
 import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
+import com.xiaoantech.electrombile.utils.ErrorCodeConvertUtil;
 import com.xiaoantech.electrombile.utils.GPSConvertUtil;
 import com.xiaoantech.electrombile.utils.JSONUtil;
 import com.xiaoantech.electrombile.utils.StringUtil;
+import com.xiaoantech.electrombile.utils.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +56,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private MainFragmentContract.View  mMainFragmentView;
     private GeoCoder                mSearch;
     private boolean fenceStatus;
+    private boolean lockStatus;
     private JSONObject              mWeatherInfo;
     private String                  mPlaceInfo;
     private String                  mCity;
@@ -69,7 +78,8 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         this.mMainFragmentView = mainFragmentView;
         mainFragmentView.setPresenter(this);
 
-        fenceStatus = false;
+        fenceStatus = LocalDataManager.getInstance().getFenceStatus();
+        lockStatus = LocalDataManager.getInstance().getLockStatus();
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
     }
@@ -94,25 +104,36 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void refresh() {
-        MqttPublishManager.getInstance().getStatus(BasicDataManager.getInstance().getBindIMEI());
+        mMainFragmentView.showWaitingDialog("正在刷新");
+        HttpPublishManager.getInstance().getStatus();
         HistoryRouteManager.getInstance().getTodayItineray();
         getWeatherInfo();
+        getGSM();
+    }
+
+    private void getGSM(){
+        HttpPublishManager.getInstance().getGSMSignal();
+        mMainFragmentView.hideWaitingDialog();
     }
 
     @Override
     public void changeFenceStatus() {
         mMainFragmentView.showWaitingDialog("正在设置");
         if (fenceStatus){
-            MqttPublishManager.getInstance().fenceOff(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOff();
         }else {
-            MqttPublishManager.getInstance().fenceOn(BasicDataManager.getInstance().getBindIMEI());
+            HttpPublishManager.getInstance().setFenceOn();
         }
     }
 
     @Override
-    public void getBattery(){
-        mMainFragmentView.showWaitingDialog("正在查询");
-        MqttPublishManager.getInstance().getBattery(BasicDataManager.getInstance().getBindIMEI());
+    public void changeLockStatus() {
+        mMainFragmentView.showWaitingDialog("正在设置");
+        if (lockStatus)
+            HttpPublishManager.getInstance().setLockOn();
+        else
+            HttpPublishManager.getInstance().setLockOn();
+
     }
 
     @Override
@@ -123,7 +144,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     @Override
     public void getGPSInfo(){
-        MqttPublishManager.getInstance().getLocation(BasicDataManager.getInstance().getBindIMEI());
+        HttpPublishManager.getInstance().getGPS();
     }
 
     @Override
@@ -199,12 +220,14 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
         ReverseGeoCodeResult.AddressComponent addressComponent = result.getAddressDetail();
-        mMainFragmentView.changePlaceInfo(addressComponent.district+addressComponent.street+addressComponent.streetNumber);
-        mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
+        if (addressComponent.countryCode != -1) {
+            mMainFragmentView.changePlaceInfo(addressComponent.district + addressComponent.street + addressComponent.streetNumber);
+            mPlaceInfo = addressComponent.province + "·" + addressComponent.city;
 
-        //获取天气信息
-        mCity = addressComponent.city.substring(0,addressComponent.city.length()-1);
-        getWeatherInfo();
+            //获取天气信息
+            mCity = addressComponent.city.substring(0, addressComponent.city.length() - 1);
+            getWeatherInfo();
+        }
     }
 
     @Override
@@ -228,6 +251,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Override
+    public void gotoHistory() {
+        mMainFragmentView.gotoHistory();
+    }
+
+    @Override
     public List<Map<String, Object>> getCarListInfo() {
         List<String> carNameList = BasicDataManager.getInstance().getIMEIList();
 
@@ -248,38 +276,53 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFenceEvent(FenceEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try{
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-                return;
+    public void onHttpPostFenceSetEvent(HttpPostFenceSetEvent event){
+        if (event.getCode() == 0){
+            if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_ON) {
+                fenceStatus = true;
+            }else if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_OFF){
+                fenceStatus = false;
             }
-
-            switch (event.getCmdType()){
-                case CMD_TYPE_FENCE_ON:
-                    mMainFragmentView.changeFenceStatus(true,false);
-                    fenceStatus = true;
-                    break;
-                case CMD_TYPE_FENCE_OFF:
-                    fenceStatus = false;
-                    mMainFragmentView.changeFenceStatus(false,false);
-                    break;
-                case CMD_TYPE_FENCE_GET:
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    if (result.getInt("state") == 0){
-                        fenceStatus = true;
-                        mMainFragmentView.changeFenceStatus(true,true);
-                    }else {
-                        fenceStatus = false;
-                        mMainFragmentView.changeFenceStatus(false,true);
-                    }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+            mMainFragmentView.changeFenceStatus(fenceStatus,false);
+        }else {
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onFenceEvent(FenceEvent event){
+//        JSONObject jsonObject = event.getJsonObject();
+//        try{
+//            int code = jsonObject.getInt("code");
+//            if (code != 0){
+//                dealWithErrorCode(code);
+//                return;
+//            }
+//
+//            mMainFragmentView.changeBackground(true);
+//            switch (event.getCmdType()){
+//                case CMD_TYPE_FENCE_ON:
+//                    mMainFragmentView.changeFenceStatus(true,false);
+//                    fenceStatus = true;
+//                    break;
+//                case CMD_TYPE_FENCE_OFF:
+//                    fenceStatus = false;
+//                    mMainFragmentView.changeFenceStatus(false,false);
+//                    break;
+//                case CMD_TYPE_FENCE_GET:
+//                    JSONObject result = jsonObject.getJSONObject("result");
+//                    if (result.getInt("state") == 0){
+//                        fenceStatus = true;
+//                        mMainFragmentView.changeFenceStatus(true,true);
+//                    }else {
+//                        fenceStatus = false;
+//                        mMainFragmentView.changeFenceStatus(false,true);
+//                    }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public  void onBatteryEvent(BatteryEvent event){
@@ -301,38 +344,32 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             mMainFragmentView.showToast("服务器内部错误!");
         }else  if (errorCode == 102){
             mMainFragmentView.showToast("设备离线，请检查设备！");
+            mMainFragmentView.changeBackground(false);
             //TODO:ErrorShow
         }
     }
 
     private void dealWithHTTPErrorCode(int errorCode){
-        if (errorCode == 100){
-            mMainFragmentView.showToast("服务器内部错误!");
-        }else  if (errorCode == 102){
-            mMainFragmentView.showToast("无内容，请检查设备！");
-            //TODO:ErrorShow
+        mMainFragmentView.showToast(ErrorCodeConvertUtil.getHttpErrorStrWithCode(errorCode));
+    }
+
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void onHttpPostGPSEvent(HttpPostGPSEvent event){
+        if (event.getCode() == 0) {
+            LatLng point = new LatLng(event.getLat(), event.getLng());
+            mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+        }else {
+            dealWithErrorCode(event.getCode());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLocationEvent(LocationEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try {
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-            }else{
-                JSONObject result = jsonObject.getJSONObject("result");
-                double lat = result.getDouble("lat");
-                double lng = result.getDouble("lng");
-                LatLng point = new LatLng(lat,lng);
-
-
-                mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+    public void onHttpPostStatusEvent(HttpPostStatusEvent event){
+        if (event.getCode() == 0){
+            mMainFragmentView.changeBackground(true);
+            LocalDataManager.getInstance().setLatestStatus(event.getString());
+            convertStatusFromString(event.getString());
         }
     }
 
@@ -344,8 +381,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             if (code != 0){
                 dealWithErrorCode(code);
             }else {
-                LocalDataManager.getInstance().setLatestStatus(jsonObject.getJSONObject("result").toString());
-                convertStatusFromString(jsonObject.getJSONObject("result").toString());
+
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -360,16 +396,10 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private void convertStatusFromString(String string){
         try {
             JSONObject result = new JSONObject(string);
-            //GPS定位
-            JSONObject gps = result.getJSONObject("gps");
-            double lat = gps.getDouble("lat");
-            double lng = gps.getDouble("lng");
-            LatLng point = new LatLng(lat,lng);
-            mMainFragmentView.changeGPSPoint(point);
-            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+
             //小安宝状态
-            boolean lock = result.getBoolean("lock");
-            if (lock){
+            int lock = result.getInt("defend");
+            if (lock == 1){
                 mMainFragmentView.changeFenceStatus(true,true);
                 fenceStatus = true;
             }else {
@@ -378,22 +408,67 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             }
             //自动落锁状态
             JSONObject autoLock = result.getJSONObject("autolock");
-            boolean autolockState = autoLock.getBoolean("isOn");
-            if(autolockState){
+            int autolockState = autoLock.getInt("sw");
+            if(autolockState == 1){
                 int autoLockPeriod = autoLock.getInt("period");
-                mMainFragmentView.changeAutoLockStatus(autolockState,autoLockPeriod);
+                mMainFragmentView.changeAutoLockStatus(true,autoLockPeriod);
             }else {
-                mMainFragmentView.changeAutoLockStatus(autolockState,0);
+                mMainFragmentView.changeAutoLockStatus(false,0);
             }
             //电池电量
             JSONObject battery = result.getJSONObject("battery");
             mMainFragmentView.changeBattery(battery.getInt("percent"),false);
-        }catch (JSONException e){
+
+            //GPS定位
+            if (result.has("gps")) {
+                JSONObject gps = result.getJSONObject("gps");
+                double lat = gps.getDouble("lat");
+                double lng = gps.getDouble("lng");
+                LatLng point = new LatLng(lat, lng);
+                LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
+                mMainFragmentView.changeGPSPoint(newPoint);
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(newPoint));
+                mMainFragmentView.setGPSSignal(true);
+            }else {
+                mMainFragmentView.setGPSSignal(false);
+                if (result.has("cell")){
+                    //TODO:
+                }
+            }
+        } catch (JSONException e){
             e.printStackTrace();
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostLockSetEvent(HttpPostLockSetEvent event){
+        if (event.getCode() == 0){
+            lockStatus = !lockStatus;
+            mMainFragmentView.changeBackground(true);
+            LocalDataManager.getInstance().setLockStatus(lockStatus);
+            mMainFragmentView.changeLockStatus(lockStatus);
+            mMainFragmentView.showToast("设置成功");
+        }else {
+            dealWithErrorCode(event.getCode());
+        }
+    }
 
 
-
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void onHttpPostGSMSignalEvent(HttpPostGSMSignalEvent event){
+        if (event.getCode() == 0){
+            int signal =  event.getGSMSignal();
+            int level = 0;
+            if (signal >= 4 && signal < 6){
+                level = 1;
+            }else if (signal < 9){
+                level = 2;
+            }else if (signal < 11){
+                level = 3;
+            }else {
+                level = 4;
+            }
+            mMainFragmentView.changeSignal(level);
+        }
+    }
 }

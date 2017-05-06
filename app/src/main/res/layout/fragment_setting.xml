@@ -27,13 +27,29 @@
             app:layout_constraintBottom_toTopOf="@+id/view"
             android:id="@+id/imageView3" />
 
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            />
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment_setting"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView3"
-             />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/headImage"
+            android:onClick="@{() -> presenter.changeUserIcon()}"
+            android:src="@drawable/img_icon"
+            app:layout_constraintLeft_toLeftOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            />
         <View
             android:layout_width="1dp"
             android:layout_height="1dp"
@@ -55,6 +71,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
 
@@ -82,6 +99,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 android:orientation="horizontal">
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     android:layout_width="match_parent"
@@ -94,6 +112,31 @@
                     android:layout_marginLeft="16dp"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> presenter.gotoUserManager()}"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="340dp"
+                android:layout_height="1dp"
+                android:background="@color/background_grey"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="    远程窃听"
+                    android:drawableLeft="@drawable/img_record"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="25dp"
+                    app:compoundDrawableWidth="25dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> presenter.gotoRecord()}"
                     android:textSize="40px" />
 
             </LinearLayout>
@@ -108,9 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
+                android:background="@color/white"
                 >
-
-
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -133,7 +175,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-
+                android:background="@color/white"
                 >
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
@@ -161,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
+                android:background="@color/white"
                 >
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView

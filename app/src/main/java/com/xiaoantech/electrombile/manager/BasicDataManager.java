@@ -175,6 +175,7 @@ public class BasicDataManager {
         }
         return IMEIList;
     }
+
     public List<CarInfoModel> getCarInfoList() {
         return carInfoList;
     }

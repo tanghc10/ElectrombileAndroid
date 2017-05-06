@@ -37,13 +37,42 @@
                 app:layout_constraintBottom_toTopOf="@+id/view3"
                 app:layout_constraintVertical_bias="0.0">
 
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/constraintLayout"
+                    android:background="@color/white">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="电门关联"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toTopOf="@id/constraintLayout"
+                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                        android:layout_marginLeft="10dp"
+                        app:layout_constraintLeft_toLeftOf="@id/constraintLayout"/>
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/switch_relevence"
+                        app:layout_constraintTop_toTopOf="@id/constraintLayout"
+                        app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+                        app:layout_constraintRight_toRightOf="@id/constraintLayout"
+                        android:layout_marginRight="20dp"
+
+                        />
+                </android.support.constraint.ConstraintLayout>
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
-                    android:text="推送设置"
+                    android:text="电话报警设置"
                     android:textSize="16sp"
                     android:layout_height="50dp"
-                    android:onClick="@{() -> presenter.gotoRecord()}"
+                    android:onClick="@{() -> presenter.gotoPhoneAlarm()}"
                     android:drawableRight="@drawable/to"/>
+
 
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
@@ -66,7 +95,6 @@
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     style="@style/clickableLayout"
                     android:text="清空缓存"
-                    android:onClick="@{() -> presenter.gotoPhoneAlarm()}"
                     android:layout_height="50dp"
                     android:textSize="16sp"
                     />

@@ -38,7 +38,6 @@ public class MapListPresenter implements MapListContract.Presenter{
     private final String TIMESTAMP = "timestamp";
 
     protected MapListPresenter(MapListContract.View mapListView){
-        subscribe();
         this.mMapListView = mapListView;
         mMapListView.setPresenter(this);
 
@@ -58,7 +57,6 @@ public class MapListPresenter implements MapListContract.Presenter{
 
     @Override
     public void getSevenDayRoute(int startIndex) {
-
         if (startIndex <0) startIndex = 0;
         if (startIndex >29) startIndex = 29;
 

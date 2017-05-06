@@ -44,6 +44,8 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
     private ActivityPlayhistoryBinding mBinding;
     private PlayHistoryContract.Presenter   mPresenter;
     private Marker      carMarker;
+    private Marker      startMaker;
+    private Marker      endMaker;
     private LatLngBounds mBounds;
     private int mCurrentPointIndex;
     private int mPlaySpeed;
@@ -180,12 +182,22 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
     }
 
     private void initMarker(){
-        BitmapDescriptor bitMap = BitmapDescriptorFactory.fromResource(R.drawable.online);
+        BitmapDescriptor bitMap = BitmapDescriptorFactory.fromResource(R.drawable.img_map_location);
         MarkerOptions options = new MarkerOptions().position(pointList.get(0).getBaiduPoint()).icon(bitMap);
-        mBaiduMap.addOverlay(options);
+
 
         carMarker = (Marker)mBaiduMap.addOverlay(options);
+        carMarker.setIcon(bitMap);
         carMarker.setPosition(pointList.get(0).getBaiduPoint());
+
+        BitmapDescriptor bitMapStart = BitmapDescriptorFactory.fromResource(R.drawable.line_start);
+        MarkerOptions optionsStart = new MarkerOptions().position(pointList.get(0).getBaiduPoint()).icon(bitMapStart);
+        mBaiduMap.addOverlay(optionsStart);
+
+
+        BitmapDescriptor bitMapEnd = BitmapDescriptorFactory.fromResource(R.drawable.line_end);
+        MarkerOptions optionsEnd = new MarkerOptions().position(pointList.get(pointList.size()-1).getBaiduPoint()).icon(bitMapEnd);
+        mBaiduMap.addOverlay(optionsEnd);
 
     }
 

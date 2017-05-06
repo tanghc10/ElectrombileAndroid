@@ -43,40 +43,55 @@ public class PhoneAlarmActivity extends BaseAcitivity implements PhoneAlarmContr
                 PhoneAlarmActivity.this.finish();
             }
         });
-        mBinding.btnNoreceive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(PhoneAlarmActivity.this, PhoneAlarmNoreceiveActivity.class);
-                startActivity(intent);
-            }
-        });
+
         String phoneNum = AVUser.getCurrentUser().getUsername();
         String secretPhoneNum = phoneNum.substring(0,3) + "****" + phoneNum.substring(7);
         mBinding.txtPhoneNum.setText(secretPhoneNum);
-        setAlarmPhoneTest();
-        Bundle bundle = getIntent().getExtras();
+
+        checkResend(getIntent().getExtras());
+    }
+
+    private void checkResend(Bundle bundle){
         if (bundle != null){
-            String string = bundle.getString("try");
-            if (string != null){
+            boolean isResend = bundle.getBoolean("resend");
+            if (isResend){
                 mPresenter.AddCallerIndex();
             }
         }
     }
 
     @Override
-    public void setPresenter(PhoneAlarmContract.Presenter Presenter) {
-        this.mPresenter = Presenter;
+    public void changeCutDownStatus(int num) {
+        if (num>0 && num<60){
+            mBinding.txtCutdown.setText(num + "");
+        }
+        if (num == 0){
+            mBinding.txtCutdown.setText("60");
+            mBinding.btnNoreceive.setEnabled(true);
+            mBinding.btnNoreceive.setBackground(getResources().getDrawable(R.drawable.corners_bg_green));
+        }
+        if (num == 59){
+            mBinding.btnStartTest.setEnabled(false);
+            mBinding.btnStartTest.setBackground(getResources().getDrawable(R.drawable.corners_bg_gray));
+            mBinding.btnNoreceive.setEnabled(false);
+            mBinding.btnNoreceive.setBackground(getResources().getDrawable(R.drawable.corners_bg_gray));
+        }
     }
 
-    public void setAlarmPhoneTest(){
-        Button button =(Button)findViewById(R.id.btn_start_test);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                mPresenter.putAlarmPhoneFormHttp();
-            }
-        });
+    @Override
+    public void gotoResendActivity() {
+        Intent intent = new Intent(PhoneAlarmActivity.this, PhoneAlarmNoreceiveActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void finishActivity() {
+        this.finish();
+    }
+
+    @Override
+    public void setPresenter(PhoneAlarmContract.Presenter Presenter) {
+        this.mPresenter = Presenter;
     }
 
     @Override

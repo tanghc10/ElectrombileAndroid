@@ -1,5 +1,6 @@
 package com.xiaoantech.electrombile.ui.AddDevice.InputIMEI;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -9,6 +10,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.constant.LeanCloudConstant;
 import com.xiaoantech.electrombile.databinding.ActivityInputimeiBinding;
+import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.PlayHistory.PlayHistoryContract;
 
@@ -66,6 +68,7 @@ public class InputIMEIActivity extends BaseAcitivity implements InputIMEIContrac
         switch (result){
             case LEAN_CLOUD_BIND_RESULT_BIND_SUCCESS:
                 showToast("绑定成功");
+                gotoMainActivity();
                 break;
             case LEAN_CLOUD_BIND_RESULT_DID_NONE:
                 showToast("未找到该设备");
@@ -76,7 +79,12 @@ public class InputIMEIActivity extends BaseAcitivity implements InputIMEIContrac
             case LEAN_CLOUD_BIND_RESULT_BIND_FAIL:
                 showToast("绑定失败");
                 break;
-
         }
+    }
+
+    private void gotoMainActivity(){
+        Intent intent = new Intent(InputIMEIActivity.this, FragmentMainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
 }

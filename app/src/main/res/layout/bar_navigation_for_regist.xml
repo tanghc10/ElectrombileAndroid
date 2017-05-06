@@ -11,7 +11,7 @@
         android:layout_alignBaseline="@+id/navigation_title"
         android:layout_alignBottom="@+id/navigation_title"
         android:layout_alignParentEnd="true"
-        android:background="#f8c035"
+        android:background="@null"
         android:id="@+id/btn_next"
         android:text="下一步"
         android:textSize="16sp"/>

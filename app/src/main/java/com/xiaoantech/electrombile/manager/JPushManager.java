@@ -63,5 +63,27 @@ public class JPushManager {
         });
     }
 
+    public void deleteAlias(){
+        String aliasStr = "";
+        JPushInterface.setAlias(mContext, aliasStr, new TagAliasCallback() {
+            @Override
+            public void gotResult(int code, String s, Set<String> set) {
+                String logs;
+                switch (code){
+                    case 0:
+                        //订阅成功
+
+                        break;
+                    case 6002:
+
+                        break;
+                    default:
+                        logs = "Failed with errorCode" + code;
+                        Log.e(TAG,logs);
+                }
+            }
+        });
+    }
+
 
 }

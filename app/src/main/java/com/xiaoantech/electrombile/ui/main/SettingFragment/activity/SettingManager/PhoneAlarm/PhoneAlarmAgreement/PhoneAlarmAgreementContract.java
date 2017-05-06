@@ -1,5 +1,7 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager.PhoneAlarm.PhoneAlarmAgreement;
 
+import android.content.Context;
+
 import com.xiaoantech.electrombile.base.BasePresenter;
 import com.xiaoantech.electrombile.base.BaseView;
 
@@ -10,11 +12,13 @@ import com.xiaoantech.electrombile.base.BaseView;
 public interface PhoneAlarmAgreementContract {
 
     interface View extends BaseView<Presenter> {
-        void toPhoneAlarmActivity(boolean isTo);
+        void toPhoneAlarmActivity();
+        Context getContext();
         void AddContacts();
     }
 
     interface Presenter extends BasePresenter {
         void setPhoneAlarmPhone();
+
     }
 }
