@@ -242,7 +242,7 @@
                         app:layout_constraintLeft_toLeftOf="@+id/status_constraint_GSM"
                         app:layout_constraintRight_toRightOf="@+id/status_constraint_GSM"
                         app:layout_constraintBottom_toBottomOf="@+id/status_constraint_GSM"
-                        android:text="电门已打开"
+                        android:text="移动信号"
                         android:id="@+id/txt_GSM_status_show"
                         android:textColor="@color/black"
                         android:textSize="11sp"

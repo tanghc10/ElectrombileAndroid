@@ -10,6 +10,7 @@ import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.base.BaseAcitivity;
 import com.xiaoantech.electrombile.databinding.ActivityCarinfoDetailBinding;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
+import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.model.CarInfoModel;
 import com.xiaoantech.electrombile.ui.AddDevice.InputIMEI.InputIMEIActivity;
 import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.CarManager.CarInfoRevise.CarInfoReviseActivity;
@@ -51,6 +52,8 @@ public class CarInfoDetailActivity extends BaseAcitivity implements CarInfoDetai
         //TODO:设置车辆信息
     }
 
+
+
     @Override
     public void setPresenter(CarInfoDetailContract.Presenter presenter) {
         mPresenter = presenter;
@@ -62,5 +65,11 @@ public class CarInfoDetailActivity extends BaseAcitivity implements CarInfoDetai
         Intent intent = new Intent(CarInfoDetailActivity.this, CarInfoReviseActivity.class);
         intent.putExtra("index",carIndex);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBinding.txtBatteryVersion.setText(LocalDataManager.getInstance().getBatteryType()+"");
     }
 }

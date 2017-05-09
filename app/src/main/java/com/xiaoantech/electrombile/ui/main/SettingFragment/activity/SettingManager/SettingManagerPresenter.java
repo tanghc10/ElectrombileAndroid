@@ -1,11 +1,13 @@
 package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingManager;
 
 import com.xiaoantech.electrombile.event.http.httpPost.HttpPostElectricSetEvent;
+import com.xiaoantech.electrombile.event.http.httpPost.HttpPostLockSetEvent;
 import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.http.HttpManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.event.http.HttpGetEvent;
+import com.xiaoantech.electrombile.utils.ErrorCodeConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -18,7 +20,8 @@ import org.json.JSONObject;
 
 public class SettingManagerPresenter implements SettingManagerContract.Presenter{
     private  SettingManagerContract.View mSettingManagerView;
-    private boolean isLinkOn ;
+    private boolean isLinkOn;
+    private boolean isLockOn;
 
     protected SettingManagerPresenter(SettingManagerContract.View settingManagerView){
         this.mSettingManagerView = settingManagerView;
@@ -74,6 +77,16 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
             HttpPublishManager.getInstance().setLinkElectricLockOn();
     }
 
+    @Override
+    public void lockSwitchChange(boolean isOn) {
+        mSettingManagerView.showWaitingDialog("正在设置");
+        isLockOn = isOn;
+        if (isOn)
+            HttpPublishManager.getInstance().setLockOn();
+        else
+            HttpPublishManager.getInstance().setLockOFF();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpGetEvent(HttpGetEvent event){
 
@@ -101,4 +114,18 @@ public class SettingManagerPresenter implements SettingManagerContract.Presenter
         LocalDataManager.getInstance().setIsRelevanceOn(!isLinkOn);
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpPostLockSetEvent(HttpPostLockSetEvent event){
+        if (event.getCode() == ErrorCodeConvertUtil.HTTPCodeSuccess){
+            mSettingManagerView.setLock(isLockOn);
+            mSettingManagerView.showToast("设置成功");
+            LocalDataManager.getInstance().setLockStatus(isLockOn);
+            return;
+        }else {
+            mSettingManagerView.showToast(ErrorCodeConvertUtil.getHttpErrorStrWithCode(event.getCode()));
+        }
+        mSettingManagerView.setLock(!isLockOn);
+        LocalDataManager.getInstance().setLockStatus(!isLockOn);
+    }
 }

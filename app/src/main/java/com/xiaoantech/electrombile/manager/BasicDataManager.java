@@ -66,14 +66,16 @@ public class BasicDataManager {
                         IMEIList = new ArrayList<String>();
                         carInfoList = new ArrayList<CarInfoModel>();
                         for (int i = 0; i < list.size(); i++){
+                            AVObject object = list.get(i);
 
-                            String IMEI = list.get(i).get(LeanCloudConstant.IMEI).toString();
+                            String IMEI = object.getString(LeanCloudConstant.IMEI);
                             IMEIList.add(IMEI);
 
                             //设置车辆信息
-                            Date bindDate = list.get(i).getDate(LeanCloudConstant.CreatedAt);
+                            Date bindDate = object.getDate(LeanCloudConstant.CreatedAt);
                             long bindTime = bindDate.getTime()/1000;
                             CarInfoModel carInfoModel = new CarInfoModel(IMEI,bindTime);
+
                             carInfoList.add(carInfoModel);
                             if (i == 0){
                                 bindIMEI = IMEI;
@@ -104,17 +106,12 @@ public class BasicDataManager {
                     if (list.size() > 0) {
                         AVObject object = list.get(0);
                         //设置名称
-                        try {
-                            if (object.get(LeanCloudConstant.CarName) != null) {
-                                carInfoModel.setName(object.get(LeanCloudConstant.CarName).toString());
-                            }else {
-                                carInfoModel.setName(object.get(LeanCloudConstant.IMEI).toString());
-                            }
-                            carInfoList.set(index,carInfoModel);
-                        }catch (Exception e1){
-                            e1.printStackTrace();
-                        }
 
+                        carInfoModel.setName(object.getString(LeanCloudConstant.CarName));
+                        carInfoModel.setPlateNum(object.getString(LeanCloudConstant.PlateNum));
+                        carInfoModel.setFrameNum(object.getString(LeanCloudConstant.FrameNum));
+                        carInfoModel.setBrandName(object.getString(LeanCloudConstant.BrandName));
+                        carInfoModel.setVenderPhone(object.getString(LeanCloudConstant.VenderPhone));
 
                         //设置照片
                         if (null != object.get(LeanCloudConstant.Image)){
@@ -125,6 +122,7 @@ public class BasicDataManager {
                             carInfoModel.setCropImage(bitmap);
                             //TODO:User didn't set picture
                         }
+                        LocalDataManager.getInstance().setCarInfoList(carInfoList);
                     }
                 }else {
                     e.printStackTrace();

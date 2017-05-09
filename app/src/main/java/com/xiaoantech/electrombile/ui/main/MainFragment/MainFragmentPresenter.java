@@ -113,7 +113,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     private void getGSM(){
         HttpPublishManager.getInstance().getGSMSignal();
-        mMainFragmentView.hideWaitingDialog();
     }
 
     @Override
@@ -370,6 +369,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             mMainFragmentView.changeBackground(true);
             LocalDataManager.getInstance().setLatestStatus(event.getString());
             convertStatusFromString(event.getString());
+            mMainFragmentView.hideWaitingDialog();
         }
     }
 
@@ -418,6 +418,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             //电池电量
             JSONObject battery = result.getJSONObject("battery");
             mMainFragmentView.changeBattery(battery.getInt("percent"),false);
+            LocalDataManager.getInstance().setBatteryType(battery.getInt("type"));
 
             //GPS定位
             if (result.has("gps")) {

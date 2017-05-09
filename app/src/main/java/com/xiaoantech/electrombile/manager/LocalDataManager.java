@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.avos.avoscloud.AVObject;
 import com.xiaoantech.electrombile.application.App;
+import com.xiaoantech.electrombile.constant.CarInfoModelConstant;
 import com.xiaoantech.electrombile.constant.LayoutConstant;
 import com.xiaoantech.electrombile.model.CarInfoModel;
 import com.xiaoantech.electrombile.utils.BitmapUtil;
@@ -27,6 +29,7 @@ public class LocalDataManager {
     private final String SHARE_PREFERENCES = "SHARE_PREFERENCES";
 
     private final String MapType = "MapType";
+    private final String BatteryType = "BatteryType";
 
     private final String Sex = "Sex";
     private final String Birth = "Birth";
@@ -154,10 +157,14 @@ public class LocalDataManager {
         try {
             for (CarInfoModel carInfoModel:carInfoList){
                 jsonObject = new JSONObject();
-                jsonObject.put("name",carInfoModel.getName());
-                jsonObject.put("IMEI",carInfoModel.getIMEI());
-                jsonObject.put("bindTime",carInfoModel.getBindTime());
-                jsonObject.put("cropImage", BitmapUtil.convertBitmapTOString(carInfoModel.getCropImage()));
+                jsonObject.put(CarInfoModelConstant.Name,carInfoModel.getName());
+                jsonObject.put(CarInfoModelConstant.IMEI,carInfoModel.getIMEI());
+                jsonObject.put(CarInfoModelConstant.BindTime,carInfoModel.getBindTime());
+                jsonObject.put(CarInfoModelConstant.CropImage, BitmapUtil.convertBitmapTOString(carInfoModel.getCropImage()));
+                jsonObject.put(CarInfoModelConstant.PlateNum,carInfoModel.getPlateNum());
+                jsonObject.put(CarInfoModelConstant.FrameNum,carInfoModel.getFrameNum());
+                jsonObject.put(CarInfoModelConstant.BrandName,carInfoModel.getBrandName());
+                jsonObject.put(CarInfoModelConstant.VenderPhone,carInfoModel.getVenderPhone());
                 jsonArray.put(jsonObject);
             }
         }catch (JSONException e){
@@ -172,9 +179,15 @@ public class LocalDataManager {
             JSONArray jsonArray = new JSONArray(sharedPreferences.getString(CarInfoList," "));
             for (int i = 0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                CarInfoModel carInfoModel = new CarInfoModel(jsonObject.getString("IMEI"),jsonObject.getLong("bindTime"));
-                carInfoModel.setCropImage(BitmapUtil.convertStringToBitmap(jsonObject.getString("cropImage")));
-                carInfoModel.setName(jsonObject.getString("name"));
+                CarInfoModel carInfoModel = new CarInfoModel(jsonObject.getString(CarInfoModelConstant.IMEI),jsonObject.getLong(CarInfoModelConstant.BindTime));
+                carInfoModel.setCropImage(BitmapUtil.convertStringToBitmap(jsonObject.getString(CarInfoModelConstant.CropImage)));
+
+
+                carInfoModel.setName(jsonObject.getString(CarInfoModelConstant.Name));
+                carInfoModel.setPlateNum(jsonObject.getString(CarInfoModelConstant.PlateNum));
+                carInfoModel.setFrameNum(jsonObject.getString(CarInfoModelConstant.FrameNum));
+                carInfoModel.setBrandName(jsonObject.getString(CarInfoModelConstant.BrandName));
+                carInfoModel.setVenderPhone(jsonObject.getString(CarInfoModelConstant.VenderPhone));
                 carInfoList.add(carInfoModel);
             }
         }catch (Exception e){
@@ -182,6 +195,7 @@ public class LocalDataManager {
         }
         return carInfoList;
     }
+
 
     public void setMQTTHost(String mqttHost){
         sharedPreferences.edit().putString(MQTTHost,mqttHost).apply();
@@ -361,5 +375,13 @@ public class LocalDataManager {
 
     public boolean getLockStatus(){
         return sharedPreferences.getBoolean(LockStatus,false);
+    }
+
+    public void setBatteryType(int batteryType) {
+        sharedPreferences.edit().putInt(BatteryType,batteryType).apply();
+    }
+
+    public int getBatteryType() {
+        return sharedPreferences.getInt(BatteryType,48);
     }
 }

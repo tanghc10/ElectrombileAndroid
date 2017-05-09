@@ -27,6 +27,10 @@ public class LeanCloudConstant {
     public static final String Image = "image";
     public static final String Device = "device";
     public static final String Admin = "isAdmin";
+    public static final String PlateNum = "plateNum";
+    public static final String FrameNum = "frameNum";
+    public static final String BrandName = "brandName";
+    public static final String VenderPhone = "venderPhone";
 
     public enum leanCloudOptionType {
         LEAN_CLOUD_OPTION_TYPE_TOTAL_ITINERARY,

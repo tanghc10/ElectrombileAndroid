@@ -5,6 +5,8 @@ package com.xiaoantech.electrombile.utils;
  */
 
 public class ErrorCodeConvertUtil {
+    public final static int HTTPCodeSuccess = 0;
+
     public static String getHttpErrorStrWithCode(int code){
         String errStr = "";
         switch (code){

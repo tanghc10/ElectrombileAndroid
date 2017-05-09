@@ -56,25 +56,34 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
             }
         });
         mBinding.switchRelevence.setOnCheckedChangeListener(this);
+        mBinding.switchLock.setOnCheckedChangeListener(this);
     }
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked){
-            CustomDialog.Builder customDialog = new  CustomDialog.Builder(SettingManagerActivity.this);
-            customDialog.setTitle("温馨提示").setMessage("该操作将存在风险隐患，小偷可用万能钥匙开启电门预警系统将无法自动识别该项情况").setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    mPresenter.relevenceSwitchChange(true);
-                    dialog.dismiss();
-                }
-            }).create().show();
-        }else {
-            mPresenter.relevenceSwitchChange(false);
+        if (buttonView.equals(mBinding.switchRelevence)){
+            if (isChecked){
+                CustomDialog.Builder customDialog = new  CustomDialog.Builder(SettingManagerActivity.this);
+                customDialog.setTitle("温馨提示").setMessage("该操作将存在风险隐患，小偷可用万能钥匙开启电门预警系统将无法自动识别该项情况").setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.relevenceSwitchChange(true);
+                        dialog.dismiss();
+                    }
+                }).create().show();
+            }else {
+                mPresenter.relevenceSwitchChange(false);
+            }
+        }else if (buttonView.equals(mBinding.switchLock)){
+            if (isChecked){
+                mPresenter.lockSwitchChange(true);
+            }else {
+                mPresenter.lockSwitchChange(false);
+            }
         }
     }
     @Override
@@ -133,6 +142,13 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
         mBinding.switchRelevence.setOnCheckedChangeListener(null);
         mBinding.switchRelevence.setChecked(isChecked);
         mBinding.switchRelevence.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void setLock(boolean isChecked) {
+        mBinding.switchLock.setOnCheckedChangeListener(null);
+        mBinding.switchLock.setChecked(isChecked);
+        mBinding.switchLock.setOnCheckedChangeListener(this);
     }
 
     @Override

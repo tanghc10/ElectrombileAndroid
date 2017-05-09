@@ -37,12 +37,14 @@ public class HttpPostStatusEvent {
                     this.percent = battery.getInt("percent");
                     this.type = battery.getInt("type");
                     this.defend = result.getInt("defend");
-                    JSONObject gps = result.getJSONObject("gps");
-                    this.timestamp = gps.getInt("timestamp");
-                    this.lat = gps.getDouble("lat");
-                    this.lng = gps.getDouble("lng");
-                    this.speed = gps.getInt("speed");
-                    this.cource = gps.getInt("cource");
+                    if (result.has("gps")) {
+                        JSONObject gps = result.getJSONObject("gps");
+                        this.timestamp = gps.getInt("timestamp");
+                        this.lat = gps.getDouble("lat");
+                        this.lng = gps.getDouble("lng");
+                        this.speed = gps.getInt("speed");
+                        this.cource = gps.getInt("course");
+                    }
                 }
             }
         } catch (JSONException e) {

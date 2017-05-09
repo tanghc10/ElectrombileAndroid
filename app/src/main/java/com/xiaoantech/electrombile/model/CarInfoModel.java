@@ -14,10 +14,16 @@ import java.sql.Time;
  */
 
 public class CarInfoModel {
+
     private String  name;
     private String  IMEI;
     private long    bindTime;
     private Bitmap  cropImage;
+    private String  plateNum;
+    private String  frameNum;
+    private String  batteryType;
+    private String  brandName;
+    private String  venderPhone;
 
     public CarInfoModel(String IMEI,long bindTime){
         this.IMEI = IMEI;
@@ -40,8 +46,29 @@ public class CarInfoModel {
         this.cropImage = cropImage;
     }
 
+    public void setPlateNum(String plateNum) {
+        this.plateNum = plateNum;
+    }
+
+    public void setFrameNum(String frameNum) {
+        this.frameNum = frameNum;
+    }
+
+    public void setBatteryType(String batteryType) {
+        this.batteryType = batteryType;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public void setVenderPhone(String venderPhone) {
+        this.venderPhone = venderPhone;
+    }
 
     public String getName() {
+        if (name==null)
+            return IMEI;
         return name;
     }
 
@@ -55,5 +82,33 @@ public class CarInfoModel {
 
     public long getBindTime() {
         return bindTime;
+    }
+
+    public String getPlateNum() {
+        if (plateNum == null)
+            return "";
+        return plateNum;
+    }
+
+    public String getFrameNum() {
+        if (frameNum == null)
+            return "";
+        return frameNum;
+    }
+
+    public String getBatteryType() {
+        return batteryType;
+    }
+
+    public String getBrandName() {
+        if (brandName == null)
+            return "";
+        return brandName;
+    }
+
+    public String getVenderPhone() {
+        if (venderPhone == null)
+            return "";
+        return venderPhone;
     }
 }

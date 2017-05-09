@@ -58,6 +58,7 @@ public abstract class BaseFragment extends Fragment {
 
     public void hideWaitingDialog() {
         mProgressDialog.cancel();
+        handler.removeMessages(TimerConstant.TimerMessageWhat);
     }
 
 

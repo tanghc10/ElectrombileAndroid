@@ -16,6 +16,7 @@ public interface SettingManagerContract {
         void gotoRecord();
         void logout();
         void setSwitch(boolean isChecked);
+        void setLock(boolean isChecked);
         void PhoneAlarmOpen(boolean isOn);
     }
 
@@ -26,6 +27,7 @@ public interface SettingManagerContract {
         void gotoRecord();
         void logout();
         void relevenceSwitchChange(boolean isOn);
+        void lockSwitchChange(boolean isOn);
         void isPhoneAlarmOpen();
     }
 }

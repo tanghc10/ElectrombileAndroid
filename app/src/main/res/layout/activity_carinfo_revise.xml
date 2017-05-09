@@ -28,10 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/lightgray"
-            app:layout_editor_absoluteX="0dp"
-            app:layout_editor_absoluteY="80dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="80dp"
             tools:ignore="MissingConstraints">
 
 
@@ -44,7 +40,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 android:orientation="vertical"
-                android:background="@android:color/white"
+                android:background="@color/white"
                 android:id="@+id/linearLayout4">
 
                 <LinearLayout
@@ -52,6 +48,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
+                    android:background="@color/white"
                     >
 
                     <TextView
@@ -69,7 +66,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@{carInfo.IMEI}"
+                        android:text="@={carInfo.name}"
                         android:id="@+id/txt_car_name"
                         android:hint="请输入车辆名称"
                         android:textColorHint="@color/grey_txt"
@@ -105,7 +102,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@{carInfo.name}"
+                        android:text="@={carInfo.plateNum}"
                         android:id="@+id/txt_plate_num"
                         android:hint="请输入车牌号"
                         android:textColorHint="@color/grey_txt"
@@ -141,7 +138,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@{String.valueOf(carInfo.bindTime) }"
+                        android:text="@={carInfo.frameNum}"
                         android:id="@+id/txt_frame_num"
                         android:hint="请输入车架号"
                         android:textColorHint="@color/grey_txt"
@@ -171,16 +168,18 @@
                         android:gravity="center"
                         android:textSize="16sp"
                          />
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|center_horizontal"
                         android:id="@+id/txt_battery_version"
                         android:hint="请选择电池型号"
+                        android:text="@={carInfo.batteryType}"
                         android:textColorHint="@color/grey_txt"
                         android:layout_marginLeft="25dp"
                         android:textSize="16sp"
+                        android:onClick="@{ () -> presenter.changeBatteryType()}"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -227,7 +226,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@{carInfo.IMEI}"
+                        android:text="@={carInfo.brandName}"
                         android:id="@+id/txt_brand_name"
                         android:hint="请输入车辆品牌"
                         android:textColorHint="@color/grey_txt"
@@ -262,7 +261,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@{carInfo.IMEI}"
+                        android:text="@={carInfo.venderPhone}"
                         android:id="@+id/txt_vender_phone"
                         android:hint="请输入厂家电话"
                         android:textColorHint="@color/grey_txt"
@@ -275,7 +274,7 @@
 
             <Button
                 android:text="修改信息"
-                android:onClick="@{ () -> presenter.confirmModification()}"
+                android:onClick="@{ () -> presenter.confirmModification(carInfo)}"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 android:layout_marginEnd="16dp"

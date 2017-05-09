@@ -111,6 +111,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         setFonts();
 
         if(isVisible){
+            mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
             mPresenter.refresh();
         }
         mBinding.btnChangeCar.setText(BasicDataManager.getInstance().getBindIMEI());
@@ -342,7 +343,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         if (mBinding.swipeLayout.isRefreshing()){
             mBinding.swipeLayout.setRefreshing(false);
         }
-        showToast("里程查询成功！");
+//        showToast("里程查询成功！");
         mBinding.txtItinerary.setText(itinerary+"");
     }
 
