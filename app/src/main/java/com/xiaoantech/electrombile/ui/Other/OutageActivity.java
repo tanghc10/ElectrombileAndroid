@@ -27,7 +27,7 @@ public class OutageActivity extends Activity {
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            VibratorUtil.VibrateCancle(OutageActivity.this);
+            VibratorUtil.VibrateCancel(OutageActivity.this);
             mPlayer.stop();
         }
     };
@@ -48,7 +48,7 @@ public class OutageActivity extends Activity {
         mPlayer.setLooping(true);
         mPlayer.start();
         Message msg = Message.obtain();
-        mHandler.sendMessageDelayed(msg,1000*60);
+        mHandler.sendMessageDelayed(msg,1000*6);
     }
 
     public void initViews() {
@@ -69,7 +69,7 @@ public class OutageActivity extends Activity {
         super.onBackPressed();
 //        mqttConnectManager.sendMessage(mCenter.cmdFenceOff(), setManager.getIMEI());
         mPlayer.stop();
-        VibratorUtil.VibrateCancle(OutageActivity.this);
+        VibratorUtil.VibrateCancel(OutageActivity.this);
         OutageActivity.this.finish();
     }
 
@@ -84,7 +84,7 @@ public class OutageActivity extends Activity {
             //stop alarm
             tv_sliding.setText("停止告警！");
             tv_alarm.clearAnimation();
-            VibratorUtil.VibrateCancle(OutageActivity.this);
+            VibratorUtil.VibrateCancel(OutageActivity.this);
             mPlayer.stop();
             OutageActivity.this.finish();
         } else {
@@ -92,5 +92,11 @@ public class OutageActivity extends Activity {
             tv_alarm.startAnimation(operatingAnim);
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        VibratorUtil.VibrateCancel(OutageActivity.this);
     }
 }

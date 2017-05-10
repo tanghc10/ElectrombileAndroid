@@ -17,7 +17,7 @@ public class VibratorUtil {
         Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);
         vib.vibrate(pattern, isRepeat ? 1 : -1);
     }
-    public static void VibrateCancle(final Activity activity) {
+    public static void VibrateCancel(final Activity activity) {
         Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);
         vib.cancel();
     }

@@ -31,7 +31,7 @@ public class AlarmActivity extends Activity {
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            VibratorUtil.VibrateCancle(AlarmActivity.this);
+            VibratorUtil.VibrateCancel(AlarmActivity.this);
             mPlayer.stop();
         }
     };
@@ -52,7 +52,7 @@ public class AlarmActivity extends Activity {
         mPlayer.setLooping(true);
         mPlayer.start();
         Message msg = Message.obtain();
-        mHandler.sendMessageDelayed(msg,1000*60);
+        mHandler.sendMessageDelayed(msg,1000*6);
     }
 
     public void initViews() {
@@ -74,7 +74,7 @@ public class AlarmActivity extends Activity {
         super.onBackPressed();
         HttpPublishManager.getInstance().setFenceOff();
         mPlayer.stop();
-        VibratorUtil.VibrateCancle(AlarmActivity.this);
+        VibratorUtil.VibrateCancel(AlarmActivity.this);
         AlarmActivity.this.finish();
     }
 
@@ -89,7 +89,7 @@ public class AlarmActivity extends Activity {
             //stop alarm
             tv_sliding.setText("停止告警！");
             tv_alarm.clearAnimation();
-            VibratorUtil.VibrateCancle(AlarmActivity.this);
+            VibratorUtil.VibrateCancel(AlarmActivity.this);
             mPlayer.stop();
             AlarmActivity.this.finish();
             HttpPublishManager.getInstance().setFenceOff();
@@ -98,5 +98,11 @@ public class AlarmActivity extends Activity {
             tv_alarm.startAnimation(operatingAnim);
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        VibratorUtil.VibrateCancel(AlarmActivity.this);
     }
 }

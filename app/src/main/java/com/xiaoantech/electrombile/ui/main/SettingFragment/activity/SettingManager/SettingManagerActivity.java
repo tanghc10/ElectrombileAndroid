@@ -48,7 +48,8 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
     @Override
     protected void initView() {
         mPresenter = new SettingManagerPresenter(this);
-        mBinding.setPresenter(mPresenter);((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("设置");
+        mBinding.setPresenter(mPresenter);
+        ((TextView)mBinding.navigation.findViewById(R.id.navigation_title)).setText("设置");
         ((RelativeLayout)mBinding.navigation.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +58,7 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
         });
         mBinding.switchRelevence.setOnCheckedChangeListener(this);
         mBinding.switchLock.setOnCheckedChangeListener(this);
+
     }
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -156,6 +158,7 @@ public class SettingManagerActivity extends BaseAcitivity implements SettingMana
         super.onResume();
         mPresenter.subscribe();
         setSwitch(LocalDataManager.getInstance().getIsRelevanceOn());
+        setLock(LocalDataManager.getInstance().getLockStatus());
     }
 
     @Override

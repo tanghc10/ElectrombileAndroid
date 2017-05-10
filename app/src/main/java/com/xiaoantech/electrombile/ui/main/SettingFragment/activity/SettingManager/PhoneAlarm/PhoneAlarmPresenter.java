@@ -3,6 +3,7 @@ package com.xiaoantech.electrombile.ui.main.SettingFragment.activity.SettingMana
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -94,7 +95,6 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
             e.printStackTrace();
         }
         secondleft = 60;
-        EventBus.getDefault().post(new HttpPutEvent(HttpManager.putType.PUT_TYPE_ALARMPHONE,"{\"code\":0}",true));
     }
 
     @Override
@@ -122,7 +122,6 @@ public class PhoneAlarmPresenter implements PhoneAlarmContract.Presenter{
                 e.printStackTrace();
             }
         }
-        mPhoneAlarm.showToast("开始测试");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

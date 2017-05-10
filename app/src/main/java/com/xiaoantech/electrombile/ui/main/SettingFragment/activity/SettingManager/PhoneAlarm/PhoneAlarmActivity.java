@@ -104,6 +104,7 @@ public class PhoneAlarmActivity extends BaseAcitivity implements PhoneAlarmContr
     protected void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
+        mPresenter = null;
     }
 
 }
