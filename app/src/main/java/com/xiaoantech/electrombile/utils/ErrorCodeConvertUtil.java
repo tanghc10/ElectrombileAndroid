@@ -6,7 +6,7 @@ package com.xiaoantech.electrombile.utils;
 
 public class ErrorCodeConvertUtil {
     public final static int HTTPCodeSuccess = 0;
-
+    public final static int HTTPCodeOffline = 109;
     public static String getHttpErrorStrWithCode(int code){
         String errStr = "";
         switch (code){
@@ -14,23 +14,15 @@ public class ErrorCodeConvertUtil {
                 errStr = "服务器内部错误!";
                 break;
             case 101:
-                errStr = "请求无设备信息";
-                break;
             case 102:
-                errStr = "请求无内容信息";
-                break;
             case 103:
-                errStr = "请求内容出错";
-                break;
             case 104:
-                errStr = "请求目标错误";
+                errStr = "操作内容错误";
                 break;
             case 106:
             case 107:
-                errStr = "设备服务器无响应";
-                break;
             case 108:
-                errStr = "设备无响应";
+                errStr = "暂无响应，请稍后重试";
                 break;
             case 109:
                 errStr = "设备不在线";

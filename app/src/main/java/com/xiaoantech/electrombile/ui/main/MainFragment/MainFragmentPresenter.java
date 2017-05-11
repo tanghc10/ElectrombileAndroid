@@ -109,7 +109,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }
         HttpPublishManager.getInstance().getStatus();
         HistoryRouteManager.getInstance().getTodayItineray();
-        getWeatherInfo();
+//        getWeatherInfo();
         getGSM();
     }
 
@@ -196,7 +196,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             if (itineraryObject.has("code")) {
                 int code = itineraryObject.getInt("code");
                 if (code != 0){
-                    dealWithErrorCode(code);
                     mMainFragmentView.changeItinerary(0);
                 }
             }else {
@@ -284,6 +283,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostFenceSetEvent(HttpPostFenceSetEvent event){
         if (event.getCode() == 0){
+            dealWithHttpSuccessCode();
             if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_ON) {
                 fenceStatus = true;
             }else if (event.getPostType() == HttpManager.postType.POST_TYPE_FENCE_SET_OFF){
@@ -295,105 +295,41 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onFenceEvent(FenceEvent event){
-//        JSONObject jsonObject = event.getJsonObject();
-//        try{
-//            int code = jsonObject.getInt("code");
-//            if (code != 0){
-//                dealWithErrorCode(code);
-//                return;
-//            }
-//
-//            mMainFragmentView.changeBackground(true);
-//            switch (event.getCmdType()){
-//                case CMD_TYPE_FENCE_ON:
-//                    mMainFragmentView.changeFenceStatus(true,false);
-//                    fenceStatus = true;
-//                    break;
-//                case CMD_TYPE_FENCE_OFF:
-//                    fenceStatus = false;
-//                    mMainFragmentView.changeFenceStatus(false,false);
-//                    break;
-//                case CMD_TYPE_FENCE_GET:
-//                    JSONObject result = jsonObject.getJSONObject("result");
-//                    if (result.getInt("state") == 0){
-//                        fenceStatus = true;
-//                        mMainFragmentView.changeFenceStatus(true,true);
-//                    }else {
-//                        fenceStatus = false;
-//                        mMainFragmentView.changeFenceStatus(false,true);
-//                    }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public  void onBatteryEvent(BatteryEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try{
-            int code = jsonObject.getInt("code");
-            if (code !=0 && code != 103){
-                dealWithHTTPErrorCode(code);
-            }else if (event.getCmdType() == EventBusConstant.cmdType.CMD_TYPE_BATTERY){
-                JSONObject result = jsonObject.getJSONObject("result");
-                mMainFragmentView.changeBattery(result.getInt("percent"),true);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void dealWithErrorCode(int errorCode){
-        if (errorCode == 100){
-            mMainFragmentView.showToast("服务器内部错误!");
-        }else  if (errorCode == 102){
-            mMainFragmentView.showToast("设备离线，请检查设备！");
-            mMainFragmentView.changeBackground(false);
-            //TODO:ErrorShow
-        }
-    }
-
     private void dealWithHTTPErrorCode(int errorCode){
+        if (errorCode == ErrorCodeConvertUtil.HTTPCodeOffline){
+            mMainFragmentView.changeBackground(false);
+        }
         mMainFragmentView.showToast(ErrorCodeConvertUtil.getHttpErrorStrWithCode(errorCode));
+    }
+
+    private void dealWithHttpSuccessCode(){
+        mMainFragmentView.changeBackground(true);
     }
 
     @Subscribe(threadMode =  ThreadMode.MAIN)
     public void onHttpPostGPSEvent(HttpPostGPSEvent event){
         if (event.getCode() == 0) {
+            dealWithHttpSuccessCode();
             LatLng point = new LatLng(event.getLat(), event.getLng());
             mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
             mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
         }else {
-            dealWithErrorCode(event.getCode());
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostStatusEvent(HttpPostStatusEvent event){
         if (event.getCode() == 0){
-            mMainFragmentView.changeBackground(true);
+            dealWithHttpSuccessCode();
             LocalDataManager.getInstance().setLatestStatus(event.getString());
             convertStatusFromString(event.getString());
             mMainFragmentView.hideWaitingDialog();
+        }else {
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStatusEvent(StatusEvent event){
-        JSONObject jsonObject = event.getJsonObject();
-        try {
-            int code = jsonObject.getInt("code");
-            if (code != 0){
-                dealWithErrorCode(code);
-            }else {
-
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void setStatusFromString(String string) {
@@ -451,13 +387,14 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHttpPostLockSetEvent(HttpPostLockSetEvent event){
         if (event.getCode() == 0){
+            dealWithHttpSuccessCode();
             lockStatus = !lockStatus;
             mMainFragmentView.changeBackground(true);
             LocalDataManager.getInstance().setLockStatus(lockStatus);
             mMainFragmentView.changeLockStatus(lockStatus);
             mMainFragmentView.showToast("设置成功");
         }else {
-            dealWithErrorCode(event.getCode());
+            dealWithHTTPErrorCode(event.getCode());
         }
     }
 
@@ -465,6 +402,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Subscribe(threadMode =  ThreadMode.MAIN)
     public void onHttpPostGSMSignalEvent(HttpPostGSMSignalEvent event){
         if (event.getCode() == 0){
+            dealWithHttpSuccessCode();
             int signal =  event.getGSMSignal();
             int level = 0;
             if (signal >= 4 && signal < 6){
