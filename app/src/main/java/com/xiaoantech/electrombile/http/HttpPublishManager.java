@@ -22,9 +22,15 @@ public class HttpPublishManager {
         return mInstance;
     }
 
+    public void getCell(int mcc, int mnc, int lac, int ci){
+        HttpManager.getHttpResult(getCellUrl(mcc, mnc, lac, ci), HttpManager.getType.GET_TYPE_CELL);
+    }
+
+
     public void getStatus(){
         HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_STATUS, getStringWithCmd(0));
     }
+
 
     public void getGPS(){
         HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, getStringWithCmd(1));
@@ -265,6 +271,12 @@ public class HttpPublishManager {
 
     private String getDeviceUrl(){
         return LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/device";
+    }
+
+
+    private String getCellUrl(int mcc, int mnc, int lac, int ci){
+        return LocalDataManager.getInstance().getHTTPHost()+":"+LocalDataManager.getInstance().getHTTPPort()+"/v1/cell?mcc="+
+                mcc+"&mnc="+mnc+"&lac="+lac+"&ci="+ci;
     }
 
     private String getStringWithCmd(int cmd){

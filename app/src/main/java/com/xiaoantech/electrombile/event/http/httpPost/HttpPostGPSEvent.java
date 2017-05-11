@@ -13,6 +13,11 @@ public class HttpPostGPSEvent {
     private double lat;
     private double lng;
     private int speed;
+    private boolean isGPS;
+    private int mcc;
+    private int mnc;
+    private int lac;
+    private int ci;
 
     public HttpPostGPSEvent(String resultStr){
         try{
@@ -21,11 +26,21 @@ public class HttpPostGPSEvent {
                 this.code = jsonObject.getInt("code");
                 if (code == 0){
                     JSONObject result = jsonObject.getJSONObject("result");
-                    JSONObject gps = result.getJSONObject("gps");
-                    this.timestamp = gps.getInt("timestamp");
-                    this.lat = gps.getDouble("lat");
-                    this.lng = gps.getDouble("lng");
-                    this.speed = gps.getInt("speed");
+                    if (result.has("gps")){
+                        JSONObject gps = result.getJSONObject("gps");
+                        this.timestamp = gps.getInt("timestamp");
+                        this.lat = gps.getDouble("lat");
+                        this.lng = gps.getDouble("lng");
+                        this.speed = gps.getInt("speed");
+                        this.isGPS = true;
+                    }else if (result.has("cell")){
+                        JSONObject cell = result.getJSONObject("cell");
+                        this.mcc = cell.getInt("mcc");
+                        this.mnc = cell.getInt("mnc");
+                        this.lac = cell.getInt("lac");
+                        this.ci = cell.getInt("ci");
+                        this.isGPS = false;
+                    }
                 }
             }
         }catch (JSONException e){
@@ -53,4 +68,24 @@ public class HttpPostGPSEvent {
         return speed;
     }
 
+    public int getMcc() {
+        return mcc;
+    }
+
+    public int getMnc() {
+        return mnc;
+    }
+
+    public int getLac() {
+        return lac;
+    }
+
+    public int getCi() {
+        return ci;
+    }
+
+    public boolean getisGPS(){
+        return isGPS;
+    }
 }
+

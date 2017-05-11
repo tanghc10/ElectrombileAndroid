@@ -129,7 +129,7 @@
         <activity android:name=".ui.Other.CropActivity"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="TnjBBkLuPzOMG6VePb55tq8SGlDeG53f" />
+            android:value="l76pyV9ZCjoXlN1WAGmyKBifviG9UVtO" />
         <meta-data android:name="leancloud" android:value="LeanCloud"/>
 
 

@@ -30,6 +30,7 @@ public class HttpManager {
         GET_TYPE_GPS_POINTS,
         GET_TYPE_PHONENUM,
         GET_TYPE_STATUS,
+        GET_TYPE_CELL,
     }
     public enum postType{
         POST_TYPE_AUTOLOCK_SET_ON,

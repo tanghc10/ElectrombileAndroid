@@ -3,6 +3,7 @@ package com.xiaoantech.electrombile.ui.main.MainFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -356,9 +357,14 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     @Subscribe(threadMode =  ThreadMode.MAIN)
     public void onHttpPostGPSEvent(HttpPostGPSEvent event){
         if (event.getCode() == 0) {
-            LatLng point = new LatLng(event.getLat(), event.getLng());
-            mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
-            mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            if (event.getisGPS() == true){
+                LatLng point = new LatLng(event.getLat(), event.getLng());
+                Log.e("LatLng", "Lat:"+event.getLat()+"Lng"+event.getLng());
+                mMainFragmentView.changeGPSPoint(GPSConvertUtil.convertFromCommToBdll09(point));
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
+            }else {
+                HttpPublishManager.getInstance().getCell(event.getMcc(), event.getMnc(), event.getLac(), event.getCi());
+            }
         }else {
             dealWithErrorCode(event.getCode());
         }
@@ -401,8 +407,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             int lock = result.getInt("defend");
             if (lock == 1){
                 mMainFragmentView.changeFenceStatus(true,true);
-                fenceStatus = true;
-            }else {
+                fenceStatus = true;            }else {
                 mMainFragmentView.changeFenceStatus(false,true);
                 fenceStatus = false;
             }
@@ -422,6 +427,7 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             //GPS定位
             if (result.has("gps")) {
                 JSONObject gps = result.getJSONObject("gps");
+                Log.e("GPSLocation", gps.toString());
                 double lat = gps.getDouble("lat");
                 double lng = gps.getDouble("lng");
                 LatLng point = new LatLng(lat, lng);
@@ -432,11 +438,33 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             }else {
                 mMainFragmentView.setGPSSignal(false);
                 if (result.has("cell")){
-                    //TODO:
-                }
-            }
+                    JSONObject cell = result.getJSONObject("cell");
+                    int mcc = cell.getInt("mcc");
+                    int mnc = cell.getInt("mnc");
+                    int lac = cell.getInt("lac");
+                    int ci = cell.getInt("ci");
+                    HttpPublishManager.getInstance().getCell(mcc, mnc, lac, ci);
+                }            }
         } catch (JSONException e){
             e.printStackTrace();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHttpGetEvent(HttpGetEvent event){
+        if (event.isSuccess() == true && event.getRequestType() == HttpManager.getType.GET_TYPE_CELL){
+            try {
+                JSONObject result = new JSONObject(event.getResult());
+                double lat = result.getDouble("lat");
+                double lon = result.getDouble("lon");
+                Log.e("cellLocation", event.getResult());
+                LatLng point = new LatLng(lat, lon);
+                LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
+                mMainFragmentView.changeGPSPoint(newPoint);
+                mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(newPoint));
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
         }
     }
 
