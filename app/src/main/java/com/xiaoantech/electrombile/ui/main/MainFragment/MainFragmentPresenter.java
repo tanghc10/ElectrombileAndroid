@@ -402,7 +402,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     private void convertStatusFromString(String string){
         try {
             JSONObject result = new JSONObject(string);
-
             //小安宝状态
             int lock = result.getInt("defend");
             if (lock == 1){
@@ -427,7 +426,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
             //GPS定位
             if (result.has("gps")) {
                 JSONObject gps = result.getJSONObject("gps");
-                Log.e("GPSLocation", gps.toString());
                 double lat = gps.getDouble("lat");
                 double lng = gps.getDouble("lng");
                 LatLng point = new LatLng(lat, lng);
@@ -444,7 +442,8 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                     int lac = cell.getInt("lac");
                     int ci = cell.getInt("ci");
                     HttpPublishManager.getInstance().getCell(mcc, mnc, lac, ci);
-                }            }
+                }
+            }
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -457,7 +456,6 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                 JSONObject result = new JSONObject(event.getResult());
                 double lat = result.getDouble("lat");
                 double lon = result.getDouble("lon");
-                Log.e("cellLocation", event.getResult());
                 LatLng point = new LatLng(lat, lon);
                 LatLng newPoint = GPSConvertUtil.convertFromCommToBdll09(point);
                 mMainFragmentView.changeGPSPoint(newPoint);
