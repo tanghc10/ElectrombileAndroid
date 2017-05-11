@@ -213,7 +213,7 @@ public class CarManagerActivity extends BaseAcitivity implements  CarManagerCont
 
             this.context = context;
 
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = LayoutInflater.from(context);
 
         }
 

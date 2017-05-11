@@ -103,8 +103,10 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
     }
 
     @Override
-    public void refresh() {
-        mMainFragmentView.showWaitingDialog("正在刷新");
+    public void refresh(boolean refresh) {
+        if (refresh) {
+            mMainFragmentView.showWaitingDialog("正在刷新");
+        }
         HttpPublishManager.getInstance().getStatus();
         HistoryRouteManager.getInstance().getTodayItineray();
         getWeatherInfo();
@@ -272,6 +274,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
         }
 
         return list;
+    }
+
+    @Override
+    public void showDialog(String string) {
+        mMainFragmentView.showWaitingDialog(string);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

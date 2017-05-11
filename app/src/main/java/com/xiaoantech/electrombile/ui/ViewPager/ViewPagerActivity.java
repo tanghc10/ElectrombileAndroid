@@ -120,9 +120,13 @@ public class ViewPagerActivity extends Activity implements ViewPager.OnPageChang
         if (position == 2){
             btn_register.setEnabled(true);
             btn_login.setEnabled(true);
+            btn_login.setVisibility(View.VISIBLE);
+            btn_register.setVisibility(View.VISIBLE);
         }else {
             btn_login.setEnabled(false);
             btn_register.setEnabled(false);
+            btn_login.setVisibility(View.INVISIBLE);
+            btn_register.setVisibility(View.INVISIBLE);
         }
     }
 

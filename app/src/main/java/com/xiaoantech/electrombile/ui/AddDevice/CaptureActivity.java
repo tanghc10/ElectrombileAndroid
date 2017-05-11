@@ -133,6 +133,7 @@ public class CaptureActivity extends Activity implements QRCodeView.Delegate{
     protected void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        qrCodeView.onDestroy();
     }
 //
 //    @Override

@@ -11,26 +11,30 @@
         />
 
     <Button
-        android:layout_width="160dp"
-        android:layout_height="38dp"
+        android:layout_width="@dimen/x450"
+        android:layout_height="@dimen/y120"
         android:id="@+id/btn_register"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="17dp"
+        android:layout_marginLeft="@dimen/x49"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="44dp"
-        android:background="@null"/>
+        android:layout_marginBottom="@dimen/y144"
+        android:text="注册"
+        android:background="@drawable/corners_bg_orange"
+        style="?android:attr/borderlessButtonStyle"/>
 
     />
 
     <Button
-        android:layout_width="160dp"
-        android:layout_height="38dp"
+        android:layout_width="@dimen/x450"
+        android:layout_height="@dimen/y120"
         android:id="@+id/btn_login"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"
+        android:layout_marginRight="@dimen/x50"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="44dp"
-        android:background="@null"/>
+        android:layout_marginBottom="@dimen/y144"
+        android:text="登录"
+        android:background="@drawable/corners_bg_orange"
+        style="?android:attr/borderlessButtonStyle"/>
     <LinearLayout
         android:id="@+id/ll"
         android:orientation="horizontal"

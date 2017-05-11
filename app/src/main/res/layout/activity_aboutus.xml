@@ -2,23 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_style">
+    android:background="@color/background_grey">
+    <include
+        android:id="@+id/navigation"
+        layout="@layout/bar_navigation_title"/>
 
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_marginTop="100dp"
+        android:background="@drawable/ic_launcher" />
     <TextView
         android:id="@+id/tv_appInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/firebrick" />
+        android:layout_marginTop="30dp"
+        android:text="测试"
+        android:textSize="20sp"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/btn_returnFromFelp"
@@ -29,8 +34,11 @@
         android:layout_marginBottom="40dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="返回"
-        android:textSize="20sp" />
+        android:text="返   回"
+        android:textColor="@color/white"
+        android:background="@drawable/corners_bg_orange"
+        android:textSize="20sp"
+        style="?android:attr/borderlessButtonStyle"/>
 
 
 

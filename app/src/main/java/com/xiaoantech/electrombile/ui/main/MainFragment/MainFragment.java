@@ -42,6 +42,7 @@ import com.xiaoantech.electrombile.http.HttpPublishManager;
 import com.xiaoantech.electrombile.manager.BasicDataManager;
 import com.xiaoantech.electrombile.manager.LocalDataManager;
 import com.xiaoantech.electrombile.manager.LocationManager;
+import com.xiaoantech.electrombile.model.CarInfoModel;
 import com.xiaoantech.electrombile.mqtt.MqttPublishManager;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.Map.MapActivity;
 import com.xiaoantech.electrombile.ui.main.MainFragment.activity.MapHistory.MapListActivity;
@@ -110,16 +111,15 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         initMarker();
         setFonts();
 
-        if(isVisible){
-            mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
-            mPresenter.refresh();
-        }
-        mBinding.btnChangeCar.setText(BasicDataManager.getInstance().getBindIMEI());
+        mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
+        mPresenter.refresh(false);
+        CarInfoModel carInfoModel = BasicDataManager.getInstance().getBindCarInfo();
+        mBinding.btnChangeCar.setText(carInfoModel.getName());
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.refresh();
+        mPresenter.refresh(true);
     }
 
     public void setFonts(){
@@ -129,7 +129,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         mBinding.txtItinerary.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtBatteryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
         mBinding.txtItineraryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
-        mBinding.weatherTemperature.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
+//        mBinding.weatherTemperature.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
     }
 
 
@@ -189,7 +189,9 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
             public void onClick(DialogInterface dialog, int which) {
                 String imei =  BasicDataManager.getInstance().getIMEIList().get(selectedCarIndex);
                 BasicDataManager.getInstance().changeBindIMEI(imei,true);
+                LocalDataManager.getInstance().setLatestStatus("");
                 HttpPublishManager.getInstance().getStatus();
+                mBinding.btnChangeCar.setText(BasicDataManager.getInstance().getBindCarInfo().getName());
                 mPresenter.getItinerary();
                 dialog.dismiss();
             }
@@ -258,16 +260,16 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void showWeather(int temperature, String weather) {
-        if (weather.contains("云")||weather.contains("阴")){
-            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_cloudy));
-        }else if (weather.contains("晴")){
-            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_sunny));
-        }else if (weather.contains("雨")){
-            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_rainy));
-        }else if (weather.contains("雪")){
-            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_snowy));
-        }
-        mBinding.weatherTemperature.setText(temperature+"°");
+//        if (weather.contains("云")||weather.contains("阴")){
+//            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_cloudy));
+//        }else if (weather.contains("晴")){
+//            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_sunny));
+//        }else if (weather.contains("雨")){
+//            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_rainy));
+//        }else if (weather.contains("雪")){
+//            mBinding.weatherImage.setImageDrawable(this.getResources().getDrawable(R.drawable.img_weather_snowy));
+//        }
+//        mBinding.weatherTemperature.setText(temperature+"°");
 
     }
 

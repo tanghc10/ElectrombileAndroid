@@ -91,6 +91,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (null == e){
+                    mLoginView.hideWaitingDialog();
                     if (list.size() > 0){
                         //TODO:has
                         BasicDataManager.getInstance().fetchBasicDataIMEIList();

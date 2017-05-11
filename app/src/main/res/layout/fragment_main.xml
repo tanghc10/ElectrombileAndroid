@@ -23,39 +23,23 @@
             tools:ignore="GradleDependency,MissingConstraints">
 
             <ImageView
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:src="@null"
-                android:onClick="@{()->presenter.showWeatherInfo()}"
-                android:id="@+id/weather_image"
-                android:layout_marginTop="13dp"
+                android:layout_width="@dimen/x68"
+                android:layout_height="@dimen/y56"
+                android:background="@drawable/img_changecar"
+                android:onClick="@{() -> presenter.changeCar()}"
+                android:id="@+id/img_change_car"
+                android:layout_marginTop="@dimen/y40"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/x43"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 tools:ignore="ContentDescription" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:id="@+id/weather_temperature"
-                android:text="--°"
-                android:textSize="23dp"
-                android:gravity="center_vertical"
-                android:layout_marginTop="13dp"
-                android:layout_marginLeft="4dp"
-                android:onClick="@{()->presenter.showWeatherInfo()}"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-                app:layout_constraintLeft_toRightOf="@+id/weather_image"
-                android:layout_marginStart="4dp"
-                tools:ignore="HardcodedText,RtlHardcoded" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_change_car"
                 android:text="--"
                 android:background="@color/white"
-                android:onClick="@{() -> presenter.changeCar()}"
-                app:layout_constraintCenterY_toCenterY="@id/weather_image"
+                app:layout_constraintCenterY_toCenterY="@id/img_change_car"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
                 tools:layout_editor_absoluteY="43dp"
@@ -63,12 +47,12 @@
 
             <ImageView
                 android:id="@+id/messageButton"
-                android:layout_width="27dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/x72"
+                android:layout_height="@dimen/y65"
                 android:background="@drawable/btn_message"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="@dimen/x44"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="@dimen/y35"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout"
                 android:onClick="@{() -> presenter.gotoMessage()}"
                 tools:ignore="ContentDescription" />
@@ -90,8 +74,8 @@
                 android:layout_width="0dp"
                 android:id="@+id/mapview"
                 android:onClick="@{() -> presenter.gotoMap()}"
-                android:layout_marginTop="13dp"
-                app:layout_constraintTop_toBottomOf="@+id/weather_image"
+                android:layout_marginTop="@dimen/y40"
+                app:layout_constraintTop_toBottomOf="@+id/img_change_car"
                 app:layout_constraintRight_toRightOf="@+id/constraintLayout"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
                 app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
@@ -368,7 +352,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/refresh_constraint"
-                    android:onClick="@{() -> presenter.refresh()}"
+                    android:onClick="@{() -> presenter.refresh(false)}"
                     android:layout_weight="1">
 
 

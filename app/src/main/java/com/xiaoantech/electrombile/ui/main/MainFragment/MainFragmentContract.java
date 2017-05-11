@@ -36,7 +36,7 @@ public interface MainFragmentContract {
     }
 
     interface Presenter extends BasePresenter{
-        void refresh();
+        void refresh(boolean refresh);
 
         void setStatusFromString(String string);
 
@@ -61,5 +61,7 @@ public interface MainFragmentContract {
         void gotoHistory();
 
         void getWeatherInfo();
+
+        void showDialog(String string);
     }
 }

@@ -160,10 +160,18 @@ public class BasicDataManager {
     }
 
     public String getBindIMEI() {
+        if (bindIMEI == null && IMEIList.size()>0){
+            bindIMEI = IMEIList.get(0);
+        }
         return bindIMEI;
     }
 
     public CarInfoModel getBindCarInfo() {
+        if (bindCarInfo == null && carInfoList!= null && carInfoList.size()>0){
+            bindCarInfo = carInfoList.get(0);
+        }else if (IMEIList.size() > 0){
+            return new CarInfoModel(IMEIList.get(0));
+        }
         return bindCarInfo;
     }
 

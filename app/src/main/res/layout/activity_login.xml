@@ -151,7 +151,7 @@
                     android:layout_marginLeft="@dimen/x50"
                     app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_login_in"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout_login_in"
-                    />
+                    android:layout_marginStart="@dimen/x50" />
                 <Button
                     android:id="@+id/button_login_gotoForgetPass"
                     android:layout_width="100dp"
@@ -160,7 +160,6 @@
                     android:onClick="@{() -> presenter.forgetPass()}"
                     android:textSize="15sp"
                     android:background="@null"
-                    tools:layout_editor_absoluteY="50dp"
                     app:layout_constraintRight_toRightOf="@+id/constraintLayout_login_in"
                     android:layout_marginStart="170dp"
                     app:layout_constraintLeft_toRightOf="@+id/button_login_gotoRegister"

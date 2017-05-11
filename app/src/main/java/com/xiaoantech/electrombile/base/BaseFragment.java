@@ -23,6 +23,7 @@ public abstract class BaseFragment extends Fragment {
     public Context mContext;
     protected ProgressDialog mProgressDialog;
     public abstract void initView();
+    public boolean isVisible;
 
     public Handler handler = new Handler(){
         @Override
@@ -41,16 +42,20 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showToast(String errorMeg) {
-        Toast.makeText(mContext,errorMeg,Toast.LENGTH_SHORT).show();
-        mProgressDialog.cancel();
-        handler.removeMessages(TimerConstant.TimerMessageWhat);
+        if (isVisible) {
+            Toast.makeText(mContext, errorMeg, Toast.LENGTH_SHORT).show();
+            mProgressDialog.cancel();
+            handler.removeMessages(TimerConstant.TimerMessageWhat);
+        }
     }
 
     public void showWaitingDialog(String dialogString) {
         try {
-            mProgressDialog.setMessage(dialogString);
-            mProgressDialog.show();
-            handler.sendEmptyMessageDelayed(TimerConstant.TimerMessageWhat,TimerConstant.TimerIntervalShort);
+            if (isVisible) {
+                mProgressDialog.setMessage(dialogString);
+                mProgressDialog.show();
+                handler.sendEmptyMessageDelayed(TimerConstant.TimerMessageWhat, TimerConstant.TimerIntervalShort);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -63,5 +68,14 @@ public abstract class BaseFragment extends Fragment {
 
 
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            isVisible = true;
+        }else {
+            isVisible = false;
+        }
+    }
 
 }

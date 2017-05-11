@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -80,25 +79,25 @@
                     android:layout_width="match_parent"
                     android:drawableLeft="@drawable/img_setting_car"
                     android:drawableRight="@drawable/to"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp"
-                    android:layout_marginLeft="16dp"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
                     android:text="    车辆管理"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> presenter.gotoCarManager()}"
-                    android:textSize="40px" />
+                    android:textSize="@dimen/x48" />
 
             </LinearLayout>
 
             <View
-                android:layout_width="340dp"
-                android:layout_height="1dp"
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
                 android:background="@color/background_grey"
                 android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/y150"
                 android:background="@color/white"
                 android:orientation="horizontal">
                 <com.xiaoantech.electrombile.widget.DrawableTextView
@@ -107,49 +106,49 @@
                     android:text="    车主信息"
                     android:drawableLeft="@drawable/img_setting_user"
                     android:drawableRight="@drawable/to"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp"
-                    android:layout_marginLeft="16dp"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> presenter.gotoUserManager()}"
-                    android:textSize="40px" />
+                    android:textSize="@dimen/x48" />
             </LinearLayout>
 
             <View
-                android:layout_width="340dp"
-                android:layout_height="1dp"
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
                 android:background="@color/background_grey"
                 android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/y150"
                 android:background="@color/white"
                 android:orientation="horizontal">
                 <com.xiaoantech.electrombile.widget.DrawableTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="    远程窃听"
+                    android:text="     远程窃听"
                     android:drawableLeft="@drawable/img_record"
                     android:drawableRight="@drawable/to"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp"
-                    android:layout_marginLeft="16dp"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> presenter.gotoRecord()}"
-                    android:textSize="40px" />
+                    android:textSize="@dimen/x48" />
 
             </LinearLayout>
 
             <View
-                android:layout_width="340dp"
-                android:layout_height="1dp"
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
                 android:background="@color/background_grey"
                 android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/y150"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 >
@@ -160,21 +159,21 @@
                     android:gravity="center_vertical"
                     android:drawableLeft="@drawable/img_setting_download"
                     android:drawableRight="@drawable/to"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp"
-                    android:layout_marginLeft="16dp"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
                     android:onClick="@{() -> presenter.gotoMapDownload()}"
-                    android:textSize="40px" />
+                    android:textSize="@dimen/x48" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="@dimen/y31"
                 android:background="@color/background_grey"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/y150"
                 android:background="@color/white"
                 >
 
@@ -182,26 +181,26 @@
                     android:id="@+id/drawableTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/x50"
                     android:drawableLeft="@drawable/img_setting_setting"
                     android:drawableRight="@drawable/to"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> presenter.gotoSettingManager()}"
                     android:text="    设置"
-                    android:textSize="40px"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp" />
+                    android:textSize="@dimen/x48"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"/>
             </LinearLayout>
 
             <View
-                android:layout_width="340dp"
-                android:layout_height="1dp"
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/x2"
                 android:background="@color/background_grey"
                 android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/y150"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 >
@@ -213,11 +212,11 @@
                     android:gravity="center_vertical"
                     android:drawableLeft="@drawable/img_setting_info"
                     android:drawableRight="@drawable/to"
-                    app:compoundDrawableHeight="25dp"
-                    app:compoundDrawableWidth="25dp"
-                    android:layout_marginLeft="16dp"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
                     android:onClick="@{() -> presenter.gotoAboutUs()}"
-                    android:textSize="40px" />
+                    android:textSize="@dimen/x48" />
 
             </LinearLayout>
 

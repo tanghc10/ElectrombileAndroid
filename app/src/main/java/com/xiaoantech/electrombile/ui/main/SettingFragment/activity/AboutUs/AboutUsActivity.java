@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiaoantech.electrombile.BuildConfig;
 import com.xiaoantech.electrombile.R;
+import com.xiaoantech.electrombile.ui.main.SettingFragment.activity.MapDownLoad.MapDownloadActivity;
 
 /**
  * Created by yangxu on 2016/12/14.
@@ -31,6 +33,14 @@ public class AboutUsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutus);
 
+        View view = (View)findViewById(R.id.navigation);
+        ((TextView)view.findViewById(R.id.navigation_title)).setText("版本信息");
+        ((RelativeLayout)view.findViewById(R.id.navigation_back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AboutUsActivity.this.finish();
+            }
+        });
 
 
 
@@ -43,7 +53,7 @@ public class AboutUsActivity extends Activity{
         });
 
         tv_appInfo = (TextView)findViewById(R.id.tv_appInfo);
-        tv_appInfo.setText("小安宝 test" + 1.14);
+        tv_appInfo.setText("版本信息：小安宝内测版" + 1.14);
 
         clickCount = 0;
     }
