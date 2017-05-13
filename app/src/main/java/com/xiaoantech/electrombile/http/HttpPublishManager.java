@@ -22,9 +22,6 @@ public class HttpPublishManager {
         return mInstance;
     }
 
-    public void getCell(int mcc, int mnc, int lac, int ci){
-        HttpManager.getHttpResult(getCellUrl(mcc, mnc, lac, ci), HttpManager.getType.GET_TYPE_CELL);
-    }
 
 
     public void getStatus(){
@@ -36,6 +33,9 @@ public class HttpPublishManager {
         HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_GET_GPS, getStringWithCmd(1));
     }
 
+    public void getCell(int mcc, int mnc, int lac, int ci){
+        HttpManager.getHttpResult(getCellUrl(mcc, mnc, lac, ci), HttpManager.getType.GET_TYPE_CELL);
+    }
     public void setAutoLockOn(int period){
         try{
             JSONObject param = new JSONObject();
@@ -96,7 +96,7 @@ public class HttpPublishManager {
         try {
             JSONObject param = new JSONObject();
             param.put("batterytype", batterytype);
-            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, getStringWithCmd(7));
+            HttpManager.postHttpCmdResult(getDeviceUrl(), HttpManager.postType.POST_TYPE_DEFAULT, HttpConstant.HttpCmd.HTTP_CMD_SET_BATTERY_TYPE, getStringWithCmdAndParam(7, param));
         }catch (JSONException e){
             e.printStackTrace();
         }
