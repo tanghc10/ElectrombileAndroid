@@ -441,7 +441,11 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
                     int mnc = cell.getInt("mnc");
                     int lac = cell.getInt("lac");
                     int ci = cell.getInt("ci");
-                    HttpPublishManager.getInstance().getCell(mcc, mnc, lac, ci);
+                    if (mcc == 0 && mnc == 0 && lac == 0 && ci == 0){   //设备重启后返回的基站信息全为0，在调用获取位置接口后才能正确显示基站信息
+                        HttpPublishManager.getInstance().getGPS();
+                    }else {
+                        HttpPublishManager.getInstance().getCell(mcc, mnc, lac, ci);
+                    }
                 }
             }
         } catch (JSONException e){
