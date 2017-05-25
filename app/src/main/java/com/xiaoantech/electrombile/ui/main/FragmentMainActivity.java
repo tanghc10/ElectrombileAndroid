@@ -25,9 +25,6 @@ import java.util.ArrayList;
  */
 
 public class FragmentMainActivity extends FragmentActivity {
-    private ViewPager   mViewPager;
-    private RadioButton mainBtn,infoBtn,settingBtn;
-    private ArrayList<Fragment> fragmentArrayList;
     private long exitTime = 0;
 
     @Override
@@ -35,14 +32,13 @@ public class FragmentMainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
         initRadioBtn();
-        initFragmentArray();
         initViewPager();
     }
 
     private void initRadioBtn(){
-        mainBtn = (RadioButton)findViewById(R.id.radioBtn_main);
-        infoBtn = (RadioButton)findViewById(R.id.radioBtn_info);
-        settingBtn = (RadioButton)findViewById(R.id.radioBtn_settings);
+        RadioButton mainBtn = (RadioButton)findViewById(R.id.radioBtn_main);
+        RadioButton infoBtn = (RadioButton)findViewById(R.id.radioBtn_info);
+        RadioButton settingBtn = (RadioButton)findViewById(R.id.radioBtn_settings);
 
         mainBtn.setOnClickListener(new radioBtnListener(0));
         infoBtn.setOnClickListener(new radioBtnListener(1));
@@ -51,17 +47,6 @@ public class FragmentMainActivity extends FragmentActivity {
 
     }
 
-    private void initFragmentArray(){
-        fragmentArrayList = new ArrayList<>();
-        MainFragment mainFragment = new MainFragment();
-
-        InfoFragment infoFragment = new InfoFragment();
-
-        SettingFragment settingFragment = new SettingFragment();
-        fragmentArrayList.add(mainFragment);
-        fragmentArrayList.add(infoFragment);
-        fragmentArrayList.add(settingFragment);
-    }
 
     public class radioBtnListener implements View.OnClickListener{
         private  int index = 0;
@@ -70,12 +55,24 @@ public class FragmentMainActivity extends FragmentActivity {
         }
         @Override
         public void onClick(View view){
+            ViewPager mViewPager = (ViewPager)findViewById(R.id.viewPager_Fragment);
             mViewPager.setCurrentItem(index);
         }
     }
 
+
     private void initViewPager(){
-        mViewPager = (ViewPager)findViewById(R.id.viewPager_Fragment);
+        ArrayList<Fragment>  fragmentArrayList = new ArrayList<>();
+        MainFragment mainFragment = new MainFragment();
+
+        InfoFragment infoFragment = new InfoFragment();
+
+        SettingFragment settingFragment = new SettingFragment();
+        fragmentArrayList.add(mainFragment);
+        fragmentArrayList.add(infoFragment);
+        fragmentArrayList.add(settingFragment);
+
+        ViewPager mViewPager = (ViewPager)findViewById(R.id.viewPager_Fragment);
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),fragmentArrayList));
         mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         mViewPager.setCurrentItem(0);

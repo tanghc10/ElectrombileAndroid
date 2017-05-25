@@ -20,7 +20,6 @@ import com.xiaoantech.electrombile.constant.TimerConstant;
  */
 
 public abstract class BaseFragment extends Fragment {
-    public Context mContext;
     protected ProgressDialog mProgressDialog;
     public abstract void initView();
     public boolean isVisible;
@@ -36,14 +35,13 @@ public abstract class BaseFragment extends Fragment {
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
-        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog = new ProgressDialog(getActivity());
 
     }
 
     public void showToast(String errorMeg) {
         if (isVisible) {
-            Toast.makeText(mContext, errorMeg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), errorMeg, Toast.LENGTH_SHORT).show();
             mProgressDialog.cancel();
             handler.removeMessages(TimerConstant.TimerMessageWhat);
         }

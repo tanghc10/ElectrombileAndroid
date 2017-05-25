@@ -102,6 +102,7 @@ public abstract class BaseAcitivity extends Activity {
                 case BACK_KEY_STATUS_SIMPLE:
                     isKeyDown = BackKeyStatus.BACK_KEY_STATUS_START;
                     this.finish();
+                    this.onDestroy();
                     return true;
             }
         }

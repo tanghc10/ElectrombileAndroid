@@ -59,7 +59,7 @@ import java.util.Map;
  * Created by yangxu on 2016/11/3.
  */
 
-public class MainFragment extends BaseFragment implements MainFragmentContract.View ,SwipeRefreshLayout.OnRefreshListener {
+public class MainFragment extends BaseFragment implements MainFragmentContract.View ,SwipeRefreshLayout.OnRefreshListener{
     private FragmentMainBinding mBinding;
     private MainFragmentContract.Presenter mPresenter;
     private BaiduMap            mBaiduMap;
@@ -114,6 +114,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
         mPresenter.setStatusFromString(LocalDataManager.getInstance().getLatestStatus());
         mPresenter.refresh(false);
         CarInfoModel carInfoModel = BasicDataManager.getInstance().getBindCarInfo();
+
         mBinding.btnChangeCar.setText(carInfoModel.getName());
     }
 
@@ -124,11 +125,11 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     public void setFonts(){
         String fontPath = "fonts/dincond-regular.ttf";
-        mBinding.txtBattery.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
+        mBinding.txtBattery.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),fontPath));
 //        mBinding.txtAutoLock.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
-        mBinding.txtItinerary.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
-        mBinding.txtBatteryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
-        mBinding.txtItineraryUnit.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
+        mBinding.txtItinerary.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),fontPath));
+        mBinding.txtBatteryUnit.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),fontPath));
+        mBinding.txtItineraryUnit.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),fontPath));
 //        mBinding.weatherTemperature.setTypeface(Typeface.createFromAsset(mContext.getAssets(),fontPath));
     }
 
@@ -364,7 +365,7 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void gotoMessage() {
-        Intent intent = new Intent(mContext, NotifyHistoryActivity.class);
+        Intent intent = new Intent(getActivity(), NotifyHistoryActivity.class);
         startActivity(intent);
     }
 
@@ -375,13 +376,13 @@ public class MainFragment extends BaseFragment implements MainFragmentContract.V
 
     @Override
     public void gotoMap() {
-        Intent intent = new Intent(mContext, MapActivity.class);
+        Intent intent = new Intent(getActivity(), MapActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoHistory() {
-        Intent intent = new Intent(mContext, MapListActivity.class);
+        Intent intent = new Intent(getActivity(), MapListActivity.class);
         startActivity(intent);
     }
 

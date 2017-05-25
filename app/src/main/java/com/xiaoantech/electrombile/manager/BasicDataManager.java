@@ -167,12 +167,14 @@ public class BasicDataManager {
     }
 
     public CarInfoModel getBindCarInfo() {
-        if (bindCarInfo == null && carInfoList!= null && carInfoList.size()>0){
+        if (bindCarInfo != null && !bindCarInfo.getName().isEmpty()){
+            return bindCarInfo;
+        } else if ( carInfoList!= null && carInfoList.size()>0){
             bindCarInfo = carInfoList.get(0);
         }else if (IMEIList.size() > 0){
             return new CarInfoModel(IMEIList.get(0));
         }
-        return bindCarInfo;
+        return new CarInfoModel("");
     }
 
     public List<String> getIMEIList() {

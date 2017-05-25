@@ -53,7 +53,7 @@ public class AboutUsActivity extends Activity{
         });
 
         tv_appInfo = (TextView)findViewById(R.id.tv_appInfo);
-        tv_appInfo.setText("版本信息：小安宝内测版" + 1.14);
+        tv_appInfo.setText("版本信息：小安宝内测版" + 1.15);
 
         clickCount = 0;
     }

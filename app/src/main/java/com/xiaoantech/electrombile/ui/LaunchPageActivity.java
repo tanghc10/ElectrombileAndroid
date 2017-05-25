@@ -11,8 +11,10 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVUser;
+import com.squareup.picasso.Picasso;
 import com.xiaoantech.electrombile.R;
 import com.xiaoantech.electrombile.application.App;
 import com.xiaoantech.electrombile.constant.HandlerConstant;
@@ -22,6 +24,7 @@ import com.xiaoantech.electrombile.mqtt.MqttManager;
 import com.xiaoantech.electrombile.ui.ViewPager.ViewPagerActivity;
 import com.xiaoantech.electrombile.ui.login.LoginMain.LoginMainActivity;
 import com.xiaoantech.electrombile.ui.main.FragmentMainActivity;
+import com.xiaoantech.electrombile.utils.BitmapUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -78,9 +81,15 @@ public class LaunchPageActivity extends Activity {
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
 
-        this.setContentView(R.layout.activity_launch);
-        DisplayMetrics dm = new DisplayMetrics();
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;
+        int height = metric.heightPixels;
 
+
+        this.setContentView(R.layout.activity_launch);
+        ImageView imageView = (ImageView)findViewById(R.id.img_launch);
+        Picasso.with(this).load(R.drawable.launch_page).into(imageView);
     }
 
     @Override
@@ -88,6 +97,16 @@ public class LaunchPageActivity extends Activity {
         super.onResume();
         counter = 0;
         handler.sendEmptyMessage(HandlerConstant.StartTimer);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            this.finalize();
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
     }
 
     private void checkUserStatus(){

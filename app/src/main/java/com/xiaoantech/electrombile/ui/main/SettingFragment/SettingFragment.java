@@ -77,44 +77,44 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
 
     @Override
     public void gotoCarManager() {
-        Intent intent = new Intent(mContext, CarManagerActivity.class);
+        Intent intent = new Intent(getActivity(), CarManagerActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoUserManager() {
-        Intent intent = new Intent(mContext, UserInfoActivity.class);
+        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoRecord() {
-        Intent intent = new Intent(mContext, RecordActivity.class);
+        Intent intent = new Intent(getActivity(), RecordActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoMapDownload() {
-        Intent intent = new Intent(mContext, MapDownloadActivity.class);
+        Intent intent = new Intent(getActivity(), MapDownloadActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoSettingManager() {
-        Intent intent = new Intent(mContext, SettingManagerActivity.class);
+        Intent intent = new Intent(getActivity(), SettingManagerActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gotoAboutUs() {
-        Intent intent = new Intent(mContext, AboutUsActivity.class);
+        Intent intent = new Intent(getActivity(), AboutUsActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void showPopMenu() {
         AddPicPopWindow addPicPopWindow = new AddPicPopWindow(this);
-        mPopUpWindow = addPicPopWindow.showPopMenu(mContext);
+        mPopUpWindow = addPicPopWindow.showPopMenu(getActivity());
         mPopUpWindow.showAtLocation(mBinding.headImage, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
         mPopUpWindow.update();
     }
@@ -159,13 +159,13 @@ public class SettingFragment extends BaseFragment implements SettingFragmentCont
         }
         switch (requestCode){
             case TAKE_PHOTE:
-                Intent intentTake = new Intent(mContext,CropActivity.class);
+                Intent intentTake = new Intent(getActivity(),CropActivity.class);
                 intentTake.setData(imageUri);
                 startActivityForResult(intentTake, CROP_PHOTO);
                 break;
             case CHOOSE_PHOTO:
                 imageUri = data.getData();
-                Intent intent = new Intent(mContext,CropActivity.class);
+                Intent intent = new Intent(getActivity(),CropActivity.class);
                 intent.setData(imageUri);
                 startActivityForResult(intent, CROP_PHOTO);
                 break;
