@@ -178,7 +178,7 @@ public class PlayHistoryActivity extends BaseAcitivity implements PlayHistoryCon
         //必须在地图出现之后才能画图
         Message msg = new Message();
         msg.what = 100;
-        handler.sendMessageDelayed(msg,800);
+        handler.sendMessageDelayed(msg,1000);
     }
 
     private void initMarker(){

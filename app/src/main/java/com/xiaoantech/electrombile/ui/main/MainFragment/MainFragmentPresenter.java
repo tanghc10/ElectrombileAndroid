@@ -338,6 +338,9 @@ public class MainFragmentPresenter implements MainFragmentContract.Presenter,OnG
 
     private void convertStatusFromString(String string){
         try {
+            if (string.isEmpty()){
+                return;
+            }
             JSONObject result = new JSONObject(string);
 
             //小安宝状态
