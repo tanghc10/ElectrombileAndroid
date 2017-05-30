@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y198"
+            android:id="@+id/constraintLayout"
+            android:background="@color/white">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <ImageView
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/y140"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+                android:layout_marginLeft="@dimen/x53"
+                android:id="@+id/img_car"
+                android:background="@drawable/othercar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车辆名称"
+                app:layout_constraintLeft_toRightOf="@+id/img_car"
+                app:layout_constraintCenterY_toCenterY="@+id/img_car"
+                android:layout_marginLeft="@dimen/x125"
+                android:id="@+id/txt_car_name"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/delete_car"
+                android:src="@drawable/img_download_delete"
+                app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+                app:layout_constraintCenterY_toCenterY="@+id/constraintLayout"
+                android:layout_marginRight="20dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+</layout>

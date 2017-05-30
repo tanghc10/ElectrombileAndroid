@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.xiaoantech.electrombile.ui.main.SettingFragment.SettingFragmentContract.Presenter" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout_fragment_setting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
+        android:background="@color/background_grey">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="215dp"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            android:id="@+id/imageView3" />
+
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/headImage"
+            android:onClick="@{() -> presenter.changeUserIcon()}"
+            android:src="@drawable/img_icon"
+            app:layout_constraintLeft_toLeftOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:id="@+id/view"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintVertical_bias="0.3" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout_fragment_setting"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout_fragment_setting"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:drawableLeft="@drawable/img_setting_car"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:text="    车辆管理"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> presenter.gotoCarManager()}"
+                    android:textSize="@dimen/x48" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
+                android:background="@color/background_grey"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="    车主信息"
+                    android:drawableLeft="@drawable/img_setting_user"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> presenter.gotoUserManager()}"
+                    android:textSize="@dimen/x48" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
+                android:background="@color/background_grey"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="     远程窃听"
+                    android:drawableLeft="@drawable/img_record"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> presenter.gotoRecord()}"
+                    android:textSize="@dimen/x48" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/y2"
+                android:background="@color/background_grey"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="    地图下载"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/img_setting_download"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:onClick="@{() -> presenter.gotoMapDownload()}"
+                    android:textSize="@dimen/x48" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y31"
+                android:background="@color/background_grey"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:background="@color/white"
+                >
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:id="@+id/drawableTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:drawableLeft="@drawable/img_setting_setting"
+                    android:drawableRight="@drawable/to"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> presenter.gotoSettingManager()}"
+                    android:text="    设置"
+                    android:textSize="@dimen/x48"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x1032"
+                android:layout_height="@dimen/x2"
+                android:background="@color/background_grey"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y150"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+
+                <com.xiaoantech.electrombile.widget.DrawableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="    关于小安宝"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/img_setting_info"
+                    android:drawableRight="@drawable/to"
+                    app:compoundDrawableHeight="@dimen/x72"
+                    app:compoundDrawableWidth="@dimen/y72"
+                    android:layout_marginLeft="@dimen/x50"
+                    android:onClick="@{() -> presenter.gotoAboutUs()}"
+                    android:textSize="@dimen/x48" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
