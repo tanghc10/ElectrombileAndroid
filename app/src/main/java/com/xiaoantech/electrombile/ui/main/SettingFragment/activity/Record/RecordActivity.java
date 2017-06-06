@@ -77,7 +77,7 @@ public class RecordActivity extends BaseAcitivity implements RecordContract.View
         changeButtonStatus(mBinding.btnStop,false);
         mBinding.txtTitle.setText("已结束");
         mBinding.btnPlay.setText("播放");
-        showWaitingDialog("正在下载");
+        showWaitingDialog("正在下载,请稍等");
         handler.removeMessages(TimerConstant.TimerMessageWhat);
     }
 
